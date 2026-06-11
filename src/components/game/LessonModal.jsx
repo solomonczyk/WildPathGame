@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ChevronLeft, CheckCircle, Globe } from 'lucide-react';
+import { X, ChevronRight, ChevronLeft, CheckCircle, Globe, Play } from 'lucide-react';
 import { LESSON_CATEGORIES } from '@/lib/lessonData';
 
 const visualMap = {
@@ -102,6 +102,41 @@ function SlideImage({ slide }) {
   );
 }
 
+function SlideVideo({ slide }) {
+  return (
+    <div className="p-5">
+      <h3 className="font-heading font-bold text-foreground text-base mb-2">{slide.title}</h3>
+      <p className="text-sm text-foreground/80 leading-relaxed mb-3">{slide.caption}</p>
+      <div className="relative w-full rounded-sm overflow-hidden border border-border bg-black" style={{ paddingBottom: '56.25%' }}>
+        <iframe
+          key={slide.url}
+          src={`${slide.url}?rel=0&modestbranding=1`}
+          title={slide.title}
+          className="absolute inset-0 w-full h-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <span className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground">
+          <Play size={12} />
+          {slide.duration}
+        </span>
+        {slide.watchUrl && (
+          <a
+            href={slide.watchUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="px-3 py-1.5 border border-accent/40 bg-accent/10 text-accent rounded-sm text-xs font-heading font-semibold hover:bg-accent/20 transition-colors"
+          >
+            Открыть на YouTube
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function LessonModal({ lesson, onClose, onComplete }) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -182,7 +217,7 @@ export default function LessonModal({ lesson, onClose, onComplete }) {
                 {slide.type === 'text' && <SlideText slide={slide} />}
                 {slide.type === 'compare' && <SlideCompare slide={slide} />}
                 {slide.type === 'image' && <SlideImage slide={slide} />}
-                {slide.type === 'video' && <SlideImage slide={{ ...slide, visual: 'fire-layers' }} />}
+                {slide.type === 'video' && <SlideVideo slide={slide} />}
               </motion.div>
             </AnimatePresence>
 
