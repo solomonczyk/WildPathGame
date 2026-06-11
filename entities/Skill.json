@@ -1,0 +1,55 @@
+{
+  "name": "Skill",
+  "type": "object",
+  "properties": {
+    "skill_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "fire",
+        "water",
+        "shelter",
+        "hunting",
+        "medicine",
+        "community"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "real_life_tip": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "string"
+    },
+    "level_required": {
+      "type": "number",
+      "default": 1
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 50
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unlocked_by_quest": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "skill_id",
+    "name",
+    "category",
+    "description"
+  ]
+}

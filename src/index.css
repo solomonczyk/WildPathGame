@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 35% 7%;
+    --foreground: 210 20% 75%;
+    --card: 225 30% 10%;
+    --card-foreground: 210 20% 80%;
+    --popover: 225 30% 10%;
+    --popover-foreground: 210 20% 80%;
+    --primary: 350 80% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 225 25% 15%;
+    --secondary-foreground: 210 20% 75%;
+    --muted: 225 20% 13%;
+    --muted-foreground: 210 15% 50%;
+    --accent: 35 90% 55%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 350 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 20% 18%;
+    --input: 225 20% 15%;
+    --ring: 350 80% 55%;
+    --radius: 0.25rem;
+
+    --font-heading: 'Rajdhani', 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Exo 2', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'Share Tech Mono', ui-monospace, monospace;
+
+    /* Game-specific tokens */
+    --color-danger: 350 80% 55%;
+    --color-warning: 35 90% 55%;
+    --color-success: 122 39% 49%;
+    --color-info: 210 80% 60%;
+    --color-neutral: 210 15% 65%;
+    --color-night: 230 35% 7%;
+    --color-panel: 225 30% 10%;
+    --color-panel-light: 225 25% 15%;
+
+    --sidebar-background: 225 30% 8%;
+    --sidebar-foreground: 210 20% 70%;
+    --sidebar-primary: 350 80% 55%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 225 25% 14%;
+    --sidebar-accent-foreground: 210 20% 75%;
+    --sidebar-border: 225 20% 16%;
+    --sidebar-ring: 350 80% 55%;
+  }
+
+  .dark {
+    --background: 230 35% 7%;
+    --foreground: 210 20% 75%;
+    --card: 225 30% 10%;
+    --card-foreground: 210 20% 80%;
+    --popover: 225 30% 10%;
+    --popover-foreground: 210 20% 80%;
+    --primary: 350 80% 55%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 225 25% 15%;
+    --secondary-foreground: 210 20% 75%;
+    --muted: 225 20% 13%;
+    --muted-foreground: 210 15% 50%;
+    --accent: 35 90% 55%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 350 80% 55%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 20% 18%;
+    --input: 225 20% 15%;
+    --ring: 350 80% 55%;
+    --sidebar-background: 225 30% 8%;
+    --sidebar-foreground: 210 20% 70%;
+    --sidebar-primary: 350 80% 55%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 225 25% 14%;
+    --sidebar-accent-foreground: 210 20% 75%;
+    --sidebar-border: 225 20% 16%;
+    --sidebar-ring: 350 80% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background-image:
+      radial-gradient(ellipse at 20% 50%, rgba(233, 69, 96, 0.03) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(245, 166, 35, 0.02) 0%, transparent 50%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+/* Game-specific utility classes */
+@layer components {
+  .tactical-panel {
+    @apply bg-card border border-border relative overflow-hidden;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 50%);
+  }
+
+  .tactical-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(233,69,96,0.5), transparent);
+  }
+
+  .glow-danger {
+    box-shadow: 0 0 20px rgba(233, 69, 96, 0.3), inset 0 0 20px rgba(233, 69, 96, 0.05);
+  }
+
+  .glow-warning {
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.3), inset 0 0 20px rgba(245, 166, 35, 0.05);
+  }
+
+  .glow-success {
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3), inset 0 0 20px rgba(76, 175, 80, 0.05);
+  }
+
+  .stat-bar {
+    @apply relative h-3 rounded-sm overflow-hidden;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .stat-bar-fill {
+    @apply h-full transition-all duration-700 ease-out;
+    position: relative;
+  }
+
+  .stat-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(0,0,0,0.2) 8px,
+      rgba(0,0,0,0.2) 9px
+    );
+  }
+
+  .scanline {
+    position: relative;
+  }
+
+  .scanline::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  .text-danger { color: hsl(var(--color-danger)); }
+  .text-warning { color: hsl(var(--color-warning)); }
+  .text-success { color: hsl(var(--color-success)); }
+  .text-info { color: hsl(var(--color-info)); }
+
+  .bg-danger { background-color: hsl(var(--color-danger)); }
+  .bg-warning { background-color: hsl(var(--color-warning)); }
+  .bg-success { background-color: hsl(var(--color-success)); }
+
+  .border-danger { border-color: hsl(var(--color-danger)); }
+  .border-warning { border-color: hsl(var(--color-warning)); }
+  .border-success { border-color: hsl(var(--color-success)); }
+}
+
+/* Animations */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+  75% { opacity: 0.95; }
+}
+
+@keyframes pulse-danger {
+  0%, 100% { box-shadow: 0 0 5px rgba(233, 69, 96, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(233, 69, 96, 0.8); }
+}
+
+@keyframes pulse-warning {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes rain-drop {
+  0% { transform: translateY(-10px); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0.3; }
+}
+
+@keyframes slide-in-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 4px currentColor; }
+  50% { text-shadow: 0 0 12px currentColor, 0 0 20px currentColor; }
+}
+
+.animate-flicker { animation: flicker 3s ease-in-out infinite; }
+.animate-pulse-danger { animation: pulse-danger 2s ease-in-out infinite; }
+.animate-pulse-warning { animation: pulse-warning 1.5s ease-in-out infinite; }
+.animate-slide-in-up { animation: slide-in-up 0.4s ease-out; }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-shake { animation: shake 0.4s ease-in-out; }
+.animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
