@@ -19,6 +19,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAppState = async () => {
+    if (!appParams.appId) {
+      setIsLoadingPublicSettings(false);
+      setIsLoadingAuth(false);
+      setAuthChecked(true);
+      setAuthError(null);
+      return;
+    }
+
     try {
       setIsLoadingPublicSettings(true);
       setAuthError(null);

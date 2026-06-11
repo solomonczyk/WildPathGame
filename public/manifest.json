@@ -1,0 +1,10 @@
+{
+  "name": "SURVIVAL ZERO",
+  "short_name": "Survival Zero",
+  "description": "Обучающая игра-симулятор выживания в постапокалиптическом мире.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090c08",
+  "theme_color": "#090c08",
+  "icons": []
+}
