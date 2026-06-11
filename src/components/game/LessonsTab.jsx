@@ -1,41 +1,32 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Play, BookOpen, CheckCircle, Lock } from 'lucide-react';
+import { Play, BookOpen, CheckCircle } from 'lucide-react';
 import { LESSONS, LESSON_CATEGORIES } from '@/lib/lessonData';
 
 export default function LessonsTab({ player, onOpenLesson }) {
   const [filterCat, setFilterCat] = useState('all');
-
   const completedLessons = player.completedLessons || [];
-
-  const filtered = filterCat === 'all'
-    ? LESSONS
-    : LESSONS.filter(l => l.category === filterCat);
-
-  const totalCompleted = completedLessons.length;
-  const totalLessons = LESSONS.length;
-  const progress = Math.round((totalCompleted / totalLessons) * 100);
+  const filtered = filterCat === 'all' ? LESSONS : LESSONS.filter(l => l.category === filterCat);
+  const progress = Math.round((completedLessons.length / LESSONS.length) * 100);
 
   return (
     <div className="space-y-4">
-      {/* Progress header */}
       <div className="tactical-panel border border-accent/30 bg-accent/5 rounded-sm p-4">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <BookOpen size={16} className="text-accent" />
             <span className="font-heading font-bold text-foreground text-sm">Академия выживания</span>
           </div>
-          <span className="text-xs font-mono text-accent">{totalCompleted}/{totalLessons} уроков</span>
+          <span className="text-xs font-mono text-accent">{completedLessons.length}/{LESSONS.length} уроков</span>
         </div>
         <div className="stat-bar h-2 mb-2">
           <div className="h-full bg-accent transition-all duration-700" style={{ width: `${progress}%` }} />
         </div>
         <p className="text-xs text-muted-foreground">
-          Обучение — основа выживания. Каждый урок даёт реальные знания и навыки.
+          Каждый урок дает практичные знания: огонь, вода, укрытие, медицина и добыча еды.
         </p>
       </div>
 
-      {/* Category filter */}
       <div className="flex gap-1.5 overflow-x-auto pb-1">
         <button
           onClick={() => setFilterCat('all')}
@@ -62,9 +53,8 @@ export default function LessonsTab({ player, onOpenLesson }) {
         })}
       </div>
 
-      {/* Lessons list */}
       <div className="space-y-2">
-        {filtered.map((lesson, i) => {
+        {filtered.map((lesson) => {
           const cat = LESSON_CATEGORIES[lesson.category];
           const done = completedLessons.includes(lesson.lesson_id);
 
@@ -75,7 +65,7 @@ export default function LessonsTab({ player, onOpenLesson }) {
               whileTap={{ scale: 0.99 }}
               onClick={() => onOpenLesson(lesson)}
               className={`w-full text-left p-4 tactical-panel border rounded-sm transition-all ${
-                done ? 'border-success/30 bg-success/5' : `${cat.borderColor} hover:${cat.bgColor}`
+                done ? 'border-success/30 bg-success/5' : `${cat.borderColor}`
               }`}
             >
               <div className="flex items-start gap-3">
@@ -98,9 +88,6 @@ export default function LessonsTab({ player, onOpenLesson }) {
                     <span className={`text-xs font-mono ${cat.color}`}>{cat.icon} {cat.name}</span>
                     <span className="text-xs font-mono text-muted-foreground">
                       {lesson.slides?.length || 0} слайдов
-                    </span>
-                    <span className="text-xs font-mono text-muted-foreground">
-                      📹 {lesson.slides?.filter(s => s.type === 'video').length || 0} видео
                     </span>
                     {done && <span className="text-xs font-mono text-success">✓ Изучено</span>}
                   </div>
