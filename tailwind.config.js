@@ -16,7 +16,6 @@ module.exports = {
   			mono: ['var(--font-mono)']
   		},
   		colors: {
-  			...require('tailwindcss/colors'),
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },

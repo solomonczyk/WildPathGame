@@ -1,10 +1,17 @@
 {
-  "name": "SURVIVAL ZERO",
-  "short_name": "Survival Zero",
-  "description": "Обучающая игра-симулятор выживания в постапокалиптическом мире.",
+  "name": "Wild Path Game",
+  "short_name": "Wild Path",
+  "description": "A practical survival-training puzzle game with realistic scenarios and real-world learning notes.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#090c08",
   "theme_color": "#090c08",
-  "icons": []
+  "icons": [
+    {
+      "src": "/wild-path-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
