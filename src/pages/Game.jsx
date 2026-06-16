@@ -4,6 +4,7 @@ import GameHub from './GameHub';
 import GameOver from './GameOver';
 import Victory from './Victory';
 import { loadGame, saveGame } from '@/lib/gameEngine';
+import { DEFAULT_LANGUAGE, getLanguage } from '@/lib/i18n';
 
 const SCREENS = {
   START: 'start',
@@ -15,6 +16,7 @@ const SCREENS = {
 export default function Game() {
   const [screen, setScreen] = useState(SCREENS.START);
   const [player, setPlayerState] = useState(null);
+  const [language, setLanguageState] = useState(() => getLanguage(localStorage.getItem('wildpath_language') || DEFAULT_LANGUAGE));
 
   // Load saved game on mount
   useEffect(() => {
@@ -31,6 +33,12 @@ export default function Game() {
     if (newPlayer.gameOver) {
       setScreen(SCREENS.GAMEOVER);
     }
+  };
+
+  const setLanguage = (nextLanguage) => {
+    const safeLanguage = getLanguage(nextLanguage);
+    setLanguageState(safeLanguage);
+    localStorage.setItem('wildpath_language', safeLanguage);
   };
 
   const handleStart = (newPlayer) => {
@@ -63,7 +71,7 @@ export default function Game() {
   };
 
   if (screen === SCREENS.START) {
-    return <StartScreen onStart={handleStart} onContinue={handleContinue} />;
+    return <StartScreen onStart={handleStart} onContinue={handleContinue} language={language} setLanguage={setLanguage} />;
   }
 
   if (screen === SCREENS.PLAYING && player) {
@@ -73,6 +81,8 @@ export default function Game() {
         setPlayer={setPlayer}
         onGameOver={handleGameOver}
         onVictory={handleVictory}
+        language={language}
+        setLanguage={setLanguage}
       />
     );
   }
@@ -85,5 +95,5 @@ export default function Game() {
     return <Victory player={player} onRestart={handleRestart} />;
   }
 
-  return <StartScreen onStart={handleStart} onContinue={handleContinue} />;
+  return <StartScreen onStart={handleStart} onContinue={handleContinue} language={language} setLanguage={setLanguage} />;
 }

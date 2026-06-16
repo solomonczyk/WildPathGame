@@ -3,7 +3,13 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import path from 'node:path'
 
-const base44Plugins = process.env.VITE_BASE44_APP_ID
+const hasBase44AppId = (value) => {
+  if (value === undefined || value === null) return false;
+  const normalized = String(value).trim().toLowerCase();
+  return !!normalized && !['null', 'undefined', 'false'].includes(normalized);
+};
+
+const base44Plugins = hasBase44AppId(process.env.VITE_BASE44_APP_ID)
   ? [
       base44({
         // Support for legacy code that imports the base44 SDK with @/integrations, @/entities, etc.

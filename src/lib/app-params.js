@@ -6,13 +6,24 @@ const toSnakeCase = (str) => {
 	return str.replace(/([A-Z])/g, '_$1').toLowerCase();
 }
 
+const normalizeAppParam = (value) => {
+	if (value === undefined || value === null) {
+		return null;
+	}
+	const normalized = String(value).trim();
+	if (!normalized || ['null', 'undefined', 'false'].includes(normalized.toLowerCase())) {
+		return null;
+	}
+	return normalized;
+}
+
 const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl = false } = {}) => {
 	if (isNode) {
-		return defaultValue;
+		return normalizeAppParam(defaultValue);
 	}
 	const storageKey = `base44_${toSnakeCase(paramName)}`;
 	const urlParams = new URLSearchParams(window.location.search);
-	const searchParam = urlParams.get(paramName);
+	const searchParam = normalizeAppParam(urlParams.get(paramName));
 	if (removeFromUrl) {
 		urlParams.delete(paramName);
 		const newUrl = `${window.location.pathname}${urlParams.toString() ? `?${urlParams.toString()}` : ""
@@ -23,14 +34,16 @@ const getAppParamValue = (paramName, { defaultValue = undefined, removeFromUrl =
 		storage.setItem(storageKey, searchParam);
 		return searchParam;
 	}
-	if (defaultValue) {
-		storage.setItem(storageKey, defaultValue);
-		return defaultValue;
+	const envDefaultValue = normalizeAppParam(defaultValue);
+	if (envDefaultValue) {
+		storage.setItem(storageKey, envDefaultValue);
+		return envDefaultValue;
 	}
-	const storedValue = storage.getItem(storageKey);
+	const storedValue = normalizeAppParam(storage.getItem(storageKey));
 	if (storedValue) {
 		return storedValue;
 	}
+	storage.removeItem(storageKey);
 	return null;
 }
 

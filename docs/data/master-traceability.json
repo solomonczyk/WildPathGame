@@ -1,0 +1,42 @@
+[
+  {
+    "id": "TRACE-001",
+    "requirement": "Each object explains survival value.",
+    "source": "product-requirements.md#functional-requirements",
+    "tests": ["manual episode inspection", "content review"],
+    "risks": ["RISK-001", "RISK-002"],
+    "stage": "S1_PROTOTYPE_REPAIR"
+  },
+  {
+    "id": "TRACE-002",
+    "requirement": "MVP has six practical episodes.",
+    "source": "product-canon.md#mvp-scope",
+    "tests": ["episode E2E", "Product Definition of Done review"],
+    "risks": ["RISK-004"],
+    "stage": "S3_MVP_COURSE_BUILD"
+  },
+  {
+    "id": "TRACE-003",
+    "requirement": "Paid pilot validates real payment.",
+    "source": "market-commercial-canon.md#first-sales-form",
+    "tests": ["payment test", "pilot report"],
+    "risks": ["RISK-003"],
+    "stage": "S5_PAID_PILOT"
+  },
+  {
+    "id": "TRACE-004",
+    "requirement": "Dangerous claims require domain acceptance.",
+    "source": "dangerous-action-gates.md#domain-acceptance-gate",
+    "tests": ["content review record"],
+    "risks": ["RISK-002"],
+    "stage": "S3_MVP_COURSE_BUILD"
+  },
+  {
+    "id": "TRACE-005",
+    "requirement": "Future foundational changes require CR or ADR.",
+    "source": "operations-governance.md#change-request-process",
+    "tests": ["decision log review"],
+    "risks": ["RISK-004"],
+    "stage": "S0_DOCUMENTATION_LOCK"
+  }
+]

@@ -1,0 +1,26 @@
+{
+  "currency": "USD_equivalent",
+  "maximum_total_to_paid_pilot": 4500,
+  "stages": {
+    "S0_DOCUMENTATION_LOCK": { "planned": 0, "maximum": 0 },
+    "S1_PROTOTYPE_REPAIR": { "planned": 250, "maximum": 450 },
+    "S2_FREE_DEMO_VALIDATION": { "planned": 350, "maximum": 600 },
+    "S3_MVP_COURSE_BUILD": { "planned": 900, "maximum": 1200 },
+    "S4_CLOSED_BETA": { "planned": 500, "maximum": 750 },
+    "S5_PAID_PILOT": { "planned": 1000, "maximum": 1500 }
+  },
+  "category_caps": {
+    "ai_api_and_generation": 350,
+    "infrastructure": 250,
+    "design_and_testing": 900,
+    "marketing": 1200,
+    "support": 450,
+    "legal_review": 700,
+    "contingency": 650
+  },
+  "overrun_rules": {
+    "under_10_percent": "owner records reason",
+    "10_to_25_percent": "change request required",
+    "over_25_percent": "stage HOLD until scope or budget is reapproved"
+  }
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "RISK-001",
+    "risk": "The product feels like a static checklist instead of a game.",
+    "severity": "high",
+    "probability": "medium",
+    "mitigation": "Use multi-zone scenes, containers, inventory tradeoffs, and consequence debriefs.",
+    "owner": "Engineering collaborator",
+    "trigger": "Users say they are only selecting obvious items."
+  },
+  {
+    "id": "RISK-002",
+    "risk": "Survival advice is unsafe or overclaimed.",
+    "severity": "high",
+    "probability": "medium",
+    "mitigation": "Human review, forbidden claims, dangerous-action gates.",
+    "owner": "Taras",
+    "trigger": "Content includes medical, fire, hunting, or legal claims."
+  },
+  {
+    "id": "RISK-003",
+    "risk": "Users enjoy free demo but will not pay.",
+    "severity": "high",
+    "probability": "medium",
+    "mitigation": "Paid intent tests before full build.",
+    "owner": "Taras",
+    "trigger": "Completion high but paid intent below 8%."
+  },
+  {
+    "id": "RISK-004",
+    "risk": "Scope expands into open-world simulation.",
+    "severity": "medium",
+    "probability": "high",
+    "mitigation": "Hard MVP cut line and change request process.",
+    "owner": "Taras",
+    "trigger": "Requests for 3D, multiplayer, procedural systems before pilot."
+  },
+  {
+    "id": "RISK-005",
+    "risk": "Localization quality reduces trust.",
+    "severity": "medium",
+    "probability": "medium",
+    "mitigation": "Review RU/EN before MVP, allow ES only when complete.",
+    "owner": "Content owner",
+    "trigger": "Users report unnatural or confusing text."
+  }
+]

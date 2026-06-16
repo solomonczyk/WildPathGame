@@ -1,0 +1,19 @@
+{
+  "funnel": [
+    { "transition": "content_to_landing", "minimum": 0.01, "decision": "optimize message below threshold" },
+    { "transition": "landing_to_demo_start", "minimum": 0.20, "decision": "GO to demo validation if met" },
+    { "transition": "demo_start_to_completion", "minimum": 0.45, "decision": "repair UX if below" },
+    { "transition": "completion_to_paid_intent", "minimum": 0.08, "decision": "GO to MVP build if supported by interviews" },
+    { "transition": "paid_intent_to_payment", "minimum": 0.20, "decision": "fix offer or payment friction if below" }
+  ],
+  "learning": [
+    { "metric": "post_episode_principle_explanation", "minimum": 0.70 },
+    { "metric": "critical_wrong_item_repeat_rate", "maximum": 0.30 },
+    { "metric": "three_episode_completion_closed_beta", "minimum": 0.40 }
+  ],
+  "commercial": [
+    { "metric": "individual_buyers_paid_pilot", "minimum": 10 },
+    { "metric": "instructor_buyers_paid_pilot", "minimum": 2 },
+    { "metric": "refund_rate", "maximum": 0.15 }
+  ]
+}

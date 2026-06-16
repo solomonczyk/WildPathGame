@@ -1,0 +1,24 @@
+﻿{
+    "project_documentation":  "COMPLETE_AND_LOCKED",
+    "managed_product":  true,
+    "primary_customer_defined":  true,
+    "marketing_strategy_defined":  true,
+    "commercial_model_defined":  true,
+    "mvp_cut_line_locked":  true,
+    "roadmap_bounded":  true,
+    "deadlines_defined":  true,
+    "budgets_defined":  true,
+    "stage_acceptance_defined":  true,
+    "go_hold_pivot_stop_defined":  true,
+    "master_traceability_complete":  true,
+    "fundamental_documentation_layers_remaining":  0,
+    "production_accepted":  false,
+    "validation_utc":  "2026-06-16T07:23:58.6062210Z",
+    "markdown_files":  14,
+    "json_files":  8,
+    "stage_contracts":  6,
+    "artifact_count":  23,
+    "failures":  [
+
+                 ]
+}

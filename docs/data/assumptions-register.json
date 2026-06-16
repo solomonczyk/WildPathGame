@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ASSUMP-001",
+    "assumption": "Russian-speaking urban preparedness beginners are the first viable customer.",
+    "type": "hypothesis",
+    "verification": "15 interviews and landing conversion by 2026-07-14",
+    "owner": "Taras",
+    "status": "active"
+  },
+  {
+    "id": "ASSUMP-002",
+    "assumption": "A six-episode mini-course is enough to sell early access.",
+    "type": "provisional decision",
+    "verification": "paid pilot by 2026-09-14",
+    "owner": "Taras",
+    "status": "active"
+  },
+  {
+    "id": "ASSUMP-003",
+    "assumption": "2D hidden-object scenes can teach practical prioritization better than text lessons.",
+    "type": "hypothesis",
+    "verification": "usability tests and post-episode explanation checks",
+    "owner": "Engineering collaborator",
+    "status": "active"
+  },
+  {
+    "id": "ASSUMP-004",
+    "assumption": "Local browser save is sufficient before paid accounts.",
+    "type": "provisional decision",
+    "verification": "closed beta support issues",
+    "owner": "Engineering collaborator",
+    "status": "active"
+  }
+]

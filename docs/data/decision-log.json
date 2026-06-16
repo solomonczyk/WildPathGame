@@ -1,0 +1,38 @@
+[
+  {
+    "id": "ADR-001",
+    "type": "ADR",
+    "date": "2026-06-16",
+    "decision": "Use React/Vite 2D browser implementation for MVP.",
+    "context": "The current project is already React/Vite and the fastest path to validation is a browser-based demo.",
+    "consequences": ["No native app before paid pilot", "No 3D before evidence", "Static hosting remains viable"],
+    "owner": "Taras"
+  },
+  {
+    "id": "ADR-002",
+    "type": "ADR",
+    "date": "2026-06-16",
+    "decision": "MVP is six practical puzzle episodes, not an open-world game.",
+    "context": "The product needs paid validation quickly and must avoid scope expansion.",
+    "consequences": ["Hard cut line established", "Future episode expansion requires evidence"],
+    "owner": "Taras"
+  },
+  {
+    "id": "ADR-003",
+    "type": "ADR",
+    "date": "2026-06-16",
+    "decision": "Production acceptance remains false after documentation lock.",
+    "context": "Documentation and technical build do not prove business, learning, safety, or operational readiness.",
+    "consequences": ["Paid pilot requires separate gates", "production_accepted remains false"],
+    "owner": "Taras"
+  },
+  {
+    "id": "CR-001",
+    "type": "change_request",
+    "date": "2026-06-16",
+    "decision": "Create complete canonical documentation package and lock future foundational changes behind CR or ADR.",
+    "context": "The project needs managed-product governance from idea to first paying users.",
+    "consequences": ["Fundamental documentation layers remaining becomes 0 after acceptance"],
+    "owner": "Taras"
+  }
+]
