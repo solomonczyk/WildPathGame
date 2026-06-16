@@ -76,6 +76,35 @@ function getCopy(entity, language) {
   return entity.copy[language] || entity.copy.ru;
 }
 
+function hashSeed(value) {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function createSeededRandom(seed) {
+  let state = seed || 1;
+  return () => {
+    state = Math.imul(1664525, state) + 1013904223;
+    return (state >>> 0) / 4294967296;
+  };
+}
+
+function shuffleWithSeed(items, seedValue) {
+  const shuffled = [...items];
+  const random = createSeededRandom(hashSeed(String(seedValue)));
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex], shuffled[index]];
+  }
+
+  return shuffled;
+}
+
 function Icon({ name, size = 18, className = '' }) {
   const Component = ICONS[name] || Package;
   return <Component size={size} className={className} />;
@@ -349,7 +378,9 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
           {items.map(item => {
             const itemCopy = getCopy(item, language);
             const packed = packedIds.includes(item.id);
-            const style = CATEGORY_STYLES[item.category];
+            const packedStyle = packed
+              ? 'border-success/40 bg-success/10'
+              : 'border-border bg-[#191918] hover:border-foreground/35 hover:bg-[#20201f]';
 
             return (
               <button
@@ -357,7 +388,7 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
                 type="button"
                 data-testid={`item-${item.id}`}
                 onClick={() => onSelectItem(item.id)}
-                className={`w-full rounded-sm border bg-[#191918] p-3 text-left transition-all ${style.border} ${packed ? 'opacity-70' : 'hover:bg-[#20201f]'} ${style.glow}`}
+                className={`w-full rounded-sm border p-3 text-left transition-all ${packedStyle}`}
               >
                 <div className="flex gap-3">
                   <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-sm border border-border bg-black/30">
@@ -370,7 +401,9 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
                     </div>
                     <p className="mt-1 text-xs text-muted-foreground">{itemCopy.place}</p>
                     <div className="mt-2 flex items-center justify-between gap-2">
-                      <CategoryBadge category={item.category} ui={ui} />
+                      <span className="rounded-sm border border-border bg-black/20 px-2 py-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                        {ui.notInspected || 'Осмотреть'}
+                      </span>
                       <span className="text-xs font-mono text-muted-foreground">{item.weight.toFixed(1)} kg</span>
                     </div>
                   </div>
@@ -580,13 +613,21 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
   const [detailItemId, setDetailItemId] = useState(null);
   const [backpackOpen, setBackpackOpen] = useState(false);
   const [result, setResult] = useState(null);
+  const [runSeed, setRunSeed] = useState(() => Date.now());
 
   const itemsById = useMemo(() => Object.fromEntries(episode.items.map(item => [item.id, item])), [episode.items]);
   const packedItems = episode.items.filter(item => packedIds.includes(item.id));
   const packedWeight = useMemo(() => packedItems.reduce((total, item) => total + item.weight, 0), [packedItems]);
   const requiredPacked = episode.requiredItemIds.filter(id => packedIds.includes(id)).length;
   const activeContainer = episode.containers.find(container => container.id === activeContainerId);
-  const activeItems = activeContainer ? activeContainer.itemIds.map(id => itemsById[id]).filter(Boolean) : [];
+  const activeItems = useMemo(() => {
+    if (!activeContainer) {
+      return [];
+    }
+
+    const containerItems = activeContainer.itemIds.map(id => itemsById[id]).filter(Boolean);
+    return shuffleWithSeed(containerItems, `${runSeed}-${activeContainer.id}`);
+  }, [activeContainer, itemsById, runSeed]);
   const detailItem = detailItemId ? itemsById[detailItemId] : null;
   const canLeave = requiredPacked === episode.requiredItemIds.length && packedWeight <= episode.weightLimit;
 
@@ -636,6 +677,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     setDetailItemId(null);
     setBackpackOpen(false);
     setResult(null);
+    setRunSeed(Date.now());
   };
 
   return (

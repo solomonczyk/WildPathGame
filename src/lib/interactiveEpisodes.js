@@ -55,8 +55,416 @@ export const EPISODES = [
           { name: 'Lera', line: 'Primero agua y ropa de abrigo. Lo demás solo si queda espacio.' },
           { name: 'Nikita', line: 'Quiero llevarme medio apartamento. Pero lo cargaremos nosotros.' }
         ]
-      }
+      },
     },
+    extraItems: [
+      {
+        id: 'raincoat',
+        icon: 'shirt',
+        category: 'useful',
+        weight: 0.4,
+        copy: {
+          ru: {
+            name: 'Дождевик',
+            place: 'в шкафу',
+            note: 'Дождевик защищает тёплый слой от намокания. Мокрая одежда быстро забирает тепло.',
+            useFor: 'дождь, ветер, защита документов и одежды',
+            risk: 'Полезен, но не заменяет тёплую куртку.'
+          },
+          en: {
+            name: 'Raincoat',
+            place: 'inside the wardrobe',
+            note: 'A raincoat keeps warm layers dry. Wet clothing pulls heat away fast.',
+            useFor: 'rain, wind, protecting documents and clothing',
+            risk: 'Useful, but it does not replace a warm jacket.'
+          },
+          es: {
+            name: 'Impermeable',
+            place: 'dentro del armario',
+            note: 'Un impermeable mantiene seca la ropa de abrigo. La ropa mojada roba calor rápido.',
+            useFor: 'lluvia, viento, proteger documentos y ropa',
+            risk: 'Útil, pero no reemplaza una chaqueta de abrigo.'
+          }
+        }
+      },
+      {
+        id: 'work_gloves',
+        icon: 'shirt',
+        category: 'useful',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Рабочие перчатки',
+            place: 'в шкафу',
+            note: 'Перчатки защищают руки от стекла, металла, холодных перил и грязи.',
+            useFor: 'стекло, завалы, холод, перенос вещей',
+            risk: 'Полезны, но не должны вытеснять аптечку или воду.'
+          },
+          en: {
+            name: 'Work gloves',
+            place: 'inside the wardrobe',
+            note: 'Gloves protect hands from glass, metal, cold rails, and dirt.',
+            useFor: 'glass, debris, cold, carrying gear',
+            risk: 'Useful, but not above first aid or water.'
+          },
+          es: {
+            name: 'Guantes de trabajo',
+            place: 'dentro del armario',
+            note: 'Los guantes protegen de vidrio, metal, barandillas frías y suciedad.',
+            useFor: 'vidrio, escombros, frío, cargar equipo',
+            risk: 'Útiles, pero no por encima de botiquín o agua.'
+          }
+        }
+      },
+      {
+        id: 'cotton_hoodie',
+        icon: 'shirt',
+        category: 'trap',
+        weight: 1,
+        copy: {
+          ru: {
+            name: 'Хлопковая толстовка',
+            place: 'в шкафу',
+            note: 'Хлопок удобен дома, но при намокании долго сохнет и плохо держит тепло.',
+            useFor: 'короткое ожидание в сухом помещении',
+            risk: 'Во влажную погоду может усилить охлаждение.'
+          },
+          en: {
+            name: 'Cotton hoodie',
+            place: 'inside the wardrobe',
+            note: 'Cotton is comfortable indoors, but dries slowly and insulates poorly when wet.',
+            useFor: 'short waiting in a dry place',
+            risk: 'In wet weather it can make you colder.'
+          },
+          es: {
+            name: 'Sudadera de algodón',
+            place: 'dentro del armario',
+            note: 'El algodón es cómodo en casa, pero seca lento y abriga mal mojado.',
+            useFor: 'espera corta en lugar seco',
+            risk: 'Con humedad puede enfriarte más.'
+          }
+        }
+      },
+      {
+        id: 'energy_bar',
+        icon: 'sandwich',
+        category: 'useful',
+        weight: 0.15,
+        copy: {
+          ru: {
+            name: 'Энергетический батончик',
+            place: 'в холодильнике',
+            note: 'Лёгкая еда даёт быстрые калории и почти не занимает место.',
+            useFor: 'быстрая энергия, дорога, ожидание',
+            risk: 'Не заменяет воду и не решает холод.'
+          },
+          en: {
+            name: 'Energy bar',
+            place: 'inside the refrigerator',
+            note: 'Light food gives quick calories and takes almost no space.',
+            useFor: 'quick energy, travel, waiting',
+            risk: 'It does not replace water or warmth.'
+          },
+          es: {
+            name: 'Barrita energética',
+            place: 'dentro del refrigerador',
+            note: 'Comida ligera con calorías rápidas y poco volumen.',
+            useFor: 'energía rápida, camino, espera',
+            risk: 'No reemplaza agua ni abrigo.'
+          }
+        }
+      },
+      {
+        id: 'salt_pack',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.1,
+        copy: {
+          ru: {
+            name: 'Пакет соли',
+            place: 'в холодильнике',
+            note: 'Соль помогает с едой и простейшим сохранением продуктов, но это не предмет первой линии.',
+            useFor: 'еда, консервация, обмен',
+            risk: 'Полезна позже, но не важнее воды.'
+          },
+          en: {
+            name: 'Salt pack',
+            place: 'inside the refrigerator',
+            note: 'Salt helps with food and simple preservation, but it is not first-line gear.',
+            useFor: 'food, preservation, barter',
+            risk: 'Useful later, but not above water.'
+          },
+          es: {
+            name: 'Paquete de sal',
+            place: 'dentro del refrigerador',
+            note: 'La sal ayuda con comida y conservación simple, pero no es prioridad inicial.',
+            useFor: 'comida, conservación, intercambio',
+            risk: 'Útil después, pero no por encima del agua.'
+          }
+        }
+      },
+      {
+        id: 'soda_bottle',
+        icon: 'wine',
+        category: 'trap',
+        weight: 1.2,
+        copy: {
+          ru: {
+            name: 'Сладкая газировка',
+            place: 'в холодильнике',
+            note: 'Сладкий напиток кажется заменой воды, но жажду закрывает хуже и может усилить её позже.',
+            useFor: 'быстрые калории, если другой жидкости нет',
+            risk: 'Не равно воде и занимает тот же вес.'
+          },
+          en: {
+            name: 'Sugary soda',
+            place: 'inside the refrigerator',
+            note: 'Soda looks like water, but handles thirst worse and can increase it later.',
+            useFor: 'quick calories if no other liquid exists',
+            risk: 'It is not water and costs similar weight.'
+          },
+          es: {
+            name: 'Refresco azucarado',
+            place: 'dentro del refrigerador',
+            note: 'Parece agua, pero calma peor la sed y puede aumentarla después.',
+            useFor: 'calorías rápidas si no hay otro líquido',
+            risk: 'No es agua y pesa parecido.'
+          }
+        }
+      },
+      {
+        id: 'trash_bags',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Прочные мусорные пакеты',
+            place: 'в кладовке',
+            note: 'Пакеты можно использовать как защиту от дождя, упаковку вещей или временную гидроизоляцию.',
+            useFor: 'дождь, упаковка, защита документов',
+            risk: 'Полезны как дополнение, но не заменяют основные предметы.'
+          },
+          en: {
+            name: 'Heavy trash bags',
+            place: 'inside the pantry',
+            note: 'Bags can work as rain protection, packing, or temporary waterproofing.',
+            useFor: 'rain, packing, document protection',
+            risk: 'Useful support, not a replacement for essentials.'
+          },
+          es: {
+            name: 'Bolsas resistentes',
+            place: 'dentro de la despensa',
+            note: 'Sirven contra lluvia, para empacar o impermeabilizar temporalmente.',
+            useFor: 'lluvia, embalaje, proteger documentos',
+            risk: 'Apoyo útil, no reemplazo de lo esencial.'
+          }
+        }
+      },
+      {
+        id: 'matches',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.05,
+        copy: {
+          ru: {
+            name: 'Спички в коробке',
+            place: 'в кладовке',
+            note: 'Огонь может помочь с теплом и готовкой, если есть безопасное место и сухое топливо.',
+            useFor: 'огонь, тепло, готовка',
+            risk: 'Бесполезны мокрыми и опасны в закрытых помещениях.'
+          },
+          en: {
+            name: 'Box of matches',
+            place: 'inside the pantry',
+            note: 'Fire can help with warmth and cooking if you have a safe place and dry fuel.',
+            useFor: 'fire, warmth, cooking',
+            risk: 'Useless when wet and dangerous indoors.'
+          },
+          es: {
+            name: 'Caja de fósforos',
+            place: 'dentro de la despensa',
+            note: 'El fuego ayuda con calor y comida si hay lugar seguro y combustible seco.',
+            useFor: 'fuego, calor, cocinar',
+            risk: 'Inútiles mojados y peligrosos en interiores.'
+          }
+        }
+      },
+      {
+        id: 'rope',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.7,
+        copy: {
+          ru: {
+            name: 'Тонкая верёвка',
+            place: 'в кладовке',
+            note: 'Верёвка помогает закрепить вещи, сделать растяжку или простую связку.',
+            useFor: 'крепление, ремонт, перенос',
+            risk: 'Полезна, но вес заметен, если уже есть слишком много вещей.'
+          },
+          en: {
+            name: 'Thin rope',
+            place: 'inside the pantry',
+            note: 'Rope helps fasten gear, make a line, or bundle items.',
+            useFor: 'fastening, repair, carrying',
+            risk: 'Useful, but the weight matters if the pack is already full.'
+          },
+          es: {
+            name: 'Cuerda fina',
+            place: 'dentro de la despensa',
+            note: 'Ayuda a fijar equipo, hacer una línea o agrupar objetos.',
+            useFor: 'sujetar, reparar, cargar',
+            risk: 'Útil, pero pesa si la mochila ya está llena.'
+          }
+        }
+      },
+      {
+        id: 'ceramic_mug',
+        icon: 'wine',
+        category: 'trap',
+        weight: 0.5,
+        copy: {
+          ru: {
+            name: 'Керамическая кружка',
+            place: 'в кладовке',
+            note: 'Кружка удобна дома, но хрупкая и мало что решает при быстрой эвакуации.',
+            useFor: 'питьё в спокойном месте',
+            risk: 'Может разбиться и занимает место лучше металлической чашки.'
+          },
+          en: {
+            name: 'Ceramic mug',
+            place: 'inside the pantry',
+            note: 'A mug is convenient at home, but fragile and low value in fast evacuation.',
+            useFor: 'drinking in a safe place',
+            risk: 'It can break and is worse than a metal cup.'
+          },
+          es: {
+            name: 'Taza de cerámica',
+            place: 'dentro de la despensa',
+            note: 'Cómoda en casa, pero frágil y de poco valor al evacuar rápido.',
+            useFor: 'beber en lugar seguro',
+            risk: 'Puede romperse y es peor que una taza metálica.'
+          }
+        }
+      },
+      {
+        id: 'keys',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.1,
+        copy: {
+          ru: {
+            name: 'Запасные ключи',
+            place: 'на полке в прихожей',
+            note: 'Ключи помогают вернуться, открыть подъезд или передать доступ близким.',
+            useFor: 'доступ, возвращение, помощь семье',
+            risk: 'Полезны, но не должны задерживать выход.'
+          },
+          en: {
+            name: 'Spare keys',
+            place: 'on the hallway shelf',
+            note: 'Keys help return, open entrances, or share access with family.',
+            useFor: 'access, return, helping family',
+            risk: 'Useful, but should not delay leaving.'
+          },
+          es: {
+            name: 'Llaves de repuesto',
+            place: 'en el estante de entrada',
+            note: 'Ayudan a volver, abrir entradas o dar acceso a familia.',
+            useFor: 'acceso, regreso, ayudar familia',
+            risk: 'Útiles, pero no deben retrasar la salida.'
+          }
+        }
+      },
+      {
+        id: 'cash',
+        icon: 'file-text',
+        category: 'useful',
+        weight: 0.05,
+        copy: {
+          ru: {
+            name: 'Наличные',
+            place: 'на полке в прихожей',
+            note: 'Наличные работают, когда терминалы и связь недоступны.',
+            useFor: 'транспорт, вода, еда, связь',
+            risk: 'Нужны мелкими купюрами и отдельно от документов.'
+          },
+          en: {
+            name: 'Cash',
+            place: 'on the hallway shelf',
+            note: 'Cash works when terminals and signal do not.',
+            useFor: 'transport, water, food, communication',
+            risk: 'Best in small bills and separate from documents.'
+          },
+          es: {
+            name: 'Efectivo',
+            place: 'en el estante de entrada',
+            note: 'Funciona cuando no hay terminales ni señal.',
+            useFor: 'transporte, agua, comida, comunicación',
+            risk: 'Mejor en billetes pequeños y separado de documentos.'
+          }
+        }
+      },
+      {
+        id: 'paper_map',
+        icon: 'file-text',
+        category: 'useful',
+        weight: 0.1,
+        copy: {
+          ru: {
+            name: 'Бумажная карта района',
+            place: 'на полке в прихожей',
+            note: 'Карта полезна, если телефон разрядится или сеть пропадёт.',
+            useFor: 'маршрут, объезд, точки помощи',
+            risk: 'Нужна только если карта актуальна и ты умеешь ей пользоваться.'
+          },
+          en: {
+            name: 'Paper district map',
+            place: 'on the hallway shelf',
+            note: 'A map helps if the phone dies or the network fails.',
+            useFor: 'routes, detours, aid points',
+            risk: 'Useful only if current and readable to you.'
+          },
+          es: {
+            name: 'Mapa de papel',
+            place: 'en el estante de entrada',
+            note: 'Ayuda si el teléfono se apaga o no hay red.',
+            useFor: 'rutas, desvíos, puntos de ayuda',
+            risk: 'Sirve solo si está actualizado y sabes usarlo.'
+          }
+        }
+      },
+      {
+        id: 'old_tablet',
+        icon: 'image',
+        category: 'trap',
+        weight: 0.9,
+        copy: {
+          ru: {
+            name: 'Старый планшет',
+            place: 'на полке в прихожей',
+            note: 'Планшет кажется полезным экраном, но без заряда, связи и защиты быстро становится грузом.',
+            useFor: 'карты или документы, если заранее подготовлен',
+            risk: 'Хрупкий, требует зарядки и уступает телефону с пауэрбанком.'
+          },
+          en: {
+            name: 'Old tablet',
+            place: 'on the hallway shelf',
+            note: 'A tablet looks useful, but without charge, signal, and protection it becomes weight.',
+            useFor: 'maps or documents if prepared earlier',
+            risk: 'Fragile, power-hungry, and worse than a phone with a power bank.'
+          },
+          es: {
+            name: 'Tableta vieja',
+            place: 'en el estante de entrada',
+            note: 'Parece útil, pero sin carga, señal y protección se vuelve peso.',
+            useFor: 'mapas o documentos si estaba preparada',
+            risk: 'Frágil, consume batería y peor que teléfono con batería externa.'
+          }
+        }
+      }
+    ],
     containers: [
       {
         id: 'wardrobe',
@@ -70,7 +478,7 @@ export const EPISODES = [
           en: { name: 'Wardrobe', hint: 'clothes and shoes' },
           es: { name: 'Armario', hint: 'ropa y zapatos' }
         },
-        itemIds: ['warm_jacket', 'winter_hat', 'spare_shoes', 'heavy_blanket', 'fancy_suit']
+        itemIds: ['warm_jacket', 'winter_hat', 'spare_shoes', 'raincoat', 'work_gloves', 'heavy_blanket', 'fancy_suit', 'cotton_hoodie']
       },
       {
         id: 'refrigerator',
@@ -84,7 +492,7 @@ export const EPISODES = [
           en: { name: 'Refrigerator', hint: 'water and food' },
           es: { name: 'Refrigerador', hint: 'agua y comida' }
         },
-        itemIds: ['water_bottle', 'canned_food', 'perishable_food', 'glass_bottle']
+        itemIds: ['water_bottle', 'canned_food', 'energy_bar', 'salt_pack', 'perishable_food', 'glass_bottle', 'soda_bottle']
       },
       {
         id: 'pantry',
@@ -98,7 +506,7 @@ export const EPISODES = [
           en: { name: 'Pantry', hint: 'tools and supplies' },
           es: { name: 'Despensa', hint: 'herramientas y reservas' }
         },
-        itemIds: ['flashlight', 'batteries', 'knife', 'duct_tape', 'heavy_pot']
+        itemIds: ['flashlight', 'batteries', 'knife', 'duct_tape', 'trash_bags', 'matches', 'rope', 'heavy_pot', 'ceramic_mug']
       },
       {
         id: 'shelf',
@@ -112,7 +520,7 @@ export const EPISODES = [
           en: { name: 'Hallway shelf', hint: 'documents and small gear' },
           es: { name: 'Estante de entrada', hint: 'documentos y objetos pequeños' }
         },
-        itemIds: ['documents', 'first_aid', 'powerbank', 'photo_album']
+        itemIds: ['documents', 'first_aid', 'powerbank', 'keys', 'cash', 'paper_map', 'photo_album', 'old_tablet']
       }
     ],
     items: [
@@ -643,5 +1051,11 @@ export const EPISODES = [
 ];
 
 export function getEpisode(id = 'apartment_evacuation') {
-  return EPISODES.find(episode => episode.id === id) || EPISODES[0];
+  const episode = EPISODES.find(candidate => candidate.id === id) || EPISODES[0];
+  const extraItems = episode.extraItems || [];
+
+  return {
+    ...episode,
+    items: [...episode.items, ...extraItems]
+  };
 }
