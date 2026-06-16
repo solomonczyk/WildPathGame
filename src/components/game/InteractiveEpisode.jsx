@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Archive,
@@ -74,6 +74,12 @@ const CATEGORY_STYLES = {
 
 function getCopy(entity, language) {
   return entity.copy[language] || entity.copy.ru;
+}
+
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
 }
 
 function hashSeed(value) {
@@ -277,7 +283,13 @@ function CriticalChecklist({ episode, packedIds, language, ui }) {
   );
 }
 
-function SceneView({ episode, language, packedIds, activeContainerId, onOpenContainer, ui }) {
+function SceneView({ episode, language, packedIds, activeContainerId, onOpenContainer, ui, timeRemaining }) {
+  const timeRatio = Math.max(0, Math.min(100, (timeRemaining / episode.timeLimitSeconds) * 100));
+  const isUrgent = timeRemaining <= 120;
+  const isWarning = timeRemaining <= 300;
+  const timerColor = isUrgent ? 'text-danger' : isWarning ? 'text-warning' : 'text-foreground';
+  const timerBar = isUrgent ? 'bg-danger' : isWarning ? 'bg-warning' : 'bg-success';
+
   return (
     <section data-testid="scene-view" className="relative w-full max-w-full min-w-0 overflow-hidden rounded-sm border border-border bg-[#111]">
       <div className="relative w-full max-w-full min-w-0 aspect-[1672/941] md:min-h-[420px]">
@@ -288,8 +300,14 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
           draggable="false"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_0%,rgba(0,0,0,0.08)_42%,rgba(0,0,0,0.72)_100%)]" />
-        <div className="absolute left-3 top-3 rounded-sm border border-warning/40 bg-black/70 px-3 py-2 backdrop-blur">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-warning">{ui.timeLeft}</div>
+        <div className={`absolute left-3 top-3 min-w-32 rounded-sm border bg-black/75 px-3 py-2 backdrop-blur ${isUrgent ? 'border-danger/50' : 'border-warning/40'}`}>
+          <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{ui.timeLeft}</div>
+          <div data-testid="episode-timer" className={`mt-1 text-xl font-bold leading-none ${timerColor}`}>
+            {formatTime(timeRemaining)}
+          </div>
+          <div className="mt-2 h-1 overflow-hidden rounded-sm bg-muted/40">
+            <div className={`h-full ${timerBar}`} style={{ width: `${timeRatio}%` }} />
+          </div>
         </div>
 
         {episode.containers.map(container => {
@@ -614,6 +632,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
   const [backpackOpen, setBackpackOpen] = useState(false);
   const [result, setResult] = useState(null);
   const [runSeed, setRunSeed] = useState(() => Date.now());
+  const [timeRemaining, setTimeRemaining] = useState(episode.timeLimitSeconds);
 
   const itemsById = useMemo(() => Object.fromEntries(episode.items.map(item => [item.id, item])), [episode.items]);
   const packedItems = episode.items.filter(item => packedIds.includes(item.id));
@@ -629,7 +648,19 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     return shuffleWithSeed(containerItems, `${runSeed}-${activeContainer.id}`);
   }, [activeContainer, itemsById, runSeed]);
   const detailItem = detailItemId ? itemsById[detailItemId] : null;
-  const canLeave = requiredPacked === episode.requiredItemIds.length && packedWeight <= episode.weightLimit;
+  const canLeave = requiredPacked === episode.requiredItemIds.length && packedWeight <= episode.weightLimit && timeRemaining > 0;
+
+  useEffect(() => {
+    if (result || timeRemaining <= 0) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setTimeRemaining(current => Math.max(0, current - 1));
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [result, timeRemaining]);
 
   const takeItem = itemId => {
     setPackedIds(current => (current.includes(itemId) ? current : [...current, itemId]));
@@ -644,17 +675,22 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     setDetailItemId(null);
   };
 
-  const evaluate = () => {
+  const evaluate = (reason = 'manual') => {
+    const timeExpired = reason === 'timeout' || timeRemaining <= 0;
     const missing = episode.requiredItemIds.filter(id => !packedIds.includes(id));
     const overWeight = packedWeight > episode.weightLimit;
-    const success = missing.length === 0 && !overWeight;
+    const success = missing.length === 0 && !overWeight && !timeExpired;
     const takenItems = episode.items.filter(item => packedIds.includes(item.id));
     const missedItems = missing.map(id => itemsById[id]).filter(Boolean);
     const riskyItems = takenItems.filter(item => item.category === 'trap');
     const overloadPenalty = overWeight ? Math.ceil((packedWeight - episode.weightLimit) * 8) : 0;
-    const score = Math.max(0, Math.min(100, 100 - missedItems.length * 14 - riskyItems.length * 8 - overloadPenalty));
+    const timePenalty = timeExpired ? 25 : 0;
+    const score = Math.max(0, Math.min(100, 100 - missedItems.length * 14 - riskyItems.length * 8 - overloadPenalty - timePenalty));
     const messages = [];
 
+    if (timeExpired) {
+      messages.push(ui.timeExpired);
+    }
     if (missing.length > 0) {
       messages.push(`${ui.missing}: ${missing.map(id => getCopy(itemsById[id], language).name).join(', ')}`);
     }
@@ -671,6 +707,12 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     }
   };
 
+  useEffect(() => {
+    if (!result && timeRemaining === 0) {
+      evaluate('timeout');
+    }
+  }, [result, timeRemaining]);
+
   const reset = () => {
     setPackedIds([]);
     setActiveContainerId(null);
@@ -678,6 +720,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     setBackpackOpen(false);
     setResult(null);
     setRunSeed(Date.now());
+    setTimeRemaining(episode.timeLimitSeconds);
   };
 
   return (
@@ -712,6 +755,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             activeContainerId={activeContainerId}
             onOpenContainer={setActiveContainerId}
             ui={ui}
+            timeRemaining={timeRemaining}
           />
 
           <CriticalChecklist episode={episode} packedIds={packedIds} language={language} ui={ui} />
@@ -740,7 +784,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             </button>
             <button
               data-testid="evaluate-episode-desktop"
-              onClick={evaluate}
+              onClick={() => evaluate()}
               className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border border-danger/40 bg-danger/10 text-danger'}`}
             >
               {canLeave ? ui.evaluate : ui.leaveDisabled}
@@ -764,7 +808,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
           </button>
           <button
             data-testid="evaluate-episode-mobile"
-            onClick={evaluate}
+            onClick={() => evaluate()}
             className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground' : 'border border-danger/40 bg-danger/10 text-danger'}`}
           >
             {canLeave ? ui.evaluate : ui.leaveDisabled}
