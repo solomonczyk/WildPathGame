@@ -2,7 +2,7 @@ export const EPISODES = [
   {
     id: 'apartment_evacuation',
     sceneImage: '/assets/scenes/apartment-evacuation.png',
-    requiredItemIds: ['water_bottle', 'knife', 'flashlight', 'first_aid', 'warm_layer', 'documents'],
+    requiredItemIds: ['water_bottle', 'flashlight', 'first_aid', 'warm_jacket', 'documents', 'knife'],
     weightLimit: 8,
     reward: {
       xp: 120,
@@ -19,12 +19,12 @@ export const EPISODES = [
         location: '12 этаж, вечер, связь пропала',
         mission: 'Собери рюкзак для первой ночи. Места мало, времени почти нет.',
         story: 'За окном слышны сирены. Лера держит дверь, Никита спорит с собой, что брать. Вода в кране уже исчезла. Если выйти неподготовленным, первая ночь решит всё.',
-        goal: 'Найди ключевые предметы и не перегрузи рюкзак.',
+        goal: 'Открой шкаф, холодильник, кладовку и полки. Найди ключевые предметы и не перегрузи рюкзак.',
         expertNote: 'В первые сутки важнее не “всё полезное”, а вода, тёплая одежда, свет, нож, простая аптечка и документы. Тяжёлый рюкзак быстро превращает эвакуацию в остановку.',
-        success: 'Вы выходите до темноты. Рюкзак не идеален, но в нём есть то, что закрывает первые риски: жажду, холод, травму и потерю документов.',
+        success: 'Вы выходите до темноты. Рюкзак не идеален, но закрывает первые риски: жажду, холод, травму, темноту и потерю документов.',
         failure: 'Вы задержались и собрали набор с пробелами. На лестнице становится ясно: лишний вес и забытая вода опаснее, чем казалось дома.',
         characters: [
-          { name: 'Лера', line: 'Сначала воду и тёплую одежду. Всё остальное — если останется место.' },
+          { name: 'Лера', line: 'Сначала воду и тёплую одежду. Всё остальное — только если останется место.' },
           { name: 'Никита', line: 'Хочется взять половину квартиры. Но тащить это будем мы.' }
         ]
       },
@@ -33,9 +33,9 @@ export const EPISODES = [
         location: '12th floor, evening, no signal',
         mission: 'Pack for the first night. Space is tight, time is worse.',
         story: 'Sirens move through the street below. Lera holds the door while Nikita argues with himself over what matters. The tap is already dry. The first night will punish bad choices.',
-        goal: 'Find the key items and keep the pack light enough to move.',
+        goal: 'Open the wardrobe, refrigerator, pantry, and shelves. Find the key items and keep the pack light enough to move.',
         expertNote: 'For the first day, water, warm clothes, light, a knife, basic first aid, and documents matter more than “everything useful.” A heavy pack can stop an evacuation.',
-        success: 'You leave before dark. The pack is not perfect, but it covers the first risks: thirst, cold, injury, and lost identity.',
+        success: 'You leave before dark. The pack is not perfect, but it covers the first risks: thirst, cold, injury, darkness, and lost identity.',
         failure: 'You lost time and packed around the essentials. On the stairs, extra weight and missing water feel far more dangerous than they did at home.',
         characters: [
           { name: 'Lera', line: 'Water and warm clothes first. Everything else only if there is room.' },
@@ -47,9 +47,9 @@ export const EPISODES = [
         location: 'Piso 12, tarde, sin señal',
         mission: 'Prepara la mochila para la primera noche. Hay poco espacio y menos tiempo.',
         story: 'Afuera se oyen sirenas. Lera sostiene la puerta mientras Nikita duda sobre qué llevar. El grifo ya no tiene agua. La primera noche castigará una mala elección.',
-        goal: 'Encuentra los objetos clave y no sobrecargues la mochila.',
+        goal: 'Abre el armario, el refrigerador, la despensa y los estantes. Encuentra los objetos clave y no sobrecargues la mochila.',
         expertNote: 'En el primer día importan más el agua, la ropa de abrigo, la luz, un cuchillo, primeros auxilios básicos y documentos que “todo lo útil”. Una mochila pesada puede detener una evacuación.',
-        success: 'Salen antes de que oscurezca. La mochila no es perfecta, pero cubre los primeros riesgos: sed, frío, heridas y pérdida de identidad.',
+        success: 'Salen antes de que oscurezca. La mochila no es perfecta, pero cubre los primeros riesgos: sed, frío, heridas, oscuridad y pérdida de identidad.',
         failure: 'Perdiste tiempo y preparaste una mochila con huecos importantes. En las escaleras, el peso extra y el agua olvidada parecen mucho más peligrosos que en casa.',
         characters: [
           { name: 'Lera', line: 'Primero agua y ropa de abrigo. Lo demás solo si queda espacio.' },
@@ -57,131 +57,585 @@ export const EPISODES = [
         ]
       }
     },
-    objects: [
+    containers: [
+      {
+        id: 'wardrobe',
+        icon: 'shirt',
+        x: 10,
+        y: 17,
+        w: 22,
+        h: 44,
+        copy: {
+          ru: { name: 'Шкаф', hint: 'одежда и обувь' },
+          en: { name: 'Wardrobe', hint: 'clothes and shoes' },
+          es: { name: 'Armario', hint: 'ropa y zapatos' }
+        },
+        itemIds: ['warm_jacket', 'winter_hat', 'spare_shoes', 'heavy_blanket', 'fancy_suit']
+      },
+      {
+        id: 'refrigerator',
+        icon: 'droplet',
+        x: 74,
+        y: 29,
+        w: 15,
+        h: 33,
+        copy: {
+          ru: { name: 'Холодильник', hint: 'вода и еда' },
+          en: { name: 'Refrigerator', hint: 'water and food' },
+          es: { name: 'Refrigerador', hint: 'agua y comida' }
+        },
+        itemIds: ['water_bottle', 'canned_food', 'perishable_food', 'glass_bottle']
+      },
+      {
+        id: 'pantry',
+        icon: 'package',
+        x: 39,
+        y: 36,
+        w: 24,
+        h: 27,
+        copy: {
+          ru: { name: 'Кладовка', hint: 'инструменты и запасы' },
+          en: { name: 'Pantry', hint: 'tools and supplies' },
+          es: { name: 'Despensa', hint: 'herramientas y reservas' }
+        },
+        itemIds: ['flashlight', 'batteries', 'knife', 'duct_tape', 'heavy_pot']
+      },
+      {
+        id: 'shelf',
+        icon: 'archive',
+        x: 35,
+        y: 67,
+        w: 27,
+        h: 18,
+        copy: {
+          ru: { name: 'Полка в прихожей', hint: 'документы и мелочи' },
+          en: { name: 'Hallway shelf', hint: 'documents and small gear' },
+          es: { name: 'Estante de entrada', hint: 'documentos y objetos pequeños' }
+        },
+        itemIds: ['documents', 'first_aid', 'powerbank', 'photo_album']
+      }
+    ],
+    items: [
       {
         id: 'water_bottle',
-        x: 33,
-        y: 48,
-        w: 22,
-        h: 27,
+        icon: 'droplet',
+        category: 'essential',
         weight: 2,
-        essential: true,
         copy: {
-          ru: { name: '2 бутылки воды', place: 'на столе рядом с рюкзаком', note: 'Вода нужна раньше еды: обезвоживание быстро снижает мышление, силы и способность идти. Даже пара бутылок может дать несколько спокойных часов, чтобы выбраться из опасной зоны.' },
-          en: { name: '2 bottles of water', place: 'on the table near the backpack', note: 'Water matters before food: dehydration quickly weakens thinking, strength, and walking pace. Even a few bottles can buy several safer hours to leave the danger area.' },
-          es: { name: '2 botellas de agua', place: 'en la mesa junto a la mochila', note: 'El agua importa antes que la comida: la deshidratación reduce rápido la claridad mental, la fuerza y el ritmo al caminar. Unas botellas pueden darte varias horas para salir de la zona peligrosa.' }
-        }
-      },
-      {
-        id: 'knife',
-        x: 80,
-        y: 75,
-        w: 13,
-        h: 18,
-        weight: 0.4,
-        essential: true,
-        copy: {
-          ru: { name: 'Нож', place: 'на столешнице справа', note: 'Нож — универсальный инструмент: разрезать ткань на повязку, открыть упаковку, подготовить еду, сделать колышек или простую щепу. Он не “оружие”, а способ решать десятки мелких задач без траты сил.' },
-          en: { name: 'Knife', place: 'on the counter to the right', note: 'A knife is a universal tool: cut cloth for a bandage, open packaging, prepare food, make a peg, or shave kindling. It is less a weapon than a way to solve many small problems without wasting energy.' },
-          es: { name: 'Cuchillo', place: 'en la encimera derecha', note: 'Un cuchillo es una herramienta universal: cortar tela para una venda, abrir envases, preparar comida o hacer astillas. No es solo un arma; ahorra energía en muchas tareas pequeñas.' }
-        }
-      },
-      {
-        id: 'first_aid',
-        x: 36,
-        y: 81,
-        w: 17,
-        h: 16,
-        weight: 0.8,
-        essential: true,
-        copy: {
-          ru: { name: 'Аптечка', place: 'на переднем краю стола', note: 'Аптечка спасает не магией, а временем: остановить кровь, закрыть рану, снизить риск инфекции. В эвакуации маленький порез может сорвать движение, если его не обработать сразу.' },
-          en: { name: 'First-aid kit', place: 'at the front edge of the table', note: 'A first-aid kit saves you by buying time: stop bleeding, cover a wound, reduce infection risk. During evacuation, a small cut can stop movement if it is ignored.' },
-          es: { name: 'Botiquín', place: 'en el borde delantero de la mesa', note: 'Un botiquín salva tiempo: detener sangre, cubrir una herida y reducir infección. Durante una evacuación, un corte pequeño puede detenerte si no se atiende.' }
-        }
-      },
-      {
-        id: 'warm_layer',
-        x: 17,
-        y: 73,
-        w: 26,
-        h: 19,
-        weight: 1.2,
-        essential: true,
-        copy: {
-          ru: { name: 'Тёплая одежда', place: 'сложена перед рюкзаком', note: 'Тёплая одежда защищает запас энергии. Когда тело мёрзнет, оно тратит силы на обогрев, руки хуже работают, решения становятся хуже. Сухой тёплый слой может быть важнее лишней еды.' },
-          en: { name: 'Warm clothes', place: 'folded in front of the backpack', note: 'Warm clothes protect your energy reserve. When the body gets cold, it burns strength for heat, hands work worse, and decisions get worse. A dry warm layer can matter more than extra food.' },
-          es: { name: 'Ropa de abrigo', place: 'doblada frente a la mochila', note: 'La ropa de abrigo protege tu reserva de energía. Cuando el cuerpo se enfría, gasta fuerzas en calentarse, las manos fallan y decides peor. Una capa seca puede valer más que comida extra.' }
-        }
-      },
-      {
-        id: 'documents',
-        x: 56,
-        y: 74,
-        w: 21,
-        h: 19,
-        weight: 0.2,
-        essential: true,
-        copy: {
-          ru: { name: 'Документы', place: 'на столе под блокнотом', note: 'Документы не греют и не кормят, но помогают получить помощь, доказать личность, пройти блокпост или восстановить связь с близкими. В кризисе доступ к людям и службам тоже ресурс.' },
-          en: { name: 'Documents', place: 'on the table under the notebook', note: 'Documents do not warm or feed you, but they help you get aid, prove identity, pass checkpoints, or reconnect with family. In a crisis, access to people and services is a resource.' },
-          es: { name: 'Documentos', place: 'en la mesa bajo la libreta', note: 'Los documentos no abrigan ni alimentan, pero ayudan a recibir ayuda, probar identidad, pasar controles o contactar familia. En una crisis, el acceso a personas y servicios también es un recurso.' }
+          ru: {
+            name: '2 бутылки воды',
+            place: 'в холодильнике',
+            note: 'Вода — один из первых приоритетов при эвакуации. Она нужна для питья, лекарств, гигиены и задержек в пути.',
+            useFor: 'питьё, лекарства, промывание ран, ожидание транспорта',
+            risk: 'Весит заметно, но отказ от воды опаснее лишних двух килограммов.'
+          },
+          en: {
+            name: '2 bottles of water',
+            place: 'inside the refrigerator',
+            note: 'Water is one of the first evacuation priorities. It supports drinking, medicine, hygiene, and route delays.',
+            useFor: 'drinking, medicine, wound cleaning, waiting for transport',
+            risk: 'It is heavy, but leaving without water is usually worse than carrying it.'
+          },
+          es: {
+            name: '2 botellas de agua',
+            place: 'dentro del refrigerador',
+            note: 'El agua es una de las primeras prioridades al evacuar. Sirve para beber, tomar medicinas, higiene y retrasos en ruta.',
+            useFor: 'beber, medicinas, limpiar heridas, esperar transporte',
+            risk: 'Pesa, pero salir sin agua suele ser más peligroso que cargarla.'
+          }
         }
       },
       {
         id: 'flashlight',
-        x: 46,
-        y: 70,
-        w: 19,
-        h: 12,
-        weight: 0.5,
-        essential: true,
+        icon: 'flashlight',
+        category: 'essential',
+        weight: 0.3,
         copy: {
-          ru: { name: 'Фонарик', place: 'на столе между водой и документами', note: 'Фонарик снижает риск травм: тёмные лестницы, стекло, провода и ямы опаснее, когда ты торопишься. Свет помогает двигаться тише, быстрее и не тратить батарею телефона.' },
-          en: { name: 'Flashlight', place: 'on the table between water and documents', note: 'A flashlight reduces injury risk: dark stairs, glass, wires, and holes are worse when you hurry. Light lets you move quieter, faster, and without draining your phone.' },
-          es: { name: 'Linterna', place: 'en la mesa entre el agua y los documentos', note: 'Una linterna reduce lesiones: escaleras oscuras, vidrios, cables y agujeros son peores con prisa. La luz permite moverte mejor sin gastar la batería del teléfono.' }
+          ru: {
+            name: 'Тактический фонарик',
+            place: 'в кладовке',
+            note: 'Фонарик помогает безопасно двигаться по тёмным лестницам, зданиям без света и улицам после отключения электричества.',
+            useFor: 'лестницы, сигнал, осмотр травм и препятствий',
+            risk: 'Без запасных батареек может отказать уже в первую ночь.'
+          },
+          en: {
+            name: 'Tactical flashlight',
+            place: 'inside the pantry',
+            note: 'A flashlight helps you move safely in dark stairwells, damaged buildings, and streets without power.',
+            useFor: 'stairs, signaling, checking injuries and hazards',
+            risk: 'Without spare batteries, it may fail during the first night.'
+          },
+          es: {
+            name: 'Linterna táctica',
+            place: 'dentro de la despensa',
+            note: 'Una linterna ayuda a moverte con seguridad por escaleras oscuras, edificios dañados y calles sin electricidad.',
+            useFor: 'escaleras, señales, revisar heridas y peligros',
+            risk: 'Sin baterías de repuesto puede fallar durante la primera noche.'
+          }
+        }
+      },
+      {
+        id: 'batteries',
+        icon: 'battery',
+        category: 'useful',
+        weight: 0.1,
+        copy: {
+          ru: {
+            name: 'Батарейки AA',
+            place: 'в кладовке',
+            note: 'Запасные батарейки превращают фонарик из одноразового решения в надёжный инструмент на ночь.',
+            useFor: 'фонарик, радио, небольшие устройства',
+            risk: 'Полезны только если подходят к выбранному устройству.'
+          },
+          en: {
+            name: 'AA batteries',
+            place: 'inside the pantry',
+            note: 'Spare batteries turn a flashlight from a short-term tool into a reliable night resource.',
+            useFor: 'flashlight, radio, small devices',
+            risk: 'Useful only if they match the device you carry.'
+          },
+          es: {
+            name: 'Baterías AA',
+            place: 'dentro de la despensa',
+            note: 'Las baterías de repuesto convierten una linterna en un recurso fiable para la noche.',
+            useFor: 'linterna, radio, dispositivos pequeños',
+            risk: 'Solo sirven si coinciden con el dispositivo que llevas.'
+          }
+        }
+      },
+      {
+        id: 'first_aid',
+        icon: 'cross',
+        category: 'essential',
+        weight: 0.8,
+        copy: {
+          ru: {
+            name: 'Аптечка',
+            place: 'на полке в прихожей',
+            note: 'Аптечка спасает временем: остановить кровь, закрыть рану, снизить риск инфекции.',
+            useFor: 'порезы, мозоли, перевязка, базовая помощь',
+            risk: 'Если аптечка слишком большая, лучше взять компактный набор первой помощи.'
+          },
+          en: {
+            name: 'First-aid kit',
+            place: 'on the hallway shelf',
+            note: 'A first-aid kit buys time: stop bleeding, cover wounds, and reduce infection risk.',
+            useFor: 'cuts, blisters, bandaging, basic care',
+            risk: 'If the kit is bulky, prefer a compact first-aid set.'
+          },
+          es: {
+            name: 'Botiquín',
+            place: 'en el estante de entrada',
+            note: 'Un botiquín compra tiempo: detener sangre, cubrir heridas y reducir infección.',
+            useFor: 'cortes, ampollas, vendajes, ayuda básica',
+            risk: 'Si es muy grande, conviene un kit compacto.'
+          }
+        }
+      },
+      {
+        id: 'warm_jacket',
+        icon: 'shirt',
+        category: 'essential',
+        weight: 1.2,
+        copy: {
+          ru: {
+            name: 'Тёплая куртка',
+            place: 'в шкафу',
+            note: 'Тёплая одежда защищает от переохлаждения, особенно если транспорт остановится или ночлег будет на улице.',
+            useFor: 'ночь, ветер, ожидание, холодные подъезды',
+            risk: 'Лучше один сухой тёплый слой, чем несколько тяжёлых вещей.'
+          },
+          en: {
+            name: 'Warm jacket',
+            place: 'inside the wardrobe',
+            note: 'Warm clothing protects against hypothermia if transport stops or shelter is unavailable.',
+            useFor: 'night, wind, waiting, cold stairwells',
+            risk: 'One dry warm layer is better than several heavy garments.'
+          },
+          es: {
+            name: 'Chaqueta de abrigo',
+            place: 'dentro del armario',
+            note: 'La ropa de abrigo protege de la hipotermia si el transporte se detiene o no hay refugio.',
+            useFor: 'noche, viento, espera, escaleras frías',
+            risk: 'Una capa seca y cálida vale más que varias prendas pesadas.'
+          }
+        }
+      },
+      {
+        id: 'documents',
+        icon: 'file-text',
+        category: 'essential',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Документы',
+            place: 'на полке в прихожей',
+            note: 'Документы помогают получить помощь, доказать личность, пройти контроль или восстановить связь с близкими.',
+            useFor: 'личность, помощь, блокпосты, связь с семьёй',
+            risk: 'Лучше держать в герметичном пакете, чтобы не намокли.'
+          },
+          en: {
+            name: 'Documents',
+            place: 'on the hallway shelf',
+            note: 'Documents help you get aid, prove identity, pass checkpoints, or reconnect with family.',
+            useFor: 'identity, aid, checkpoints, family contact',
+            risk: 'Keep them in a sealed bag so they do not get wet.'
+          },
+          es: {
+            name: 'Documentos',
+            place: 'en el estante de entrada',
+            note: 'Los documentos ayudan a recibir ayuda, probar identidad, pasar controles o contactar familia.',
+            useFor: 'identidad, ayuda, controles, familia',
+            risk: 'Guárdalos en una bolsa sellada para que no se mojen.'
+          }
+        }
+      },
+      {
+        id: 'knife',
+        icon: 'knife',
+        category: 'essential',
+        weight: 0.4,
+        copy: {
+          ru: {
+            name: 'Нож / мультитул',
+            place: 'в кладовке',
+            note: 'Нож решает десятки мелких задач: открыть упаковку, разрезать ткань, подготовить еду или сделать простую починку.',
+            useFor: 'ремонт, еда, повязки, упаковки',
+            risk: 'Нужен как инструмент, а не как повод рисковать конфликтом.'
+          },
+          en: {
+            name: 'Knife / multitool',
+            place: 'inside the pantry',
+            note: 'A knife solves many small tasks: open packaging, cut cloth, prepare food, or make simple repairs.',
+            useFor: 'repairs, food, bandages, packaging',
+            risk: 'Use it as a tool, not as a reason to escalate conflict.'
+          },
+          es: {
+            name: 'Cuchillo / multiherramienta',
+            place: 'dentro de la despensa',
+            note: 'Un cuchillo resuelve muchas tareas: abrir envases, cortar tela, preparar comida o reparar algo simple.',
+            useFor: 'reparaciones, comida, vendas, envases',
+            risk: 'Es una herramienta, no una razón para escalar conflictos.'
+          }
+        }
+      },
+      {
+        id: 'duct_tape',
+        icon: 'tape',
+        category: 'useful',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Армированный скотч',
+            place: 'в кладовке',
+            note: 'Скотч помогает чинить рюкзак, герметизировать пакет, фиксировать ткань или временно укрепить снаряжение.',
+            useFor: 'ремонт, герметизация, фиксация',
+            risk: 'Полезен, но не важнее воды, тепла, света и аптечки.'
+          },
+          en: {
+            name: 'Duct tape',
+            place: 'inside the pantry',
+            note: 'Tape can repair a bag, seal a packet, hold fabric, or temporarily reinforce gear.',
+            useFor: 'repair, sealing, fastening',
+            risk: 'Useful, but not above water, warmth, light, and first aid.'
+          },
+          es: {
+            name: 'Cinta resistente',
+            place: 'dentro de la despensa',
+            note: 'La cinta puede reparar una mochila, sellar una bolsa, sujetar tela o reforzar equipo temporalmente.',
+            useFor: 'reparar, sellar, sujetar',
+            risk: 'Útil, pero no por encima de agua, calor, luz y botiquín.'
+          }
         }
       },
       {
         id: 'powerbank',
-        x: 53,
-        y: 84,
-        w: 12,
-        h: 11,
+        icon: 'battery-charging',
+        category: 'useful',
         weight: 0.4,
-        useful: true,
         copy: {
-          ru: { name: 'Пауэрбанк', place: 'рядом с документами', note: 'Пауэрбанк не спасает сам по себе, но продлевает работу телефона: карты, фонарь, заметки, связь, экстренные сообщения. Это полезно, если он лёгкий и уже заряжен.' },
-          en: { name: 'Power bank', place: 'near the documents', note: 'A power bank does not save you alone, but it extends your phone: maps, light, notes, contact, emergency messages. Useful if it is light and already charged.' },
-          es: { name: 'Batería externa', place: 'junto a los documentos', note: 'Una batería externa no salva por sí sola, pero alarga el teléfono: mapas, luz, notas, contacto y mensajes de emergencia. Es útil si pesa poco y está cargada.' }
+          ru: {
+            name: 'Пауэрбанк',
+            place: 'на полке в прихожей',
+            note: 'Пауэрбанк продлевает работу телефона: карты, связь, заметки, экстренные сообщения.',
+            useFor: 'телефон, навигация, связь',
+            risk: 'Полезен только если заряжен и есть кабель.'
+          },
+          en: {
+            name: 'Power bank',
+            place: 'on the hallway shelf',
+            note: 'A power bank extends your phone: maps, contact, notes, and emergency messages.',
+            useFor: 'phone, navigation, communication',
+            risk: 'Useful only if charged and paired with a cable.'
+          },
+          es: {
+            name: 'Batería externa',
+            place: 'en el estante de entrada',
+            note: 'Una batería externa alarga el uso del teléfono: mapas, contacto, notas y mensajes de emergencia.',
+            useFor: 'teléfono, navegación, comunicación',
+            risk: 'Solo sirve si está cargada y llevas cable.'
+          }
+        }
+      },
+      {
+        id: 'canned_food',
+        icon: 'can',
+        category: 'useful',
+        weight: 0.6,
+        copy: {
+          ru: {
+            name: 'Консервы',
+            place: 'в холодильнике',
+            note: 'Консервы дают калории и хранятся дольше скоропортящихся продуктов.',
+            useFor: 'еда на первые сутки, обмен, запас',
+            risk: 'Не должны вытеснять воду и тёплую одежду.'
+          },
+          en: {
+            name: 'Canned food',
+            place: 'inside the refrigerator',
+            note: 'Canned food provides calories and lasts longer than perishable food.',
+            useFor: 'first-day food, barter, reserve',
+            risk: 'It should not replace water and warm clothing.'
+          },
+          es: {
+            name: 'Comida enlatada',
+            place: 'dentro del refrigerador',
+            note: 'La comida enlatada aporta calorías y dura más que los alimentos perecederos.',
+            useFor: 'comida del primer día, intercambio, reserva',
+            risk: 'No debe reemplazar agua ni ropa de abrigo.'
+          }
+        }
+      },
+      {
+        id: 'winter_hat',
+        icon: 'circle',
+        category: 'useful',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Тёплая шапка',
+            place: 'в шкафу',
+            note: 'Шапка почти не весит и помогает сохранить тепло ночью.',
+            useFor: 'ночь, ветер, ожидание',
+            risk: 'Полезна как дополнение, но куртка важнее.'
+          },
+          en: {
+            name: 'Winter hat',
+            place: 'inside the wardrobe',
+            note: 'A hat is light and helps preserve warmth overnight.',
+            useFor: 'night, wind, waiting',
+            risk: 'Useful as an addition, but the jacket matters more.'
+          },
+          es: {
+            name: 'Gorro de invierno',
+            place: 'dentro del armario',
+            note: 'Un gorro pesa poco y ayuda a conservar calor por la noche.',
+            useFor: 'noche, viento, espera',
+            risk: 'Útil como extra, pero la chaqueta importa más.'
+          }
+        }
+      },
+      {
+        id: 'spare_shoes',
+        icon: 'footprints',
+        category: 'useful',
+        weight: 1.1,
+        copy: {
+          ru: {
+            name: 'Запасная обувь',
+            place: 'в шкафу',
+            note: 'Хорошая обувь важна, если придётся долго идти по стеклу, воде или лестницам.',
+            useFor: 'долгий путь, грязь, стекло',
+            risk: 'Если текущая обувь надёжная, запасная пара может быть лишним весом.'
+          },
+          en: {
+            name: 'Spare shoes',
+            place: 'inside the wardrobe',
+            note: 'Good footwear matters if you need to walk through glass, water, or long stairways.',
+            useFor: 'long walks, mud, glass',
+            risk: 'If your current shoes are reliable, a spare pair may be extra weight.'
+          },
+          es: {
+            name: 'Zapatos de repuesto',
+            place: 'dentro del armario',
+            note: 'Buen calzado importa si debes caminar por vidrio, agua o muchas escaleras.',
+            useFor: 'caminatas largas, barro, vidrio',
+            risk: 'Si tus zapatos actuales sirven, otro par puede ser peso extra.'
+          }
+        }
+      },
+      {
+        id: 'heavy_blanket',
+        icon: 'bed',
+        category: 'trap',
+        weight: 2.4,
+        copy: {
+          ru: {
+            name: 'Тяжёлое одеяло',
+            place: 'в шкафу',
+            note: 'Одеяло кажется спасением от холода, но слишком быстро забивает рюкзак.',
+            useFor: 'стационарный ночлег, укрытие',
+            risk: 'Может заставить оставить воду, аптечку или документы.'
+          },
+          en: {
+            name: 'Heavy blanket',
+            place: 'inside the wardrobe',
+            note: 'A blanket feels comforting, but it fills the pack too quickly.',
+            useFor: 'fixed shelter, sleeping place',
+            risk: 'It may force you to leave water, first aid, or documents.'
+          },
+          es: {
+            name: 'Manta pesada',
+            place: 'dentro del armario',
+            note: 'Una manta parece útil contra el frío, pero llena la mochila demasiado rápido.',
+            useFor: 'refugio fijo, dormir',
+            risk: 'Puede obligarte a dejar agua, botiquín o documentos.'
+          }
+        }
+      },
+      {
+        id: 'fancy_suit',
+        icon: 'shirt',
+        category: 'trap',
+        weight: 1.5,
+        copy: {
+          ru: {
+            name: 'Парадная одежда',
+            place: 'в шкафу',
+            note: 'Дорогая одежда не решает холод, воду, травмы и темноту.',
+            useFor: 'почти не нужна в первые 24 часа',
+            risk: 'Занимает место и отвлекает от реальных приоритетов.'
+          },
+          en: {
+            name: 'Fancy suit',
+            place: 'inside the wardrobe',
+            note: 'Expensive clothing does not solve cold, water, injuries, or darkness.',
+            useFor: 'rarely useful in the first 24 hours',
+            risk: 'It takes space and distracts from real priorities.'
+          },
+          es: {
+            name: 'Ropa elegante',
+            place: 'dentro del armario',
+            note: 'La ropa cara no resuelve frío, agua, heridas ni oscuridad.',
+            useFor: 'casi nunca sirve en las primeras 24 horas',
+            risk: 'Ocupa espacio y distrae de prioridades reales.'
+          }
+        }
+      },
+      {
+        id: 'perishable_food',
+        icon: 'sandwich',
+        category: 'trap',
+        weight: 1,
+        copy: {
+          ru: {
+            name: 'Скоропортящаяся еда',
+            place: 'в холодильнике',
+            note: 'Еда может испортиться, протечь и занять место, которое нужно под воду.',
+            useFor: 'только если съесть сразу',
+            risk: 'Плохой выбор для рюкзака, если нет охлаждения и плана.'
+          },
+          en: {
+            name: 'Perishable food',
+            place: 'inside the refrigerator',
+            note: 'Perishable food can spoil, leak, and take space needed for water.',
+            useFor: 'only if eaten immediately',
+            risk: 'Poor backpack choice without cooling and a clear plan.'
+          },
+          es: {
+            name: 'Comida perecedera',
+            place: 'dentro del refrigerador',
+            note: 'La comida perecedera puede dañarse, gotear y ocupar espacio para agua.',
+            useFor: 'solo si se come de inmediato',
+            risk: 'Mala elección sin refrigeración ni plan claro.'
+          }
+        }
+      },
+      {
+        id: 'glass_bottle',
+        icon: 'wine',
+        category: 'trap',
+        weight: 1.4,
+        copy: {
+          ru: {
+            name: 'Тяжёлая стеклянная бутылка',
+            place: 'в холодильнике',
+            note: 'Стекло тяжёлое и хрупкое. В падении оно может разбиться и порезать вещи или руки.',
+            useFor: 'почти нет пользы в быстрой эвакуации',
+            risk: 'Вес, шум и риск порезов.'
+          },
+          en: {
+            name: 'Heavy glass bottle',
+            place: 'inside the refrigerator',
+            note: 'Glass is heavy and fragile. If dropped, it can cut your gear or hands.',
+            useFor: 'little value during fast evacuation',
+            risk: 'Weight, noise, and cut risk.'
+          },
+          es: {
+            name: 'Botella de vidrio pesada',
+            place: 'dentro del refrigerador',
+            note: 'El vidrio pesa y se rompe. Si cae, puede cortar equipo o manos.',
+            useFor: 'poco valor en una evacuación rápida',
+            risk: 'Peso, ruido y riesgo de cortes.'
+          }
         }
       },
       {
         id: 'heavy_pot',
-        x: 87,
-        y: 55,
-        w: 12,
-        h: 33,
+        icon: 'cooking-pot',
+        category: 'trap',
         weight: 3.5,
-        trap: true,
         copy: {
-          ru: { name: 'Тяжёлая кастрюля', place: 'на плите', note: 'Кастрюля полезна в лагере, но в первые минуты эвакуации её вес опасен: ты быстрее устанешь, замедлишься и можешь бросить действительно важные вещи.' },
-          en: { name: 'Heavy pot', place: 'on the stove', note: 'A pot is useful in camp, but during the first evacuation minutes its weight is dangerous: you tire faster, slow down, and may drop truly important items.' },
-          es: { name: 'Olla pesada', place: 'en la estufa', note: 'Una olla sirve en un campamento, pero al evacuar su peso es peligroso: te cansas antes, avanzas más lento y quizá abandones cosas realmente importantes.' }
+          ru: {
+            name: 'Тяжёлая кастрюля',
+            place: 'в кладовке',
+            note: 'Кастрюля полезна в лагере, но в первые минуты эвакуации её вес опасен.',
+            useFor: 'готовка в стационарном лагере',
+            risk: 'Замедляет движение и может вытеснить действительно важные вещи.'
+          },
+          en: {
+            name: 'Heavy pot',
+            place: 'inside the pantry',
+            note: 'A pot is useful in camp, but its weight is dangerous during the first evacuation minutes.',
+            useFor: 'cooking at a fixed camp',
+            risk: 'It slows movement and may push out critical items.'
+          },
+          es: {
+            name: 'Olla pesada',
+            place: 'dentro de la despensa',
+            note: 'Una olla sirve en campamento, pero su peso es peligroso durante la primera evacuación.',
+            useFor: 'cocinar en un campamento fijo',
+            risk: 'Ralentiza y puede desplazar objetos críticos.'
+          }
         }
       },
       {
-        id: 'laptop',
-        x: 51,
-        y: 48,
-        w: 14,
-        h: 13,
-        weight: 2.6,
-        trap: true,
+        id: 'photo_album',
+        icon: 'image',
+        category: 'trap',
+        weight: 2.4,
         copy: {
-          ru: { name: 'Ноутбук', place: 'на журнальном столике', note: 'Ноутбук дорогой, но в этой ситуации цена не равна пользе. Он добавляет вес и хрупкость, а первую ночь не решает: воду, тепло, свет, рану и документы.' },
-          en: { name: 'Laptop', place: 'on the coffee table', note: 'A laptop is expensive, but price is not the same as survival value. It adds weight and fragility while solving none of tonight’s basics: water, warmth, light, wounds, and documents.' },
-          es: { name: 'Portátil', place: 'sobre la mesa baja', note: 'Un portátil es caro, pero precio no significa valor de supervivencia. Añade peso y fragilidad, y no resuelve lo básico de esta noche: agua, calor, luz, heridas y documentos.' }
+          ru: {
+            name: 'Фотоальбом',
+            place: 'на полке в прихожей',
+            note: 'Эмоционально важная вещь, но не критична для первых 24 часов.',
+            useFor: 'память и эмоции, не выживание',
+            risk: 'Может заставить оставить воду, лекарства или тёплую одежду.'
+          },
+          en: {
+            name: 'Photo album',
+            place: 'on the hallway shelf',
+            note: 'Emotionally important, but not critical for the first 24 hours.',
+            useFor: 'memory and comfort, not survival',
+            risk: 'It may force you to leave water, medicine, or warm clothing.'
+          },
+          es: {
+            name: 'Álbum de fotos',
+            place: 'en el estante de entrada',
+            note: 'Emocionalmente importante, pero no crítico para las primeras 24 horas.',
+            useFor: 'memoria y consuelo, no supervivencia',
+            risk: 'Puede obligarte a dejar agua, medicinas o ropa de abrigo.'
+          }
         }
       }
     ]
