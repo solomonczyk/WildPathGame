@@ -250,8 +250,8 @@ function CriticalChecklist({ episode, packedIds, language, ui }) {
 
 function SceneView({ episode, language, packedIds, activeContainerId, onOpenContainer, ui }) {
   return (
-    <section className="relative overflow-hidden rounded-sm border border-border bg-[#111]">
-      <div className="relative aspect-[9/13] min-h-[520px] sm:aspect-[16/11] sm:min-h-[460px]">
+    <section data-testid="scene-view" className="relative w-full max-w-full min-w-0 overflow-hidden rounded-sm border border-border bg-[#111]">
+      <div className="relative w-full max-w-full min-w-0 aspect-[1672/941] md:min-h-[420px]">
         <img
           src={episode.sceneImage}
           alt=""
@@ -639,27 +639,27 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
   };
 
   return (
-    <div className="mx-auto max-w-md pb-28 sm:max-w-5xl sm:pb-4">
+    <div className="mx-auto max-w-md pb-40 md:max-w-6xl md:pb-4">
       {completed && (
         <div className="mb-3 rounded-sm border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
           {ui.alreadyDone}
         </div>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_340px]">
-        <section className="space-y-3">
-          <div className="rounded-sm border border-border bg-[#131313] p-4">
+      <div className="grid min-w-0 gap-4 md:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_340px]">
+        <section className="min-w-0 space-y-3">
+          <div className="rounded-sm border border-border bg-[#131313] p-3 sm:p-4">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-[10px] font-mono uppercase tracking-widest text-warning">{ui.scene}</div>
-                <h1 className="mt-1 text-2xl font-bold leading-tight text-foreground sm:text-3xl">{copy.title}</h1>
+                <h1 className="mt-1 text-xl font-bold leading-tight text-foreground sm:text-3xl">{copy.title}</h1>
                 <p className="mt-1 text-sm text-muted-foreground">{copy.location}</p>
               </div>
               <div className="rounded-sm border border-border bg-black/25 px-3 py-2 text-right text-xs font-mono text-muted-foreground">
                 {requiredPacked}/{episode.requiredItemIds.length}
               </div>
             </div>
-            <p className="mt-3 text-sm leading-relaxed text-foreground/80">{copy.story}</p>
+            <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-foreground/80 md:line-clamp-none">{copy.story}</p>
             <p className="mt-2 text-xs leading-relaxed text-warning">{copy.goal}</p>
           </div>
 
@@ -684,7 +684,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
           </div>
         </section>
 
-        <aside className="hidden space-y-3 lg:block">
+        <aside className="hidden space-y-3 md:block">
           <div className="rounded-sm border border-border bg-[#131313] p-4">
             <div className="text-[10px] font-mono uppercase tracking-widest text-warning">{ui.mission}</div>
             <p className="mt-2 text-sm leading-relaxed text-foreground/85">{copy.mission}</p>
@@ -707,7 +707,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
         </aside>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 lg:hidden">
+      <div className="fixed inset-x-0 bottom-0 z-30 md:hidden">
         <MobileBackpackBar
           packedItems={packedItems}
           packedWeight={packedWeight}
