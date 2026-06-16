@@ -4,6 +4,13 @@ export const EPISODES = [
     sceneImage: '/assets/scenes/apartment-evacuation.png',
     requiredItemIds: ['water_bottle', 'flashlight', 'first_aid', 'warm_jacket', 'documents', 'knife'],
     timeLimitSeconds: 18 * 60,
+    actionTimeCosts: {
+      openContainer: 20,
+      inspectItem: 35,
+      packItem: 20,
+      leaveItem: 10,
+      removeItem: 10
+    },
     weightLimit: 8,
     reward: {
       xp: 120,

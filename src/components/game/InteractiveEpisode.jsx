@@ -82,6 +82,10 @@ function formatTime(seconds) {
   return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
 }
 
+function formatTimeCost(seconds) {
+  return `-${formatTime(seconds)}`;
+}
+
 function hashSeed(value) {
   let hash = 2166136261;
   for (let index = 0; index < value.length; index += 1) {
@@ -346,6 +350,11 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
                   {itemCount}
                 </span>
               )}
+              {!isActive && (
+                <span className="pointer-events-none absolute -bottom-7 left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded-sm border border-border bg-black/70 px-1.5 py-0.5 text-[10px] font-mono text-muted-foreground sm:block">
+                  {formatTimeCost(episode.actionTimeCosts.openContainer)}
+                </span>
+              )}
             </button>
           );
         })}
@@ -354,7 +363,7 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
   );
 }
 
-function ContainerView({ container, items, packedIds, language, ui, onBack, onSelectItem }) {
+function ContainerView({ container, items, packedIds, language, ui, actionTimeCosts, onBack, onSelectItem }) {
   const copy = getCopy(container, language);
   const packedInContainer = items.filter(item => packedIds.includes(item.id)).length;
 
@@ -420,7 +429,7 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
                     <p className="mt-1 text-xs text-muted-foreground">{itemCopy.place}</p>
                     <div className="mt-2 flex items-center justify-between gap-2">
                       <span className="rounded-sm border border-border bg-black/20 px-2 py-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                        {ui.notInspected || 'Осмотреть'}
+                        {ui.inspect} {formatTimeCost(actionTimeCosts.inspectItem)}
                       </span>
                       <span className="text-xs font-mono text-muted-foreground">{item.weight.toFixed(1)} kg</span>
                     </div>
@@ -514,7 +523,7 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
             className={`flex w-full items-center justify-center gap-2 rounded-sm border px-4 py-4 text-lg font-bold uppercase tracking-wide transition-all ${packed ? 'border-success/50 bg-success/15 text-success' : 'border-foreground/45 bg-[#1b1b1b] text-foreground hover:border-success hover:text-success'}`}
           >
             {packed ? <Check size={20} /> : <Sparkles size={20} />}
-            {packed ? ui.locked : ui.take}
+            {packed ? ui.locked : `${ui.take} ${formatTimeCost(episode.actionTimeCosts.packItem)}`}
           </button>
           <button
             type="button"
@@ -522,7 +531,7 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
             onClick={() => onLeave(item.id)}
             className="w-full rounded-sm border border-border px-4 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:bg-muted/15 hover:text-foreground"
           >
-            {ui.leave}
+            {ui.leave} {formatTimeCost(episode.actionTimeCosts.leaveItem)}
           </button>
         </div>
       </motion.article>
@@ -662,16 +671,37 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     return () => window.clearInterval(timer);
   }, [result, timeRemaining]);
 
+  const spendTime = seconds => {
+    setTimeRemaining(current => Math.max(0, current - seconds));
+  };
+
+  const openContainer = containerId => {
+    if (activeContainerId !== containerId) {
+      spendTime(episode.actionTimeCosts.openContainer);
+    }
+    setActiveContainerId(containerId);
+  };
+
+  const inspectItem = itemId => {
+    spendTime(episode.actionTimeCosts.inspectItem);
+    setDetailItemId(itemId);
+  };
+
   const takeItem = itemId => {
+    if (!packedIds.includes(itemId)) {
+      spendTime(episode.actionTimeCosts.packItem);
+    }
     setPackedIds(current => (current.includes(itemId) ? current : [...current, itemId]));
   };
 
   const removeItem = itemId => {
+    spendTime(episode.actionTimeCosts.removeItem);
     setPackedIds(current => current.filter(id => id !== itemId));
   };
 
   const leaveItem = itemId => {
-    removeItem(itemId);
+    spendTime(episode.actionTimeCosts.leaveItem);
+    setPackedIds(current => current.filter(id => id !== itemId));
     setDetailItemId(null);
   };
 
@@ -753,7 +783,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             language={language}
             packedIds={packedIds}
             activeContainerId={activeContainerId}
-            onOpenContainer={setActiveContainerId}
+            onOpenContainer={openContainer}
             ui={ui}
             timeRemaining={timeRemaining}
           />
@@ -824,8 +854,9 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             packedIds={packedIds}
             language={language}
             ui={ui}
+            actionTimeCosts={episode.actionTimeCosts}
             onBack={() => setActiveContainerId(null)}
-            onSelectItem={setDetailItemId}
+            onSelectItem={inspectItem}
           />
         )}
         {detailItem && (
