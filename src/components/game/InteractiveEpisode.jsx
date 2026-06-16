@@ -140,6 +140,78 @@ function BackpackPanel({ packedItems, packedWeight, episode, language, ui, onRem
   );
 }
 
+function MobileBackpackBar({ packedItems, packedWeight, episode, language, ui, onOpen }) {
+  const ratio = Math.min(100, (packedWeight / episode.weightLimit) * 100);
+  const overweight = packedWeight > episode.weightLimit;
+  const previewItems = packedItems.slice(0, 2);
+
+  return (
+    <section className="border-t border-border bg-[#101010]/95 px-3 py-3 backdrop-blur">
+      <button type="button" onClick={onOpen} className="w-full text-left" aria-label={ui.openBackpack}>
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2 text-xs font-mono uppercase tracking-widest text-foreground">
+            <Backpack size={15} className="text-warning" />
+            <span>{ui.inventory}</span>
+            <span className="rounded-sm border border-border bg-muted/10 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+              {packedItems.length}
+            </span>
+          </div>
+          <div className={`flex items-center gap-1 text-xs font-mono ${overweight ? 'text-danger' : 'text-muted-foreground'}`}>
+            <Weight size={14} />
+            {packedWeight.toFixed(1)} / {episode.weightLimit.toFixed(1)} kg
+          </div>
+        </div>
+        <div className="mt-2 h-1.5 overflow-hidden rounded-sm bg-muted/40">
+          <div className={`h-full ${overweight ? 'bg-danger' : 'bg-success'}`} style={{ width: `${ratio}%` }} />
+        </div>
+        <div className="mt-2 flex min-h-7 gap-2 overflow-hidden">
+          {previewItems.length === 0 ? (
+            <span className="rounded-sm border border-dashed border-border px-2 py-1 text-xs text-muted-foreground">{ui.emptySlot}</span>
+          ) : (
+            previewItems.map(item => (
+              <span key={item.id} className="flex min-w-0 max-w-[45%] items-center gap-1 rounded-sm border border-border bg-muted/10 px-2 py-1 text-xs text-foreground/80">
+                <Icon name={item.icon} size={12} className="shrink-0 text-muted-foreground" />
+                <span className="truncate">{getCopy(item, language).name}</span>
+              </span>
+            ))
+          )}
+          {packedItems.length > previewItems.length && (
+            <span className="rounded-sm border border-border bg-muted/10 px-2 py-1 text-xs text-muted-foreground">
+              +{packedItems.length - previewItems.length}
+            </span>
+          )}
+        </div>
+      </button>
+    </section>
+  );
+}
+
+function MobileBackpackSheet({ packedItems, packedWeight, episode, language, ui, onRemove, onClose }) {
+  return (
+    <motion.div className="fixed inset-0 z-50 flex items-end justify-center bg-black/55" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <button className="absolute inset-0 cursor-default" onClick={onClose} aria-label={ui.close} />
+      <motion.article
+        className="relative max-h-[78vh] w-full max-w-md overflow-y-auto rounded-t-lg border-t border-border bg-[#101010] shadow-2xl"
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', stiffness: 280, damping: 32 }}
+      >
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border bg-[#101010]/95 px-4 py-3 backdrop-blur">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-warning">
+            <Backpack size={15} />
+            {ui.inventory}
+          </div>
+          <button type="button" onClick={onClose} className="rounded-sm border border-border p-2 text-muted-foreground hover:text-foreground" aria-label={ui.close}>
+            <X size={16} />
+          </button>
+        </div>
+        <BackpackPanel packedItems={packedItems} packedWeight={packedWeight} episode={episode} language={language} ui={ui} onRemove={onRemove} />
+      </motion.article>
+    </motion.div>
+  );
+}
+
 function CriticalChecklist({ episode, packedIds, language, ui }) {
   const requiredItems = episode.requiredItemIds
     .map(id => episode.items.find(item => item.id === id))
@@ -506,6 +578,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
   const [packedIds, setPackedIds] = useState([]);
   const [activeContainerId, setActiveContainerId] = useState(null);
   const [detailItemId, setDetailItemId] = useState(null);
+  const [backpackOpen, setBackpackOpen] = useState(false);
   const [result, setResult] = useState(null);
 
   const itemsById = useMemo(() => Object.fromEntries(episode.items.map(item => [item.id, item])), [episode.items]);
@@ -561,6 +634,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     setPackedIds([]);
     setActiveContainerId(null);
     setDetailItemId(null);
+    setBackpackOpen(false);
     setResult(null);
   };
 
@@ -634,7 +708,14 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-30 lg:hidden">
-        <BackpackPanel packedItems={packedItems} packedWeight={packedWeight} episode={episode} language={language} ui={ui} onRemove={removeItem} />
+        <MobileBackpackBar
+          packedItems={packedItems}
+          packedWeight={packedWeight}
+          episode={episode}
+          language={language}
+          ui={ui}
+          onOpen={() => setBackpackOpen(true)}
+        />
         <div className="grid grid-cols-[0.8fr_1.2fr] gap-2 border-t border-border bg-[#101010] p-3">
           <button onClick={reset} className="rounded-sm border border-border px-3 py-3 text-sm font-semibold text-muted-foreground">
             {ui.retry}
@@ -672,6 +753,17 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             onClose={() => setDetailItemId(null)}
             onTake={takeItem}
             onLeave={leaveItem}
+          />
+        )}
+        {backpackOpen && (
+          <MobileBackpackSheet
+            packedItems={packedItems}
+            packedWeight={packedWeight}
+            episode={episode}
+            language={language}
+            ui={ui}
+            onRemove={removeItem}
+            onClose={() => setBackpackOpen(false)}
           />
         )}
         {result && (
