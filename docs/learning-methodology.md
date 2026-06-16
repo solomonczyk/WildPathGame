@@ -60,7 +60,13 @@ Before paid pilot:
 
 ## Source of Truth
 
-The game source of truth is the canonical episode data in `src/lib/interactiveEpisodes.js` plus this documentation package. External videos or AI outputs are references, not authority.
+The game source of truth is the canonical episode data in `src/lib/interactiveEpisodes.js`, the [Scenario and Domain Canon](scenario-domain-canon.md), and this documentation package. External videos or AI outputs are references, not authority.
+
+## Scenario Domain Control
+
+New survival domains are not added directly to gameplay because they sound exciting. Location families, hazard families, source hierarchy, review status values, and mode-scaling rules are governed by the [Scenario and Domain Canon](scenario-domain-canon.md).
+
+Before first release, adding a new location family, hazard family, or safety-sensitive disaster domain requires a recorded change request. Implementing radiation, chemical, severe weather, maritime, aviation, or injury-heavy content also requires official-source review and human domain review before it can be treated as approved educational content.
 
 ## Authority Boundaries
 

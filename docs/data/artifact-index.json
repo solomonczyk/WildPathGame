@@ -16,8 +16,8 @@
     },
     {
         "path":  "learning-methodology.md",
-        "sha256":  "2c09dfb805c9af54a6ca8acc5d68446ded52013720b662fbccb4c232f20b8ab9",
-        "bytes":  2324
+        "sha256":  "ff233364254fba5f8a867c950adde2627905b44590347f738bf483d8d4517d60",
+        "bytes":  3024
     },
     {
         "path":  "market-commercial-canon.md",
@@ -41,13 +41,18 @@
     },
     {
         "path":  "README.md",
-        "sha256":  "f3399a2edf20c6c5881dee1aca7ea44c5f8d25a7dfa1e9e4492558e5c4a6386f",
-        "bytes":  3026
+        "sha256":  "462009258e50405d1e2ba74206e6c0217a3338db9e46569c80b4a4f10e4685c6",
+        "bytes":  3241
     },
     {
         "path":  "roadmap-stage-gates.md",
         "sha256":  "4789aa344889abb51314649a03b02cad71d3337b1058bd1527f74c699a5d1d0c",
         "bytes":  2211
+    },
+    {
+        "path":  "scenario-domain-canon.md",
+        "sha256":  "702aa90519fa05d3a5810a0c95f6380afe07760489f01114ca4387e077ee5ef0",
+        "bytes":  11082
     },
     {
         "path":  "security-privacy.md",
@@ -81,8 +86,8 @@
     },
     {
         "path":  "data/decision-log.json",
-        "sha256":  "ef6859d1f067a541331eafb94fbad59c33591934f06354bc689748739b7143d9",
-        "bytes":  1581
+        "sha256":  "c387d1f82bc49d3a7625ef180ae81b38d268229ec349f84c7590661cdfb9fff4",
+        "bytes":  4112
     },
     {
         "path":  "data/kpi-matrix.json",

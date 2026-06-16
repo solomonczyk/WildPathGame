@@ -18,6 +18,7 @@ WildPathGame is a practical survival learning game built as a sequence of realis
 - [Financial Boundaries](financial-boundaries.md)
 - [Product Requirements](product-requirements.md)
 - [Learning and Domain Methodology](learning-methodology.md)
+- [Scenario and Domain Canon](scenario-domain-canon.md)
 - [UX and Design Canon](ux-design-canon.md)
 - [Technical Canon](technical-canon.md)
 - [Security and Privacy](security-privacy.md)
@@ -47,6 +48,7 @@ WildPathGame is a practical survival learning game built as a sequence of realis
 3. First paid result: paid pilot for a survival basics mini-course, sold as early access.
 4. Primary learning promise: better practical prioritization under emergency constraints.
 5. Production is not automatically accepted by passing technical tests; business, learning, visual, safety, and operational gates are separate.
+6. Broad survival domains are governed by the Scenario and Domain Canon; new location or hazard families require change request approval before first release.
 
 ## Lock Rule
 

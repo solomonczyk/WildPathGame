@@ -30,9 +30,47 @@
     "id": "CR-001",
     "type": "change_request",
     "date": "2026-06-16",
+    "proposer": "Taras",
+    "affected_canon_files": ["docs/README.md", "docs/operations-governance.md", "docs/data/proof.json"],
+    "reason": "The project needs managed-product governance from idea to first paying users.",
+    "evidence": "Owner requested a full canonical package and explicit lock rule before continuing core product development.",
+    "impact": {
+      "scope": "Creates canonical documentation package and change-control process.",
+      "budget": "No direct budget increase.",
+      "deadline": "No direct deadline change.",
+      "risk": "Reduces scope drift and undocumented decision risk."
+    },
     "decision": "Create complete canonical documentation package and lock future foundational changes behind CR or ADR.",
     "context": "The project needs managed-product governance from idea to first paying users.",
     "consequences": ["Fundamental documentation layers remaining becomes 0 after acceptance"],
+    "owner": "Taras"
+  },
+  {
+    "id": "CR-002",
+    "type": "change_request",
+    "date": "2026-06-16",
+    "proposer": "Taras",
+    "affected_canon_files": [
+      "docs/scenario-domain-canon.md",
+      "docs/README.md",
+      "docs/learning-methodology.md",
+      "docs/data/decision-log.json"
+    ],
+    "reason": "The product vision must cover diverse disasters and locations without uncontrolled scope growth or unsafe advice.",
+    "evidence": "Owner specified mountains, ocean, jungle, forest, aircraft incidents, radiation, severe heat, severe cold, chemical clouds, improvised means, and survivor-informed practical situations as intended future domains.",
+    "impact": {
+      "scope": "Approves future domain families as governed content families, not automatic MVP scope.",
+      "budget": "No direct budget increase; future playable implementation still requires separate approval when it changes MVP scope.",
+      "deadline": "No direct deadline change.",
+      "risk": "Reduces unsafe content risk by requiring source hierarchy, review statuses, and official-source anchors."
+    },
+    "decision": "Add Scenario and Domain Canon to govern broad disaster, location, hazard, and survival-content expansion before first release.",
+    "context": "The product vision includes mountains, ocean, jungle, forest, aircraft incidents, radiation, severe heat, severe cold, chemical clouds, and other disaster contexts. This expansion requires a controlled canon so content remains reviewed, source-based, and bounded instead of becoming uncontrolled scope growth.",
+    "consequences": [
+      "New location or hazard families require change request approval before first release",
+      "Safety-sensitive domains require official-source review and human domain review before release",
+      "Long modes are assembled from reusable scenario modules rather than one bespoke location per day"
+    ],
     "owner": "Taras"
   }
 ]
