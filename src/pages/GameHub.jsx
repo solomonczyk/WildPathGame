@@ -23,11 +23,11 @@ export default function GameHub({ player, setPlayer, onGameOver, onVictory, lang
     }
   }, [player, onGameOver, onVictory]);
 
-  const addLog = (msg, type = 'info') => {
-    setLog(current => [{ msg, type, day: player.day, id: crypto.randomUUID() }, ...current].slice(0, 20));
+  const addLog = entry => {
+    setLog(current => [{ day: player.day, id: crypto.randomUUID(), ...entry }, ...current].slice(0, 20));
   };
 
-  const handleEpisodeComplete = episode => {
+  const handleEpisodeComplete = (episode, result) => {
     const completedEpisodes = player.completedEpisodes || [];
     if (completedEpisodes.includes(episode.id)) return;
 
@@ -41,7 +41,13 @@ export default function GameHub({ player, setPlayer, onGameOver, onVictory, lang
       completedEpisodes: [...completedEpisodes, episode.id]
     };
 
-    addLog(`Episode complete: ${episode.copy.en.title}`, 'success');
+    addLog({
+      type: 'success',
+      title: episode.copy[language]?.title || episode.copy.en.title,
+      score: result?.score,
+      taken: result?.takenItems?.length || 0,
+      risky: result?.riskyItems?.length || 0
+    });
     setPlayer(nextPlayer);
   };
 
@@ -190,9 +196,23 @@ export default function GameHub({ player, setPlayer, onGameOver, onVictory, lang
                 </div>
               ) : (
                 log.map(entry => (
-                  <div key={entry.id} className="flex items-center gap-3 rounded-sm border border-border bg-muted/10 px-3 py-2">
-                    <span className="text-xs font-mono text-muted-foreground">D.{entry.day}</span>
-                    <span className={`text-sm ${logColor[entry.type] || logColor.info}`}>{entry.msg}</span>
+                  <div key={entry.id} className="rounded-sm border border-border bg-muted/10 px-3 py-3">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-mono text-muted-foreground">D.{entry.day}</span>
+                      {entry.score !== undefined && (
+                        <span className={`text-xs font-mono ${logColor[entry.type] || logColor.info}`}>{entry.score}/100</span>
+                      )}
+                    </div>
+                    <div className={`mt-1 text-sm font-semibold ${logColor[entry.type] || logColor.info}`}>{entry.title || entry.msg}</div>
+                    {entry.taken !== undefined && (
+                      <div className="mt-2 text-xs text-muted-foreground">
+                        {language === 'en'
+                          ? `${entry.taken} items packed, ${entry.risky} risky choices.`
+                          : language === 'es'
+                            ? `${entry.taken} objetos en la mochila, ${entry.risky} elecciones riesgosas.`
+                            : `${entry.taken} предметов в рюкзаке, рискованных выборов: ${entry.risky}.`}
+                      </div>
+                    )}
                   </div>
                 ))
               )}

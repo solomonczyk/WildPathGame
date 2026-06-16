@@ -140,6 +140,42 @@ function BackpackPanel({ packedItems, packedWeight, episode, language, ui, onRem
   );
 }
 
+function CriticalChecklist({ episode, packedIds, language, ui }) {
+  const requiredItems = episode.requiredItemIds
+    .map(id => episode.items.find(item => item.id === id))
+    .filter(Boolean);
+
+  return (
+    <section className="rounded-sm border border-border bg-[#131313] p-3">
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <div className="text-[10px] font-mono uppercase tracking-widest text-warning">{ui.criticalKit}</div>
+        <div className="text-xs font-mono text-muted-foreground">
+          {requiredItems.filter(item => packedIds.includes(item.id)).length}/{requiredItems.length}
+        </div>
+      </div>
+      <div className="flex gap-2 overflow-x-auto pb-1">
+        {requiredItems.map(item => {
+          const itemCopy = getCopy(item, language);
+          const packed = packedIds.includes(item.id);
+          return (
+            <div
+              key={item.id}
+              className={`flex min-w-[132px] items-center gap-2 rounded-sm border px-2 py-2 ${
+                packed ? 'border-success/40 bg-success/10 text-success' : 'border-border bg-muted/10 text-muted-foreground'
+              }`}
+            >
+              <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border ${packed ? 'border-success bg-success text-black' : 'border-border'}`}>
+                {packed ? <Check size={13} /> : <Icon name={item.icon} size={13} />}
+              </span>
+              <span className="truncate text-xs font-semibold">{itemCopy.name}</span>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 function SceneView({ episode, language, packedIds, activeContainerId, onOpenContainer, ui }) {
   return (
     <section className="relative overflow-hidden rounded-sm border border-border bg-[#111]">
@@ -158,12 +194,15 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
         {episode.containers.map(container => {
           const containerCopy = getCopy(container, language);
           const itemCount = container.itemIds.filter(id => packedIds.includes(id)).length;
+          const requiredCount = container.itemIds.filter(id => episode.requiredItemIds.includes(id)).length;
+          const requiredPacked = container.itemIds.filter(id => episode.requiredItemIds.includes(id) && packedIds.includes(id)).length;
           const isActive = activeContainerId === container.id;
 
           return (
             <button
               key={container.id}
               type="button"
+              data-testid={`container-${container.id}`}
               onClick={() => onOpenContainer(container.id)}
               className={`absolute flex items-center justify-center rounded-full border-2 bg-black/45 p-2 text-success backdrop-blur transition-all ${
                 isActive
@@ -179,6 +218,10 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
               title={containerCopy.name}
             >
               <Icon name={container.icon} size={18} />
+              <span className="pointer-events-none absolute left-1/2 top-10 hidden -translate-x-1/2 whitespace-nowrap rounded-sm border border-border bg-black/75 px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-foreground sm:block">
+                {containerCopy.name}
+                {requiredCount > 0 && <span className="ml-1 text-success">{requiredPacked}/{requiredCount}</span>}
+              </span>
               {itemCount > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-success px-1 text-[10px] font-bold text-black">
                   {itemCount}
@@ -194,6 +237,7 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
 
 function ContainerView({ container, items, packedIds, language, ui, onBack, onSelectItem }) {
   const copy = getCopy(container, language);
+  const packedInContainer = items.filter(item => packedIds.includes(item.id)).length;
 
   return (
     <motion.section
@@ -214,11 +258,15 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
               <h2 className="mt-1 text-2xl font-bold text-foreground">{copy.name}</h2>
               <p className="text-sm text-muted-foreground">{copy.hint}</p>
             </div>
+            <div className="ml-auto mr-2 rounded-sm border border-border bg-black/25 px-2 py-1 text-right">
+              <div className="text-[9px] font-mono uppercase tracking-widest text-muted-foreground">{ui.foundHere}</div>
+              <div className="text-sm font-mono text-foreground">{packedInContainer}/{items.length}</div>
+            </div>
             <button
               type="button"
               onClick={onBack}
               className="rounded-sm border border-border p-2 text-muted-foreground hover:text-foreground"
-              aria-label={ui.close}
+              aria-label={`${ui.close}: ${copy.name}`}
             >
               <X size={18} />
             </button>
@@ -235,6 +283,7 @@ function ContainerView({ container, items, packedIds, language, ui, onBack, onSe
               <button
                 key={item.id}
                 type="button"
+                data-testid={`item-${item.id}`}
                 onClick={() => onSelectItem(item.id)}
                 className={`w-full rounded-sm border bg-[#191918] p-3 text-left transition-all ${style.border} ${packed ? 'opacity-70' : 'hover:bg-[#20201f]'} ${style.glow}`}
               >
@@ -289,7 +338,7 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
             <CategoryBadge category={item.category} ui={ui} />
             <h2 className="mt-2 text-3xl font-bold leading-none text-foreground">{copy.name}</h2>
           </div>
-          <button type="button" onClick={onClose} className="rounded-sm p-2 text-muted-foreground hover:bg-muted/20 hover:text-foreground">
+          <button type="button" onClick={onClose} aria-label={`${ui.close}: ${copy.name}`} className="rounded-sm p-2 text-muted-foreground hover:bg-muted/20 hover:text-foreground">
             <X size={22} />
           </button>
         </div>
@@ -334,7 +383,11 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
         <div className="mt-5 grid gap-2">
           <button
             type="button"
-            onClick={() => onTake(item.id)}
+            data-testid={`take-${item.id}`}
+            onClick={() => {
+              onTake(item.id);
+              onClose();
+            }}
             className={`flex w-full items-center justify-center gap-2 rounded-sm border px-4 py-4 text-lg font-bold uppercase tracking-wide transition-all ${packed ? 'border-success/50 bg-success/15 text-success' : 'border-foreground/45 bg-[#1b1b1b] text-foreground hover:border-success hover:text-success'}`}
           >
             {packed ? <Check size={20} /> : <Sparkles size={20} />}
@@ -342,6 +395,7 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
           </button>
           <button
             type="button"
+            data-testid={`leave-${item.id}`}
             onClick={() => onLeave(item.id)}
             className="w-full rounded-sm border border-border px-4 py-3 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:bg-muted/15 hover:text-foreground"
           >
@@ -353,12 +407,14 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
   );
 }
 
-function ResultPanel({ success, messages, copy, ui, onRetry, onContinue }) {
+function ResultPanel({ result, copy, ui, language, onRetry, onContinue }) {
+  const { success, messages, takenItems, missedItems, riskyItems, score } = result;
+
   return (
     <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <div className="absolute inset-0 bg-black/85 backdrop-blur-sm" />
       <motion.div
-        className="relative w-full max-w-md rounded-sm border border-border bg-[#121212] p-5"
+        className="relative max-h-[92vh] w-full max-w-md overflow-y-auto rounded-sm border border-border bg-[#121212] p-5"
         initial={{ y: 24, scale: 0.96 }}
         animate={{ y: 0, scale: 1 }}
         exit={{ y: 24, scale: 0.96 }}
@@ -367,6 +423,15 @@ function ResultPanel({ success, messages, copy, ui, onRetry, onContinue }) {
           {success ? ui.complete : ui.consequences}
         </div>
         <h2 className="text-2xl font-bold text-foreground">{copy.title}</h2>
+        <div className="mt-3 rounded-sm border border-border bg-muted/10 p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{ui.score}</span>
+            <span className={success ? 'text-success' : 'text-warning'}>{score}/100</span>
+          </div>
+          <div className="mt-2 h-1.5 overflow-hidden rounded-sm bg-muted/40">
+            <div className={success ? 'h-full bg-success' : 'h-full bg-warning'} style={{ width: `${score}%` }} />
+          </div>
+        </div>
         <p className="mt-3 text-sm leading-relaxed text-foreground/85">{success ? copy.success : copy.failure}</p>
         {messages.length > 0 && (
           <div className="mt-4 space-y-2">
@@ -377,6 +442,46 @@ function ResultPanel({ success, messages, copy, ui, onRetry, onContinue }) {
             ))}
           </div>
         )}
+        <div className="mt-4 grid gap-3">
+          <div className="rounded-sm border border-success/25 bg-success/10 p-3">
+            <div className="text-xs font-mono uppercase tracking-widest text-success">{ui.taken}</div>
+            <div className="mt-2 flex flex-wrap gap-2">
+              {takenItems.map(item => (
+                <span key={item.id} className="rounded-sm border border-success/30 bg-black/20 px-2 py-1 text-xs text-foreground/85">
+                  {getCopy(item, language).name}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {missedItems.length > 0 && (
+            <div className="rounded-sm border border-warning/25 bg-warning/10 p-3">
+              <div className="text-xs font-mono uppercase tracking-widest text-warning">{ui.missed}</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {missedItems.map(item => (
+                  <span key={item.id} className="rounded-sm border border-warning/30 bg-black/20 px-2 py-1 text-xs text-foreground/85">
+                    {getCopy(item, language).name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className={`rounded-sm border p-3 ${riskyItems.length > 0 ? 'border-danger/25 bg-danger/10' : 'border-success/25 bg-success/10'}`}>
+            <div className={`text-xs font-mono uppercase tracking-widest ${riskyItems.length > 0 ? 'text-danger' : 'text-success'}`}>
+              {riskyItems.length > 0 ? ui.riskyTaken : ui.noRiskyItems}
+            </div>
+            {riskyItems.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {riskyItems.map(item => (
+                  <span key={item.id} className="rounded-sm border border-danger/30 bg-black/20 px-2 py-1 text-xs text-foreground/85">
+                    {getCopy(item, language).name}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
         <div className="mt-4 rounded-sm border border-success/25 bg-success/10 p-4">
           <div className="text-xs font-mono uppercase tracking-widest text-success">{ui.expertNote}</div>
           <p className="mt-2 text-sm leading-relaxed text-foreground/85">{copy.expertNote}</p>
@@ -429,6 +534,11 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     const missing = episode.requiredItemIds.filter(id => !packedIds.includes(id));
     const overWeight = packedWeight > episode.weightLimit;
     const success = missing.length === 0 && !overWeight;
+    const takenItems = episode.items.filter(item => packedIds.includes(item.id));
+    const missedItems = missing.map(id => itemsById[id]).filter(Boolean);
+    const riskyItems = takenItems.filter(item => item.category === 'trap');
+    const overloadPenalty = overWeight ? Math.ceil((packedWeight - episode.weightLimit) * 8) : 0;
+    const score = Math.max(0, Math.min(100, 100 - missedItems.length * 14 - riskyItems.length * 8 - overloadPenalty));
     const messages = [];
 
     if (missing.length > 0) {
@@ -441,9 +551,9 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
       messages.push(ui.ready);
     }
 
-    setResult({ success, messages });
+    setResult({ success, messages, takenItems, missedItems, riskyItems, score });
     if (success) {
-      onComplete(episode);
+      onComplete(episode, { success, messages, takenItems, missedItems, riskyItems, score });
     }
   };
 
@@ -488,6 +598,8 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             ui={ui}
           />
 
+          <CriticalChecklist episode={episode} packedIds={packedIds} language={language} ui={ui} />
+
           <div className="grid gap-2 sm:grid-cols-2">
             {copy.characters.map(character => (
               <div key={character.name} className="rounded-sm border border-border bg-muted/10 p-3">
@@ -511,6 +623,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
               {ui.retry}
             </button>
             <button
+              data-testid="evaluate-episode-desktop"
               onClick={evaluate}
               className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border border-danger/40 bg-danger/10 text-danger'}`}
             >
@@ -527,6 +640,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             {ui.retry}
           </button>
           <button
+            data-testid="evaluate-episode-mobile"
             onClick={evaluate}
             className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground' : 'border border-danger/40 bg-danger/10 text-danger'}`}
           >
@@ -562,10 +676,10 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
         )}
         {result && (
           <ResultPanel
-            success={result.success}
-            messages={result.messages}
+            result={result}
             copy={copy}
             ui={ui}
+            language={language}
             onRetry={reset}
             onContinue={() => setResult(null)}
           />
