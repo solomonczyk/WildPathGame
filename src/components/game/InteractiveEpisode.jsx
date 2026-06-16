@@ -72,8 +72,74 @@ const CATEGORY_STYLES = {
   }
 };
 
+const ITEM_ACTION_HINTS = {
+  water_bottle: {
+    ru: 'Пей небольшими порциями, оставь часть на лекарства и ожидание.',
+    en: 'Drink in small portions and keep some for medicine or delays.',
+    es: 'Bebe en porciones pequeñas y reserva algo para medicinas o retrasos.'
+  },
+  flashlight: {
+    ru: 'Проверь включение до выхода и держи под рукой, не в глубине рюкзака.',
+    en: 'Test it before leaving and keep it reachable, not buried in the pack.',
+    es: 'Pruébala antes de salir y llévala a mano, no al fondo de la mochila.'
+  },
+  batteries: {
+    ru: 'Упакуй отдельно от металла и проверь, подходят ли к фонарику.',
+    en: 'Pack them away from metal and check that they fit the flashlight.',
+    es: 'Guárdalas lejos de metal y comprueba que sirven para la linterna.'
+  },
+  knife: {
+    ru: 'Используй для упаковки, ремонта, вскрытия тары и мелких работ, не как оружие.',
+    en: 'Use it for packing, repairs, opening containers, and small tasks, not as a weapon.',
+    es: 'Úsalo para empacar, reparar, abrir envases y tareas pequeñas, no como arma.'
+  },
+  first_aid: {
+    ru: 'Положи сверху: при порезе или падении доступ важнее аккуратной упаковки.',
+    en: 'Pack it near the top: after a cut or fall, access matters more than neat packing.',
+    es: 'Déjalo arriba: tras un corte o caída, el acceso importa más que el orden.'
+  },
+  warm_jacket: {
+    ru: 'Надень сразу, а не клади глубоко: тепло нужно до первой остановки.',
+    en: 'Wear it now instead of burying it: warmth matters before the first stop.',
+    es: 'Póntela ya en vez de enterrarla: el abrigo importa antes de la primera parada.'
+  },
+  documents: {
+    ru: 'Держи в сухом пакете и отдельно от наличных, чтобы не потерять всё сразу.',
+    en: 'Keep them in a dry bag and separate from cash so one loss does not take everything.',
+    es: 'Guárdalos secos y separados del efectivo para no perder todo de golpe.'
+  },
+  duct_tape: {
+    ru: 'Намотай немного на карту или бутылку, чтобы не нести весь рулон.',
+    en: 'Wrap a short length around a card or bottle instead of carrying the full roll.',
+    es: 'Enrolla un tramo en una tarjeta o botella en vez de llevar todo el rollo.'
+  },
+  powerbank: {
+    ru: 'Сразу подключи телефон или выключи лишнее, чтобы сохранить связь.',
+    en: 'Charge the phone early or shut down extras to preserve communication.',
+    es: 'Carga el teléfono pronto o apaga lo extra para conservar comunicación.'
+  },
+  canned_food: {
+    ru: 'Бери только если есть место после воды, тепла, света и аптечки.',
+    en: 'Take it only after water, warmth, light, and first aid are covered.',
+    es: 'Tómala solo después de cubrir agua, abrigo, luz y botiquín.'
+  }
+};
+
 function getCopy(entity, language) {
   return entity.copy[language] || entity.copy.ru;
+}
+
+function getActionHint(item, language, ui) {
+  const hint = ITEM_ACTION_HINTS[item.id];
+  return hint?.[language] || hint?.ru || ui.itemActionDefault;
+}
+
+function getUseSituations(copy) {
+  return copy.useFor
+    .split(',')
+    .map(value => value.trim())
+    .filter(Boolean)
+    .slice(0, 4);
 }
 
 function formatTime(seconds) {
@@ -113,6 +179,113 @@ function shuffleWithSeed(items, seedValue) {
   }
 
   return shuffled;
+}
+
+function getOutcome({ success, timeExpired, overWeight, missedItems, riskyItems, ui }) {
+  if (success) {
+    return {
+      title: ui.outcomeReady,
+      tone: 'success',
+      summary: ui.outcomeReadySummary
+    };
+  }
+
+  if (timeExpired) {
+    return {
+      title: ui.outcomeLate,
+      tone: 'danger',
+      summary: ui.outcomeLateSummary
+    };
+  }
+
+  if (overWeight) {
+    return {
+      title: ui.outcomeOverloaded,
+      tone: 'danger',
+      summary: ui.outcomeOverloadedSummary
+    };
+  }
+
+  if (missedItems.length > 0) {
+    return {
+      title: ui.outcomeIncomplete,
+      tone: 'warning',
+      summary: ui.outcomeIncompleteSummary
+    };
+  }
+
+  if (riskyItems.length > 0) {
+    return {
+      title: ui.outcomeRisky,
+      tone: 'warning',
+      summary: ui.outcomeRiskySummary
+    };
+  }
+
+  return {
+    title: ui.outcomeSurvived,
+    tone: 'warning',
+    summary: ui.outcomeSurvivedSummary
+  };
+}
+
+function buildDecisionNotes({ episode, packedIds, missedItems, riskyItems, packedWeight, timeRemaining, language, ui }) {
+  const notes = [];
+  const hasItem = itemId => packedIds.includes(itemId);
+  const missedIds = new Set(missedItems.map(item => item.id));
+
+  if (hasItem('water_bottle')) {
+    notes.push({ tone: 'success', text: ui.lessonWaterTaken });
+  } else if (missedIds.has('water_bottle')) {
+    notes.push({ tone: 'danger', text: ui.lessonWaterMissed });
+  }
+
+  if (hasItem('warm_jacket')) {
+    notes.push({ tone: 'success', text: ui.lessonWarmthTaken });
+  } else if (missedIds.has('warm_jacket')) {
+    notes.push({ tone: 'danger', text: ui.lessonWarmthMissed });
+  }
+
+  if (hasItem('flashlight') && hasItem('batteries')) {
+    notes.push({ tone: 'success', text: ui.lessonLightReady });
+  } else if (hasItem('flashlight') && !hasItem('batteries')) {
+    notes.push({ tone: 'warning', text: ui.lessonLightNoBatteries });
+  } else if (missedIds.has('flashlight')) {
+    notes.push({ tone: 'danger', text: ui.lessonLightMissed });
+  }
+
+  if (hasItem('first_aid')) {
+    notes.push({ tone: 'success', text: ui.lessonFirstAidTaken });
+  } else if (missedIds.has('first_aid')) {
+    notes.push({ tone: 'danger', text: ui.lessonFirstAidMissed });
+  }
+
+  if (hasItem('documents')) {
+    notes.push({ tone: 'success', text: ui.lessonDocumentsTaken });
+  } else if (missedIds.has('documents')) {
+    notes.push({ tone: 'danger', text: ui.lessonDocumentsMissed });
+  }
+
+  if (packedWeight > episode.weightLimit) {
+    notes.push({ tone: 'danger', text: ui.lessonOverweight });
+  }
+
+  if (timeRemaining <= 120) {
+    notes.push({ tone: 'warning', text: ui.lessonLowTime });
+  }
+
+  riskyItems.slice(0, 3).forEach(item => {
+    notes.push({
+      tone: 'danger',
+      text: `${getCopy(item, language).name}: ${getCopy(item, language).risk}`
+    });
+  });
+
+  if (notes.length === 0) {
+    notes.push({ tone: 'success', text: ui.lessonCleanRun });
+  }
+
+  return notes;
 }
 
 function Icon({ name, size = 18, className = '' }) {
@@ -446,6 +619,7 @@ function ContainerView({ container, items, packedIds, language, ui, actionTimeCo
 
 function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, onClose, onTake, onLeave }) {
   const copy = getCopy(item, language);
+  const useSituations = getUseSituations(copy);
   const nextWeight = packed ? packedWeight : packedWeight + item.weight;
   const impact = Math.min(100, (nextWeight / episode.weightLimit) * 100);
   const style = CATEGORY_STYLES[item.category];
@@ -496,13 +670,27 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
         </div>
 
         <div className="mt-4 space-y-3">
-          <div className="flex gap-3">
-            <Info size={18} className="mt-1 shrink-0 text-muted-foreground" />
-            <p className="text-sm leading-relaxed text-foreground/82">{copy.note}</p>
-          </div>
           <div className="rounded-sm border border-border bg-muted/10 p-3">
-            <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{ui.useFor}</div>
-            <p className="mt-1 text-sm leading-relaxed text-foreground/80">{copy.useFor}</p>
+            <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+              <Info size={14} /> {ui.itemValue}
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-foreground/82">{copy.note}</p>
+          </div>
+          <div className="grid gap-3 rounded-sm border border-border bg-muted/10 p-3">
+            <div>
+              <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{ui.itemHelpsWhen}</div>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {useSituations.map(situation => (
+                  <span key={situation} className="rounded-sm border border-border bg-black/20 px-2 py-1 text-xs text-foreground/82">
+                    {situation}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="border-t border-border pt-3">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{ui.itemUseNow}</div>
+              <p className="mt-1 text-sm leading-relaxed text-foreground/82">{getActionHint(item, language, ui)}</p>
+            </div>
           </div>
           <div className={`rounded-sm border p-3 ${item.category === 'trap' ? 'border-danger/35 bg-danger/10' : 'border-warning/35 bg-warning/10'}`}>
             <div className={`flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest ${item.category === 'trap' ? 'text-danger' : 'text-warning'}`}>
@@ -540,7 +728,12 @@ function ItemDetailSheet({ item, packedWeight, packed, episode, language, ui, on
 }
 
 function ResultPanel({ result, copy, ui, language, onRetry, onContinue }) {
-  const { success, messages, takenItems, missedItems, riskyItems, score } = result;
+  const { success, messages, takenItems, missedItems, riskyItems, decisionNotes, outcome, score } = result;
+  const outcomeStyle = {
+    success: 'border-success/40 bg-success/10 text-success',
+    warning: 'border-warning/40 bg-warning/10 text-warning',
+    danger: 'border-danger/40 bg-danger/10 text-danger'
+  }[outcome.tone];
 
   return (
     <motion.div className="fixed inset-0 z-50 flex items-center justify-center p-4" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -555,6 +748,11 @@ function ResultPanel({ result, copy, ui, language, onRetry, onContinue }) {
           {success ? ui.complete : ui.consequences}
         </div>
         <h2 className="text-2xl font-bold text-foreground">{copy.title}</h2>
+        <div className={`mt-4 rounded-sm border p-3 ${outcomeStyle}`}>
+          <div className="text-xs font-mono uppercase tracking-widest">{ui.outcome}</div>
+          <div className="mt-1 text-lg font-bold text-foreground">{outcome.title}</div>
+          <p className="mt-1 text-sm leading-relaxed text-foreground/82">{outcome.summary}</p>
+        </div>
         <div className="mt-3 rounded-sm border border-border bg-muted/10 p-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{ui.score}</span>
@@ -574,6 +772,24 @@ function ResultPanel({ result, copy, ui, language, onRetry, onContinue }) {
             ))}
           </div>
         )}
+        <div className="mt-4 rounded-sm border border-border bg-muted/10 p-3">
+          <div className="text-xs font-mono uppercase tracking-widest text-warning">{ui.decisionReview}</div>
+          <div className="mt-3 grid gap-2">
+            {decisionNotes.map((note, index) => {
+              const noteStyle = {
+                success: 'border-success/25 bg-success/10 text-success',
+                warning: 'border-warning/25 bg-warning/10 text-warning',
+                danger: 'border-danger/25 bg-danger/10 text-danger'
+              }[note.tone];
+
+              return (
+                <div key={`${note.text}-${index}`} className={`rounded-sm border px-3 py-2 text-sm leading-relaxed ${noteStyle}`}>
+                  {note.text}
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <div className="mt-4 grid gap-3">
           <div className="rounded-sm border border-success/25 bg-success/10 p-3">
             <div className="text-xs font-mono uppercase tracking-widest text-success">{ui.taken}</div>
@@ -716,6 +932,8 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
     const overloadPenalty = overWeight ? Math.ceil((packedWeight - episode.weightLimit) * 8) : 0;
     const timePenalty = timeExpired ? 25 : 0;
     const score = Math.max(0, Math.min(100, 100 - missedItems.length * 14 - riskyItems.length * 8 - overloadPenalty - timePenalty));
+    const outcome = getOutcome({ success, timeExpired, overWeight, missedItems, riskyItems, ui });
+    const decisionNotes = buildDecisionNotes({ episode, packedIds, missedItems, riskyItems, packedWeight, timeRemaining, language, ui });
     const messages = [];
 
     if (timeExpired) {
@@ -731,9 +949,9 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
       messages.push(ui.ready);
     }
 
-    setResult({ success, messages, takenItems, missedItems, riskyItems, score });
+    setResult({ success, messages, takenItems, missedItems, riskyItems, decisionNotes, outcome, score });
     if (success) {
-      onComplete(episode, { success, messages, takenItems, missedItems, riskyItems, score });
+      onComplete(episode, { success, messages, takenItems, missedItems, riskyItems, decisionNotes, outcome, score });
     }
   };
 
