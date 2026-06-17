@@ -23,6 +23,21 @@ The app is a single-page browser application:
 - `src/lib/i18n.js`: UI localization.
 - `src/lib/gameEngine.js`: save, stat, XP utilities.
 
+## Content Data Integration
+
+Episode data in `src/lib/interactiveEpisodes.js` is the development bridge between canonical content documents and playable screens.
+
+Every playable episode should include taxonomy metadata:
+
+- `locationFamily`: one family from `docs/survival-master-taxonomy.md`;
+- `sceneTypes`: concrete scene types from that location family;
+- `hazardFamilies`: one or more threat families from the taxonomy;
+- `situationFamilies`: one or more situation families from the taxonomy;
+- `sourceBasis`: source anchors used for safety claims;
+- `reviewStatus`: current content review state.
+
+The taxonomy documents are research and production-planning inputs. They do not override locked canon. If a new playable episode changes first-release scope, it still requires the normal change-request or ADR process.
+
 ## Frontend Modules
 
 Episode module owns:

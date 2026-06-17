@@ -1,6 +1,31 @@
 export const EPISODES = [
   {
     id: 'apartment_evacuation',
+    locationFamily: 'urban_residential',
+    sceneTypes: ['apartment', 'high-rise apartment', 'hallway/stairwell'],
+    hazardFamilies: ['infrastructure_failure', 'darkness', 'dehydration', 'cold_exposure', 'injury', 'human_factors'],
+    situationFamilies: ['immediate_evacuation', 'resource_triage', 'communication_failure', 'manage_temperature'],
+    sourceBasis: [
+      {
+        title: 'Build A Kit',
+        url: 'https://www.ready.gov/kit',
+        organization: 'Ready.gov',
+        supports: ['emergency kit basics', 'water and supplies for self-reliance']
+      },
+      {
+        title: 'Make A Plan',
+        url: 'https://www.ready.gov/plan',
+        organization: 'Ready.gov',
+        supports: ['shelter plan', 'evacuation route', 'household communication plan']
+      },
+      {
+        title: 'Ten Essentials',
+        url: 'https://www.nps.gov/articles/10essentials.htm',
+        organization: 'National Park Service',
+        supports: ['light', 'first aid', 'insulation', 'hydration', 'nutrition', 'repair kit']
+      }
+    ],
+    reviewStatus: 'draft',
     sceneImage: '/assets/scenes/apartment-evacuation.png',
     requiredItemIds: ['water_bottle', 'flashlight', 'first_aid', 'warm_jacket', 'documents', 'knife'],
     timeLimitSeconds: 18 * 60,

@@ -26,6 +26,12 @@ WildPathGame is a practical survival learning game built as a sequence of realis
 - [Testing and Acceptance](testing-acceptance.md)
 - [Operations and Governance](operations-governance.md)
 
+## Production Research and Design Plans
+
+- [Survival Master Taxonomy](survival-master-taxonomy.md)
+- [Survival Encyclopedia Content Map](survival-encyclopedia-content-map.md)
+- [Stitch Screen Production Plan](stitch-screen-production-plan.md)
+
 ## Machine-Readable Canon
 
 - [Stage Contracts](data/stage-contracts.json)

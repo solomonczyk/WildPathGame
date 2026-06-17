@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, CircleDot, Gem, Play, RotateCcw, Sprout, TentTree } from 'lucide-react';
 import { INITIAL_PLAYER } from '@/lib/gameData';
 import { hasSave } from '@/lib/gameEngine';
 import { getUiText } from '@/lib/i18n';
@@ -23,9 +24,9 @@ export default function StartScreen({ onStart, onContinue, language, setLanguage
   };
 
   const goals = [
-    { days: 7, label: text.goals.week.label, icon: '🌱', desc: text.goals.week.desc, color: 'border-success/40 hover:border-success/70 text-success' },
-    { days: 30, label: text.goals.month.label, icon: '🏕️', desc: text.goals.month.desc, color: 'border-accent/40 hover:border-accent/70 text-accent' },
-    { days: 100, label: text.goals.hundred.label, icon: '◆', desc: text.goals.hundred.desc, color: 'border-danger/40 hover:border-danger/70 text-danger' }
+    { days: 7, label: text.goals.week.label, Icon: Sprout, desc: text.goals.week.desc, color: 'border-success/40 hover:border-success/70 text-success' },
+    { days: 30, label: text.goals.month.label, Icon: TentTree, desc: text.goals.month.desc, color: 'border-accent/40 hover:border-accent/70 text-accent' },
+    { days: 100, label: text.goals.hundred.label, Icon: Gem, desc: text.goals.hundred.desc, color: 'border-danger/40 hover:border-danger/70 text-danger' }
   ];
 
   return (
@@ -74,16 +75,18 @@ export default function StartScreen({ onStart, onContinue, language, setLanguage
           >
             <button
               onClick={() => setStep('new_game')}
-              className="w-full py-4 bg-primary text-primary-foreground font-heading text-lg font-bold tracking-widest uppercase rounded-sm hover:bg-danger/90 transition-all duration-300 hover:glow-danger"
+              className="flex w-full items-center justify-center gap-2 py-4 bg-primary text-primary-foreground font-heading text-lg font-bold tracking-widest uppercase rounded-sm hover:bg-danger/90 transition-all duration-300 hover:glow-danger"
             >
-              ▶ {text.start.newGame}
+              <Play size={18} fill="currentColor" />
+              {text.start.newGame}
             </button>
             {savedGame && (
               <button
                 onClick={onContinue}
-                className="w-full py-3 border border-accent/50 text-accent font-heading text-base font-semibold tracking-wider uppercase rounded-sm hover:bg-accent/10 transition-all"
+                className="flex w-full items-center justify-center gap-2 py-3 border border-accent/50 text-accent font-heading text-base font-semibold tracking-wider uppercase rounded-sm hover:bg-accent/10 transition-all"
               >
-                ↺ {text.start.continue}
+                <RotateCcw size={17} />
+                {text.start.continue}
               </button>
             )}
             <div className="pt-4 text-xs font-mono text-muted-foreground/55">
@@ -115,16 +118,18 @@ export default function StartScreen({ onStart, onContinue, language, setLanguage
             <div className="flex gap-2">
               <button
                 onClick={() => setStep('menu')}
-                className="flex-1 py-3 border border-border text-muted-foreground font-heading text-sm rounded-sm hover:border-foreground/30 transition-colors"
+                className="flex flex-1 items-center justify-center gap-2 py-3 border border-border text-muted-foreground font-heading text-sm rounded-sm hover:border-foreground/30 transition-colors"
               >
-                ← {text.start.back}
+                <ArrowLeft size={16} />
+                {text.start.back}
               </button>
               <button
                 onClick={handleStartNew}
                 disabled={!playerName.trim()}
-                className="flex-[2] py-3 bg-primary disabled:opacity-30 text-primary-foreground font-heading text-sm font-bold rounded-sm hover:bg-danger/90 transition-all"
+                className="flex flex-[2] items-center justify-center gap-2 py-3 bg-primary disabled:opacity-30 text-primary-foreground font-heading text-sm font-bold rounded-sm hover:bg-danger/90 transition-all"
               >
-                {text.start.next} →
+                {text.start.next}
+                <ArrowRight size={16} />
               </button>
             </div>
           </motion.div>
@@ -141,38 +146,46 @@ export default function StartScreen({ onStart, onContinue, language, setLanguage
             </div>
             <div className="space-y-2">
               {goals.map(goal => (
-                <button
-                  key={goal.days}
-                  onClick={() => setSurvivalGoal(goal.days)}
-                  className={`w-full flex items-center gap-4 p-4 border rounded-sm transition-all ${
-                    survivalGoal === goal.days ? `${goal.color} bg-current/10` : 'border-border text-foreground/60 hover:border-border/80'
-                  }`}
-                >
-                  <span className="text-2xl">{goal.icon}</span>
-                  <div className="text-left">
-                    <div className={`font-heading font-bold text-base ${survivalGoal === goal.days ? '' : 'text-foreground'}`}>
-                      {goal.label}
-                    </div>
-                    <div className="text-xs font-mono text-muted-foreground">
-                      {goal.desc} · {goal.days}
-                    </div>
-                  </div>
-                  {survivalGoal === goal.days && <span className="ml-auto text-lg">●</span>}
-                </button>
+                (() => {
+                  const GoalIcon = goal.Icon;
+
+                  return (
+                    <button
+                      key={goal.days}
+                      onClick={() => setSurvivalGoal(goal.days)}
+                      className={`w-full flex items-center gap-4 p-4 border rounded-sm transition-all ${
+                        survivalGoal === goal.days ? `${goal.color} bg-current/10` : 'border-border text-foreground/60 hover:border-border/80'
+                      }`}
+                    >
+                      <GoalIcon size={24} className="shrink-0" />
+                      <div className="text-left">
+                        <div className={`font-heading font-bold text-base ${survivalGoal === goal.days ? '' : 'text-foreground'}`}>
+                          {goal.label}
+                        </div>
+                        <div className="text-xs font-mono text-muted-foreground">
+                          {goal.desc} · {goal.days}
+                        </div>
+                      </div>
+                      {survivalGoal === goal.days && <CircleDot size={18} className="ml-auto shrink-0" />}
+                    </button>
+                  );
+                })()
               ))}
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => setStep('new_game')}
-                className="flex-1 py-3 border border-border text-muted-foreground font-heading text-sm rounded-sm hover:border-foreground/30 transition-colors"
+                className="flex flex-1 items-center justify-center gap-2 py-3 border border-border text-muted-foreground font-heading text-sm rounded-sm hover:border-foreground/30 transition-colors"
               >
-                ← {text.start.back}
+                <ArrowLeft size={16} />
+                {text.start.back}
               </button>
               <button
                 onClick={handleConfirmStart}
-                className="flex-[2] py-3 bg-danger text-primary-foreground font-heading text-sm font-bold rounded-sm hover:bg-danger/90 transition-all"
+                className="flex flex-[2] items-center justify-center gap-2 py-3 bg-danger text-primary-foreground font-heading text-sm font-bold rounded-sm hover:bg-danger/90 transition-all"
               >
                 {text.start.begin}
+                <ArrowRight size={16} />
               </button>
             </div>
           </motion.div>
