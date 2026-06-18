@@ -1110,7 +1110,7 @@ export const EPISODES = [
     reviewStatus: 'scenario_brief',
     sceneImage: '/assets/scenes/cold-night-shelter.png',
     requiredItemIds: ['dry_base_layer', 'warm_hat_shelter', 'dry_socks', 'windbreaker', 'water_shelter', 'energy_bar_shelter', 'dry_corner'],
-    timeLimitSeconds: 6 * 60,
+    timeLimitSeconds: 10 * 60,
     actionTimeCosts: {
       openContainer: 15,
       inspectItem: 25,
@@ -1132,52 +1132,52 @@ export const EPISODES = [
       ru: {
         title: 'Подъезд. Холодная ночь',
         location: 'Подъезд, 01:20, слабая связь',
-        mission: 'Продержись до утра: выбери сухой слой, защиту от ветра, место ожидания и немного энергии.',
-        story: 'На улице ветер и мокрый снег. В подъезде холодно, но здесь есть сухой угол, вещи из рюкзака и несколько спорных вариантов. Ошибка не выглядит страшной сразу, но к утру забирает силы.',
-        goal: 'Открой зоны укрытия, выбери сухие слои, запас воды и энергии, затем избегай ложного тепла.',
+        mission: 'Вы застряли в подъезде до утра. За 10 минут подготовь место для ночевки: где сидеть, что надеть, что держать под рукой.',
+        story: 'После выхода из квартиры группа не успела уйти дальше: транспорт встал, на улице мокрый снег, связь ловит только у окна. Ночь придется переждать здесь. Нужно быстро решить, где сидеть, чем утеплиться и какие запасы оставить рядом, пока холод не начал забирать силы.',
+        goal: 'Сначала выбери сухое место для ночевки. Потом проверь сумку с одеждой и рюкзак с запасами. Не трать время на опасные идеи для “быстрого тепла”.',
         expertNote: 'Тепло держится за счет сухости, защиты от ветра, изоляции от холодной поверхности и экономии сил. Самая мягкая вещь не всегда самая безопасная.',
         success: 'Ночь остается тяжелой, но контролируемой: сухие слои, ветровка, вода, энергия и сухой угол дают запас до утра.',
-        failure: 'Холод постепенно забирает силы. Без сухого слоя, защиты от ветра или правильного места ожидания даже подъезд становится плохим укрытием.',
-        timeLabel: 'До рассвета',
+        failure: 'Холод постепенно забирает силы. Без понятного места, сухой одежды и небольшого запаса рядом подъезд быстро перестает быть укрытием.',
+        timeLabel: 'На подготовку',
         evaluate: 'Ждать до утра',
         leaveDisabled: 'Нужны ключевые решения',
         characters: [
-          { name: 'Лера', line: 'Сухое важнее мягкого. Мокрая вещь быстро забирает тепло.' },
-          { name: 'Никита', line: 'Хочется ходить туда-сюда, но силы тоже заканчиваются.' }
+          { name: 'Лера', line: 'Сначала место: не у двери и не на мокром полу. Потом сухая одежда.' },
+          { name: 'Никита', line: 'Я держу рюкзак рядом. Вода, батончик и свет должны быть под рукой.' }
         ]
       },
       en: {
         title: 'Stairwell. Cold night',
         location: 'Stairwell, 01:20, weak signal',
-        mission: 'Get through the night: choose a dry layer, wind protection, a waiting spot, and a little energy.',
-        story: 'Wind and wet snow push against the entrance. The stairwell is cold, but there is a dry corner, gear from the pack, and a few tempting bad ideas. The wrong choice does not look dramatic now, but by morning it drains strength.',
-        goal: 'Open the shelter zones, choose dry layers, water, and energy, then avoid false warmth.',
+        mission: 'You are stuck in the stairwell until morning. Use 10 minutes to prepare the night spot: where to sit, what to wear, and what to keep within reach.',
+        story: 'After leaving the apartment, the group cannot move farther: transport has stopped, wet snow is outside, and signal appears only near the window. You have to wait here. Decide where to sit, how to keep dry and warm, and which supplies stay close before cold starts draining energy.',
+        goal: 'First choose a dry sleeping spot. Then check the clothing bag and the supply backpack. Do not waste time on dangerous ideas for “quick warmth.”',
         expertNote: 'Warmth comes from dryness, wind protection, insulation from cold surfaces, and conserving energy. The softest item is not always the safest.',
         success: 'The night is still hard, but controlled: dry layers, a shell, water, energy, and a dry corner create margin until morning.',
-        failure: 'Cold slowly drains strength. Without dry layers, wind protection, or a better waiting spot, even a stairwell becomes poor shelter.',
-        timeLabel: 'Until dawn',
+        failure: 'Cold slowly drains strength. Without a clear spot, dry clothing, and small supplies nearby, the stairwell stops being shelter.',
+        timeLabel: 'Prep time',
         evaluate: 'Wait until dawn',
         leaveDisabled: 'Key decisions required',
         characters: [
-          { name: 'Lera', line: 'Dry matters more than soft. A wet item pulls heat away fast.' },
-          { name: 'Nikita', line: 'I want to pace back and forth, but energy runs out too.' }
+          { name: 'Lera', line: 'Place first: not by the door and not on the wet floor. Then dry clothes.' },
+          { name: 'Nikita', line: 'I will keep the backpack close. Water, food, and light should be reachable.' }
         ]
       },
       es: {
         title: 'Escalera. Noche fría',
         location: 'Escalera, 01:20, señal débil',
-        mission: 'Aguanta hasta la mañana: elige capa seca, protección contra viento, lugar de espera y algo de energía.',
-        story: 'Afuera hay viento y nieve húmeda. La escalera está fría, pero hay una esquina seca, equipo de la mochila y varias ideas dudosas. El error no parece grave al principio, pero para la mañana roba fuerzas.',
-        goal: 'Abre las zonas del refugio, elige capas secas, agua y energía, y evita el falso calor.',
+        mission: 'Están atrapados en la escalera hasta la mañana. Usa 10 minutos para preparar el lugar: dónde sentarse, qué ponerse y qué tener a mano.',
+        story: 'Después de salir del apartamento, el grupo no puede avanzar: el transporte se detuvo, afuera hay nieve húmeda y la señal aparece solo junto a la ventana. Hay que esperar aquí. Decide dónde sentarte, cómo mantenerte seco y qué suministros dejar cerca antes de que el frío robe energía.',
+        goal: 'Primero elige un lugar seco para pasar la noche. Luego revisa la bolsa de ropa y la mochila de suministros. No pierdas tiempo con ideas peligrosas de “calor rápido”.',
         expertNote: 'El calor depende de sequedad, protección contra viento, aislamiento del suelo frío y ahorro de energía. Lo más cómodo no siempre es lo más seguro.',
         success: 'La noche sigue siendo dura, pero controlada: capas secas, cortaviento, agua, energía y una esquina seca dan margen hasta la mañana.',
-        failure: 'El frío va robando fuerzas. Sin capas secas, protección contra viento o un buen sitio de espera, incluso una escalera es mal refugio.',
-        timeLabel: 'Hasta el amanecer',
+        failure: 'El frío va robando fuerzas. Sin lugar claro, ropa seca y pequeños suministros cerca, la escalera deja de ser refugio.',
+        timeLabel: 'Preparación',
         evaluate: 'Esperar hasta la mañana',
         leaveDisabled: 'Faltan decisiones clave',
         characters: [
-          { name: 'Lera', line: 'Seco importa más que suave. Algo mojado roba calor rápido.' },
-          { name: 'Nikita', line: 'Quiero caminar sin parar, pero la energía también se acaba.' }
+          { name: 'Lera', line: 'Primero el lugar: no junto a la puerta ni sobre suelo mojado. Luego ropa seca.' },
+          { name: 'Nikita', line: 'Dejo la mochila cerca. Agua, comida y luz deben estar a mano.' }
         ]
       }
     },
@@ -1224,12 +1224,12 @@ export const EPISODES = [
       {
         itemId: 'dry_corner',
         taken: {
-          ru: 'Сухой угол выбран: меньше ветра, сырости и контакта с холодным полом.',
+          ru: 'Место для ночевки выбрано: меньше ветра, сырости и контакта с холодным полом.',
           en: 'Dry corner chosen: less wind, wetness, and contact with the cold floor.',
           es: 'Esquina seca elegida: menos viento, humedad y contacto con suelo frío.'
         },
         missed: {
-          ru: 'Место ожидания не выбрано: сквозняк и влажный пол будут забирать тепло.',
+          ru: 'Место для ночевки не выбрано: сквозняк и влажный пол будут забирать тепло.',
           en: 'Waiting spot missed: draft and wet floor will drain warmth.',
           es: 'Lugar de espera omitido: corriente y suelo húmedo roban calor.'
         }
@@ -1244,9 +1244,9 @@ export const EPISODES = [
         w: 24,
         h: 28,
         copy: {
-          ru: { name: 'Сухой угол', hint: 'место ожидания' },
-          en: { name: 'Dry corner', hint: 'waiting spot' },
-          es: { name: 'Esquina seca', hint: 'lugar de espera' }
+          ru: { name: 'Где сидеть', hint: 'место для ночевки до утра' },
+          en: { name: 'Where to sit', hint: 'night waiting spot' },
+          es: { name: 'Dónde sentarse', hint: 'lugar para pasar la noche' }
         },
         itemIds: ['dry_corner', 'cardboard_pad', 'drafty_door', 'wet_window']
       },
@@ -1258,9 +1258,9 @@ export const EPISODES = [
         w: 26,
         h: 28,
         copy: {
-          ru: { name: 'Слои и утепление', hint: 'одежда и защита' },
-          en: { name: 'Layers and insulation', hint: 'clothing and protection' },
-          es: { name: 'Capas y abrigo', hint: 'ropa y protección' }
+          ru: { name: 'Что надеть', hint: 'сухая одежда и защита от ветра' },
+          en: { name: 'What to wear', hint: 'dry clothing and wind protection' },
+          es: { name: 'Qué ponerse', hint: 'ropa seca y protección contra viento' }
         },
         itemIds: ['dry_base_layer', 'warm_hat_shelter', 'dry_socks', 'windbreaker', 'emergency_blanket_shelter', 'cotton_hoodie_shelter', 'wet_blanket']
       },
@@ -1272,9 +1272,9 @@ export const EPISODES = [
         w: 26,
         h: 28,
         copy: {
-          ru: { name: 'Полка с запасами', hint: 'вода, свет, энергия' },
-          en: { name: 'Supply shelf', hint: 'water, light, energy' },
-          es: { name: 'Estante', hint: 'agua, luz, energía' }
+          ru: { name: 'Что взять', hint: 'вода, еда, свет рядом' },
+          en: { name: 'What to keep', hint: 'water, food, light nearby' },
+          es: { name: 'Qué tener cerca', hint: 'agua, comida, luz cerca' }
         },
         itemIds: ['water_shelter', 'energy_bar_shelter', 'headlamp_shelter', 'powerbank_shelter', 'small_radio', 'heavy_cans_stack', 'glass_bottle_shelter']
       },
@@ -1286,9 +1286,9 @@ export const EPISODES = [
         w: 25,
         h: 25,
         copy: {
-          ru: { name: 'Рискованный обогрев', hint: 'ложное тепло' },
-          en: { name: 'Risky heat', hint: 'false warmth' },
-          es: { name: 'Calor riesgoso', hint: 'falso calor' }
+          ru: { name: 'Не трогать', hint: 'опасная идея для быстрого тепла' },
+          en: { name: 'Do not use', hint: 'dangerous quick-warmth idea' },
+          es: { name: 'No usar', hint: 'idea peligrosa de calor rápido' }
         },
         itemIds: ['unsafe_heat_source', 'constant_pacing']
       }
@@ -1301,11 +1301,11 @@ export const EPISODES = [
         weight: 0,
         copy: {
           ru: {
-            name: 'Сухой угол у внутренней стены',
+            name: 'Место у внутренней стены',
             place: 'в подъезде',
-            note: 'Место без сквозняка и мокрого пола снижает потерю тепла.',
+            note: 'Это место для ночевки: не у двери, не на мокром полу и ближе к внутренней стене.',
             useFor: 'ожидание, экономия сил, защита от ветра',
-            risk: 'Не гарантирует тепло без сухих слоев и защиты от ветра.'
+            risk: 'Само место не согреет без сухой одежды и защиты от ветра.'
           },
           en: {
             name: 'Dry interior corner',
