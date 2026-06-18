@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Episode 1: Main Scene - Refined</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#001702",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1b1b1b",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#002204",
+                        "secondary-fixed": "#ffdbd1",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#c8c6c5",
+                        "outline-variant": "#444748",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "on-surface": "#e5e2e1",
+                        "surface-tint": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#862200",
+                        "on-secondary-fixed": "#3b0900",
+                        "surface": "#131313",
+                        "inverse-primary": "#5f5e5e",
+                        "on-error": "#690005",
+                        "on-primary": "#313030",
+                        "on-tertiary-container": "#2a9035",
+                        "secondary": "#ffb5a0",
+                        "surface-variant": "#353535",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary": "#5f1500",
+                        "surface-container-highest": "#353535",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#78dc77",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "outline": "#8e9192",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#00390a",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-bright": "#393939",
+                        "primary-container": "#121212",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#7e7d7d",
+                        "surface-container": "#20201f",
+                        "tertiary-fixed": "#94f990",
+                        "on-surface-variant": "#c4c7c7",
+                        "secondary-container": "#d73b00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "stat-sm": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "stat-lg": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "stat-sm": ["14px", {"lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "stat-lg": ["20px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glow-pulse {
+            animation: subtlePulse 2s infinite ease-in-out;
+        }
+        @keyframes subtlePulse {
+            0% { box-shadow: 0 0 10px rgba(120, 220, 119, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(120, 220, 119, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(120, 220, 119, 0.2); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-tertiary selection:text-tertiary-container pb-20">
+<!-- Top Status Bar & Header -->
+<header class="w-full bg-surface-container-low shadow-md z-40 sticky top-0 flex flex-col">
+<!-- TopAppBar (Adapted from JSON for Status) -->
+<div class="flex justify-between items-center w-full px-margin-mobile py-unit max-w-full bg-background">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-primary text-xl">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary tracking-widest">Survivor Profile</span>
+<span class="font-stat-sm text-stat-sm text-on-surface-variant">Lv.5 | Day 12</span>
+</div>
+</div>
+<button class="flex items-center gap-1 text-outline hover:text-primary transition-colors">
+<span class="font-label-caps text-label-caps">EN</span>
+<span class="material-symbols-outlined text-sm">language</span>
+</button>
+</div>
+<!-- Vital Status Bars -->
+<div class="w-full px-margin-mobile py-2 bg-surface-container-highest flex gap-2">
+<div class="flex-1 flex flex-col gap-[2px]">
+<span class="font-stat-sm text-[10px] text-outline uppercase leading-none">HP</span>
+<div class="h-1.5 w-full bg-surface-variant"><div class="h-full bg-tertiary w-[85%]"></div></div>
+</div>
+<div class="flex-1 flex flex-col gap-[2px]">
+<span class="font-stat-sm text-[10px] text-outline uppercase leading-none">Food</span>
+<div class="h-1.5 w-full bg-surface-variant"><div class="h-full bg-tertiary w-[40%]"></div></div>
+</div>
+<div class="flex-1 flex flex-col gap-[2px]">
+<span class="font-stat-sm text-[10px] text-outline uppercase leading-none">Water</span>
+<div class="h-1.5 w-full bg-surface-variant"><div class="h-full bg-tertiary w-[60%]"></div></div>
+</div>
+<div class="flex-1 flex flex-col gap-[2px]">
+<span class="font-stat-sm text-[10px] text-outline uppercase leading-none">STR</span>
+<div class="h-1.5 w-full bg-surface-variant"><div class="h-full bg-tertiary w-[90%]"></div></div>
+</div>
+<div class="flex-1 flex flex-col gap-[2px]">
+<span class="font-stat-sm text-[10px] text-secondary uppercase leading-none">Warmth</span>
+<div class="h-1.5 w-full bg-surface-variant"><div class="h-full bg-secondary w-[20%]"></div></div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col w-full mx-auto relative">
+<!-- Interactive Scene Canvas -->
+<section class="relative w-full flex-1 min-h-[65vh] bg-surface-container overflow-hidden group">
+<!-- Scene Background -->
+<div class="absolute inset-0 bg-cover bg-center opacity-90 transition-opacity duration-700 group-hover:opacity-100" data-alt="A dark, cinematic view of a dilapidated modern apartment interior at twilight. The room is mostly in deep shadows, illuminated only by faint, eerie blue light filtering through partially boarded-up windows. Silhouette shapes of a fridge, wardrobe, and a messy table are visible in the gloom. The atmosphere is tense, utilitarian, and foreboding, resembling a high-stakes survival simulation environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxGDp9cHnM4hL_N5C18yGn52QU6YNL5jJDJQ0Tsi7TTCx93dUflqgotm1LqwwKQH4Sctqm7skykX6leTG1M8fRPp1Esat1hKtr_crGRedH2cz2lr2mtdkLBuZhZJLE1zV1liV21pF6UThvoxEIU2DRFBK6VviTbHvtO1kwZydO_gOXDk--eNHlFaH4L925MQNueb6GNYm6RgfPsVW0pJWe-eMe-lY5KFPdSmyqPLDcDPAJVbPWx2C6yThTgCt6iV2aioFhTnip54Xc');">
+</div>
+<!-- Dark Overlay for Flashlight Focus -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30 pointer-events-none"></div>
+<!-- Floating Items Counter -->
+<div class="absolute top-4 right-4 inline-flex items-center px-3 py-1.5 bg-surface-container-high/80 backdrop-blur-sm border border-outline-variant rounded-full gap-2 z-10 shadow-lg">
+<span class="material-symbols-outlined text-[18px] text-tertiary" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-stat-sm text-stat-sm text-tertiary tracking-wide">0/6</span>
+</div>
+<!-- Hotspots -->
+<!-- Wardrobe Hotspot -->
+<button class="absolute top-[35%] left-[20%] w-10 h-10 rounded-full border border-tertiary flex items-center justify-center bg-tertiary-container/80 backdrop-blur-sm glow-pulse hover:bg-tertiary hover:text-tertiary-container transition-all text-tertiary cursor-pointer group/spot">
+<span class="material-symbols-outlined text-[20px] group-hover/spot:scale-110 transition-transform">search</span>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/spot:opacity-100 transition-opacity bg-surface-container-high border border-outline-variant px-2 py-1 font-stat-sm text-[10px] text-on-surface whitespace-nowrap pointer-events-none rounded">
+                    Wardrobe
+                </div>
+</button>
+<!-- Fridge Hotspot -->
+<button class="absolute top-[55%] right-[25%] w-10 h-10 rounded-full border border-tertiary flex items-center justify-center bg-tertiary-container/80 backdrop-blur-sm glow-pulse hover:bg-tertiary hover:text-tertiary-container transition-all text-tertiary cursor-pointer group/spot" style="animation-delay: 0.7s;">
+<span class="material-symbols-outlined text-[20px] group-hover/spot:scale-110 transition-transform">kitchen</span>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/spot:opacity-100 transition-opacity bg-surface-container-high border border-outline-variant px-2 py-1 font-stat-sm text-[10px] text-on-surface whitespace-nowrap pointer-events-none rounded">
+                    Fridge
+                </div>
+</button>
+<!-- Table Hotspot -->
+<button class="absolute bottom-[40%] left-[45%] w-10 h-10 rounded-full border border-tertiary flex items-center justify-center bg-tertiary-container/80 backdrop-blur-sm glow-pulse hover:bg-tertiary hover:text-tertiary-container transition-all text-tertiary cursor-pointer group/spot" style="animation-delay: 1.4s;">
+<span class="material-symbols-outlined text-[20px] group-hover/spot:scale-110 transition-transform">table_bar</span>
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/spot:opacity-100 transition-opacity bg-surface-container-high border border-outline-variant px-2 py-1 font-stat-sm text-[10px] text-on-surface whitespace-nowrap pointer-events-none rounded">
+                    Kitchen Table
+                </div>
+</button>
+<!-- Dialogue Strip Overlay -->
+<div class="absolute bottom-0 left-0 right-0 flex gap-4 p-4 bg-gradient-to-t from-background via-background/90 to-transparent">
+<!-- Subtle accent bar -->
+<div class="absolute left-4 top-4 bottom-4 w-1 bg-secondary rounded-full"></div>
+<div class="w-12 h-12 ml-2 bg-surface-variant border border-outline-variant shrink-0 bg-cover bg-center grayscale contrast-125 rounded-sm" data-alt="A gritty, high-contrast portrait of a young woman with a determined, serious expression." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCq5GMyz8Ex0U2FIKrLs1NSaSXKuGWt-5Tz8UA-PeR1hBFg-mrynrBeCq4IHokME5JLem2IImOSY063rBFJM5Xp4K3xd7cICdC0NR9cU8TlUFVtU1kXyvzSCIdhSjYy9HW-nqvOsDW8_nvWjrjs6KFGua43nPhuHrd19Yh1pjqHgznfLUDTIFdeuZxWkkAcXAVtM7QKq7rw5S-uewfu0JzpDTeffwLJ-36FAKcd9BYlHTxmNdjmqCa8F6hD2Li2bWCqlUB3Sp3M6UJ_');">
+</div>
+<div class="flex flex-col justify-center drop-shadow-md">
+<span class="font-label-caps text-label-caps text-secondary mb-0.5">Lera</span>
+<p class="font-body-md text-sm text-on-surface italic leading-snug">"Take water and warm clothes first. Everything else only if there is space."</p>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (From JSON) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<!-- Episode (Active) -->
+<button class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold scale-90 transition-transform duration-150 w-16 gap-1 group">
+<div class="w-12 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center group-hover:bg-secondary-container/30 transition-colors">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">explore</span>
+</div>
+<span class="font-label-caps text-[10px] tracking-wider uppercase">Episode</span>
+</button>
+<!-- Training (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim transition-colors duration-200 w-16 gap-1 group">
+<div class="w-12 h-8 rounded-full flex items-center justify-center group-hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[24px]">fitness_center</span>
+</div>
+<span class="font-label-caps text-[10px] tracking-wider uppercase">Training</span>
+</button>
+<!-- Base (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim transition-colors duration-200 w-16 gap-1 group">
+<div class="w-12 h-8 rounded-full flex items-center justify-center group-hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[24px]">home_work</span>
+</div>
+<span class="font-label-caps text-[10px] tracking-wider uppercase">Base</span>
+</button>
+<!-- Journal (Inactive) -->
+<button class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim transition-colors duration-200 w-16 gap-1 group">
+<div class="w-12 h-8 rounded-full flex items-center justify-center group-hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[24px]">menu_book</span>
+</div>
+<span class="font-label-caps text-[10px] tracking-wider uppercase">Journal</span>
+</button>
+</nav>
+</body></html>

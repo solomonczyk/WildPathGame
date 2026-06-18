@@ -6,11 +6,14 @@ import InteractiveEpisode from '@/components/game/InteractiveEpisode';
 import LanguageSwitcher from '@/components/game/LanguageSwitcher';
 import { getUiText } from '@/lib/i18n';
 import { addXP, applyDeltas, checkVictory, saveGame, unlockSkill } from '@/lib/gameEngine';
+import { EPISODES } from '@/lib/interactiveEpisodes';
 
 export default function GameHub({ player, setPlayer, onGameOver, onVictory, language, setLanguage }) {
   const [tab, setTab] = useState('episode');
+  const [selectedEpisodeId, setSelectedEpisodeId] = useState('apartment_evacuation');
   const [log, setLog] = useState([]);
   const text = getUiText(language);
+  const selectedEpisode = EPISODES.find(episode => episode.id === selectedEpisodeId) || EPISODES[0];
 
   useEffect(() => {
     saveGame(player);
@@ -134,9 +137,39 @@ export default function GameHub({ player, setPlayer, onGameOver, onVictory, lang
         <AnimatePresence mode="wait">
           {tab === 'episode' && (
             <motion.div key="episode" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              <div className="mx-auto mb-3 flex max-w-6xl gap-2 overflow-x-auto pb-1 sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0">
+                {EPISODES.map((episode, index) => {
+                  const episodeCopy = episode.copy[language] || episode.copy.ru;
+                  const isSelected = selectedEpisode.id === episode.id;
+                  const isComplete = (player.completedEpisodes || []).includes(episode.id);
+
+                  return (
+                    <button
+                      key={episode.id}
+                      type="button"
+                      onClick={() => setSelectedEpisodeId(episode.id)}
+                      className={`min-w-[220px] rounded-sm border px-3 py-2 text-left transition-all sm:min-w-0 sm:py-3 ${
+                        isSelected
+                          ? 'border-warning bg-warning/10 text-foreground'
+                          : 'border-border bg-muted/10 text-muted-foreground hover:border-warning/50 hover:text-foreground'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-[10px] font-mono uppercase tracking-widest text-warning">EP {String(index + 1).padStart(2, '0')}</span>
+                        <span className={`text-[10px] font-mono uppercase ${isComplete ? 'text-success' : 'text-muted-foreground'}`}>
+                          {isComplete ? text.episode.complete : episode.reviewStatus}
+                        </span>
+                      </div>
+                      <div className="mt-1 line-clamp-1 text-sm font-bold leading-tight sm:line-clamp-none">{episodeCopy.title}</div>
+                      <div className="mt-1 hidden text-xs leading-relaxed opacity-80 sm:line-clamp-2 sm:block">{episodeCopy.mission}</div>
+                    </button>
+                  );
+                })}
+              </div>
               <InteractiveEpisode
+                episodeId={selectedEpisode.id}
                 language={language}
-                completed={(player.completedEpisodes || []).includes('apartment_evacuation')}
+                completed={(player.completedEpisodes || []).includes(selectedEpisode.id)}
                 onComplete={handleEpisodeComplete}
               />
             </motion.div>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wildpath - Episode 02 Results</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#78dc77",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "tertiary-container": "#a6c4d3",
+                        "inverse-surface": "#e5e2e1",
+                        "cold-blue": "#aabcc4",
+                        "surface-dim": "#131313",
+                        "secondary": "#78dc77",
+                        "tertiary": "#c1e0f0",
+                        "surface-mid": "#131313",
+                        "concrete": "#9e9e9e",
+                        "tertiary-fixed": "#c9e7f7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002204",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#35525f",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#d7c4ac",
+                        "on-primary": "#432c00",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "danger-red": "#d32f2f",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-error-container": "#ffdad6",
+                        "surface-light": "#1b1b1b",
+                        "secondary-fixed": "#94f990",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-tertiary": "#163440",
+                        "outline": "#9f8e78",
+                        "outline-variant": "#524533",
+                        "inverse-primary": "#805600",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#ffba43",
+                        "on-primary-container": "#6a4700",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-tertiary-fixed": "#001f2a",
+                        "secondary-container": "#00761f",
+                        "primary-fixed": "#ffddaf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "steel": "#455a64",
+                        "on-secondary-container": "#95fb92",
+                        "primary-container": "#ffb000",
+                        "on-secondary": "#00390a",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#ffba43",
+                        "primary": "#ffd597",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#281800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "safe-top": "24px",
+                        "base": "4px",
+                        "padding-panel": "20px",
+                        "gutter-grid": "12px",
+                        "bottom-bar-height": "100px",
+                        "margin-screen": "12px"
+                    },
+                    "fontFamily": {
+                        "status-value": ["JetBrains Mono"],
+                        "microcopy": ["Inter"],
+                        "status-label": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Archivo Narrow"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "status-value": ["18px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "microcopy": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "status-label": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-base": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Tonal Layers based on Style Guidance */
+        .surface-0 { background-color: transparent; }
+        .surface-1 { background-color: #131313; }
+        .surface-2 { background-color: #1b1b1b; }
+        
+        .bg-dimmed-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .meter-bg {
+            background-color: #1b1b1b;
+        }
+        
+        .meter-fill-success {
+            background-color: #78dc77;
+        }
+        
+        .meter-fill-warning {
+            background-color: #ffba43;
+        }
+        
+        .meter-fill-danger {
+            background-color: #d32f2f;
+        }
+
+        /* Tactical Borders */
+        .tactical-border {
+            border: 1px solid #524533;
+        }
+        
+        .tactical-border-accent {
+            border: 1px solid #ffba43;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Swiper Container Styles */
+        .carousel-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 12px;
+            padding-bottom: 20px;
+        }
+        
+        .carousel-item {
+            flex: 0 0 85%;
+            scroll-snap-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .carousel-item {
+                flex: 0 0 400px;
+            }
+            .carousel-container {
+                justify-content: center;
+                flex-wrap: wrap;
+                overflow-x: visible;
+            }
+        }
+
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="antialiased">
+<!-- Background Art with Dimmed Overlay -->
+<div class="fixed inset-0 z-0 pointer-events-none">
+<div class="bg-cover bg-center w-full h-full" data-alt="A gritty, dimly lit concrete stairwell in an abandoned brutalist building. The scene is illuminated by a single flickering, cold blue emergency light casting long, harsh shadows. The atmosphere is tense, desolate, and freezing cold, reflecting a gritty urban survival aesthetic. Heavy dark tones dominate with sharp edges and utilitarian textures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuACmEku4v7nXrdn196mN0Wj76RPbAsQepu8E5jEm9YBigqq_Kf8-A3xOBeORFt6PWN2ZIg4g1eIZldu4lu7tsD_r1umFM0b3y0wKQ9eKtvVbG_w9eP0RAK-BKFIfZPOWv2yOIUu63qUHAaoteYmVckqq0QSA3ukcVugiKSv5UChWbnioP1BtQNHJ81dCddLYupt0p0kR409VSwNKZzxPVASrYUOmqzMCbMyGsQ53fey23kRnWEePik0Is1BoiJUSDF0d0Lq6E6dPc7O')"></div>
+<div class="absolute inset-0 bg-dimmed-overlay"></div>
+</div>
+<!-- TopAppBar -->
+<header class="docked full-width top-0 pt-safe-top z-50 bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-screen h-[60px]">
+<button class="flex items-center justify-center w-10 h-10 text-on-surface-variant hover:bg-surface-bright transition-colors active:scale-95 duration-100 rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+<h1 class="font-headline-md text-headline-md uppercase tracking-tight font-bold text-primary-fixed-dim">WILDPATH // EP.02</h1>
+<button class="flex items-center justify-center w-10 h-10 text-on-surface-variant hover:bg-surface-bright transition-colors active:scale-95 duration-100 rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">share</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow z-10 relative overflow-y-auto hide-scrollbar px-margin-screen pt-4 pb-bottom-bar-height flex flex-col items-center">
+<div class="w-full max-w-4xl flex flex-col gap-6">
+<!-- Overall Status Header -->
+<div class="text-center mb-4">
+<span class="font-microcopy text-microcopy text-concrete uppercase tracking-widest block mb-2">ПОДВЕДЕНИЕ ИТОГОВ</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase leading-none">АНАЛИЗ ВЫЖИВАНИЯ</h2>
+</div>
+<!-- Carousel Container for Results -->
+<div class="carousel-container hide-scrollbar w-full">
+<!-- Result Card 1: Success -->
+<div class="carousel-item surface-2 rounded tactical-border-accent p-padding-panel flex flex-col gap-4 relative">
+<div class="absolute top-4 right-4 font-microcopy text-microcopy bg-secondary-container text-on-secondary-container px-2 py-1 rounded uppercase">
+                        УСПЕХ
+                    </div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase">Ночь под контролем</h3>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="font-status-label text-status-label text-concrete uppercase">Оценка Выживаемости</span>
+<span class="font-status-value text-status-value text-secondary">92/100</span>
+</div>
+<div class="h-2 w-full meter-bg rounded-full overflow-hidden">
+<div class="h-full meter-fill-success" style="width: 92%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3 mt-2">
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Исход</span>
+<p class="font-body-sm text-body-sm text-on-surface">Тепло сохранено до утра. Энергозатраты минимальны.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-secondary uppercase block mb-1">Что сработало</span>
+<p class="font-body-sm text-body-sm text-on-surface">Правильная изоляция от бетона. Создание воздушной прослойки.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-primary-fixed-dim uppercase block mb-1">Что осталось риском</span>
+<p class="font-body-sm text-body-sm text-on-surface">Сквозняк из шахты лифта мог критически снизить температуру.</p>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Практический вывод</span>
+<p class="font-body-base text-body-base text-on-surface font-medium">Всегда изолируй себя от теплоемких поверхностей.</p>
+</div>
+</div>
+<!-- Result Card 2: Missing Dry Layer -->
+<div class="carousel-item surface-2 rounded tactical-border p-padding-panel flex flex-col gap-4 relative opacity-90">
+<div class="absolute top-4 right-4 font-microcopy text-microcopy bg-surface-bright text-on-surface px-2 py-1 rounded uppercase border border-outline-variant">
+                        СРЕДНЕ
+                    </div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase">Холод забирает силы</h3>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="font-status-label text-status-label text-concrete uppercase">Оценка Выживаемости</span>
+<span class="font-status-value text-status-value text-primary-fixed-dim">58/100</span>
+</div>
+<div class="h-2 w-full meter-bg rounded-full overflow-hidden">
+<div class="h-full meter-fill-warning" style="width: 58%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3 mt-2">
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Исход</span>
+<p class="font-body-sm text-body-sm text-on-surface">Утро встречено с легкой гипотермией. Потеря выносливости.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-secondary uppercase block mb-1">Что сработало</span>
+<p class="font-body-sm text-body-sm text-on-surface">Укрытие от прямого ветра в углу лестничной клетки.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-danger-red uppercase block mb-1">Что осталось риском</span>
+<p class="font-body-sm text-body-sm text-on-surface">Влажная одежда высосала тепло. Отсутствие сухого слоя.</p>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Практический вывод</span>
+<p class="font-body-base text-body-base text-on-surface font-medium">Влага убивает быстрее мороза. Сухой базовый слой критичен.</p>
+</div>
+</div>
+<!-- Result Card 3: Risky Heat -->
+<div class="carousel-item surface-2 rounded tactical-border p-padding-panel flex flex-col gap-4 relative opacity-90">
+<div class="absolute top-4 right-4 font-microcopy text-microcopy bg-error-container text-on-error-container px-2 py-1 rounded uppercase border border-error">
+                        КРИТИЧНО
+                    </div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-danger-red text-3xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase">Ложное тепло</h3>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="font-status-label text-status-label text-concrete uppercase">Оценка Выживаемости</span>
+<span class="font-status-value text-status-value text-danger-red">46/100</span>
+</div>
+<div class="h-2 w-full meter-bg rounded-full overflow-hidden">
+<div class="h-full meter-fill-danger" style="width: 46%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3 mt-2">
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Исход</span>
+<p class="font-body-sm text-body-sm text-on-surface">Отравление угарным газом. Резкое падение здоровья.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-secondary uppercase block mb-1">Что сработало</span>
+<p class="font-body-sm text-body-sm text-on-surface">Быстрый набор температуры в замкнутом пространстве.</p>
+</div>
+<div class="surface-1 p-3 rounded border border-outline-variant">
+<span class="font-microcopy text-microcopy text-danger-red uppercase block mb-1">Что осталось риском</span>
+<p class="font-body-sm text-body-sm text-on-surface">Отсутствие вентиляции превратило укрытие в газовую камеру.</p>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<span class="font-microcopy text-microcopy text-concrete uppercase block mb-1">Практический вывод</span>
+<p class="font-body-base text-body-base text-on-surface font-medium">Открытый огонь в глухом помещении — самоубийство. Нужна тяга.</p>
+</div>
+</div>
+</div>
+<!-- Indicators for Carousel -->
+<div class="flex justify-center gap-2 mt-2 md:hidden">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim"></div>
+<div class="w-2 h-2 rounded-full bg-surface-bright"></div>
+<div class="w-2 h-2 rounded-full bg-surface-bright"></div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Bar (Contextual FAB Replacement for Transactional Screen) -->
+<div class="fixed bottom-0 left-0 w-full z-50 p-margin-screen bg-surface-dim border-t border-outline-variant flex gap-4 pb-safe-top">
+<button class="flex-1 bg-surface-light border border-outline-variant text-on-surface font-status-label text-status-label uppercase py-3 px-4 rounded active:scale-95 transition-transform duration-100 text-center">
+            ПЕРЕИГРАТЬ
+        </button>
+<button class="flex-[2] bg-primary-container text-on-primary-container font-status-label text-status-label uppercase py-3 px-4 rounded active:scale-95 transition-transform duration-100 font-bold text-center">
+            ПРОДОЛЖИТЬ
+        </button>
+</div>
+<!-- Script for simple carousel interaction indication -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.carousel-container');
+            const indicators = document.querySelectorAll('.flex.justify-center.gap-2 > div');
+            
+            if(container && indicators.length > 0) {
+                container.addEventListener('scroll', () => {
+                    const scrollRatio = container.scrollLeft / (container.scrollWidth - container.clientWidth);
+                    let activeIndex = Math.round(scrollRatio * (indicators.length - 1));
+                    
+                    // Handle NaN if container isn't scrollable
+                    if(isNaN(activeIndex)) activeIndex = 0;
+
+                    indicators.forEach((ind, i) => {
+                        if(i === activeIndex) {
+                            ind.className = 'w-2 h-2 rounded-full bg-primary-fixed-dim';
+                        } else {
+                            ind.className = 'w-2 h-2 rounded-full bg-surface-bright';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body></html>

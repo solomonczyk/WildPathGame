@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Episode 2 - Waiting Position Choice</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;700&amp;family=Inter:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#78dc77",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "tertiary-container": "#a6c4d3",
+                        "inverse-surface": "#e5e2e1",
+                        "cold-blue": "#aabcc4",
+                        "surface-dim": "#131313",
+                        "secondary": "#78dc77",
+                        "tertiary": "#c1e0f0",
+                        "surface-mid": "#131313",
+                        "concrete": "#9e9e9e",
+                        "tertiary-fixed": "#c9e7f7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002204",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#35525f",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#d7c4ac",
+                        "on-primary": "#432c00",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "danger-red": "#d32f2f",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-error-container": "#ffdad6",
+                        "surface-light": "#1b1b1b",
+                        "secondary-fixed": "#94f990",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-tertiary": "#163440",
+                        "outline": "#9f8e78",
+                        "outline-variant": "#524533",
+                        "inverse-primary": "#805600",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#ffba43",
+                        "on-primary-container": "#6a4700",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-tertiary-fixed": "#001f2a",
+                        "secondary-container": "#00761f",
+                        "primary-fixed": "#ffddaf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "steel": "#455a64",
+                        "on-secondary-container": "#95fb92",
+                        "primary-container": "#ffb000",
+                        "on-secondary": "#00390a",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#ffba43",
+                        "primary": "#ffd597",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#281800"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "safe-top": "24px",
+                        "base": "4px",
+                        "padding-panel": "20px",
+                        "gutter-grid": "12px",
+                        "bottom-bar-height": "100px",
+                        "margin-screen": "12px"
+                    },
+                    fontFamily: {
+                        "status-value": ["JetBrains Mono"],
+                        "microcopy": ["Inter"],
+                        "status-label": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Archivo Narrow"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    fontSize: {
+                        "status-value": ["18px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "microcopy": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "status-label": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "body-base": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for cleaner UI */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        * {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .tactical-scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background flex justify-center items-center min-h-screen">
+<!-- Mobile Device Container 390x844 -->
+<div class="w-[390px] h-[844px] bg-surface relative overflow-hidden flex flex-col border border-outline-variant/30 shadow-2xl">
+<!-- Scanline Overlay -->
+<div class="absolute inset-0 tactical-scanline z-50 mix-blend-overlay opacity-30"></div>
+<!-- TopAppBar (From JSON) -->
+<header class="docked full-width top-0 pt-safe-top bg-surface border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-margin-screen h-[60px] z-40 relative">
+<button class="text-primary-fixed-dim hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+</button>
+<div class="font-headline-md text-headline-md uppercase tracking-tight font-bold text-primary-fixed-dim">
+                WILDPATH // EP.02
+            </div>
+<button class="text-primary-fixed-dim hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto px-margin-screen pb-[140px] pt-4 flex flex-col gap-6 relative z-10">
+<!-- Screen Title -->
+<h1 class="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">Где ждать до утра?</h1>
+<!-- Mini Map Section -->
+<div class="relative w-full aspect-[4/3] bg-surface-container-low border border-outline-variant rounded flex items-center justify-center overflow-hidden">
+<!-- Map Background -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity" data-alt="A gritty, top-down architectural blueprint of a ruined industrial room in a tactical UI style. High contrast, dark mode, with faint grid lines, structural debris, and cold blue undertones. Minimalist, military-grade handheld device display aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAp1VaLn6cUPAi8YIoERnTyKM4QdXZDFXctwSsOVNi9OA9KR9QqrJ04Aq5_LvRy_S6xdZq2_4iOBttJId9ZWpW1k6jpquvMRnjOB-sl2RBXLoNl8WSmSCgl0tPNrRhSYm2ZgZE52TFt7j3AKkyRUqJrvc4wxHyrODfMOfNHsG9PiL7wfBjlcvIp92cZDwuTfjeVEv5ZG-qcAXmPq_6XX9Q8HuuH8PKuZ8epQb97-ICCpJDHtM-uRZRNKFq98JbyPmVef5ZAO5csGnPn')"></div>
+<!-- Map Grid Overlay -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<!-- Hotspots & Labels -->
+<!-- 1. Внутренняя стена (Inner Wall) - Selected -->
+<div class="absolute top-[20%] left-[25%] flex flex-col items-center">
+<div class="w-4 h-4 rounded-full border-2 border-secondary bg-secondary/20 relative animate-pulse flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+</div>
+<div class="absolute top-6 whitespace-nowrap bg-surface-dim/90 border border-secondary px-1.5 py-0.5 rounded text-secondary font-microcopy text-microcopy uppercase">
+                        Внутренняя стена
+                    </div>
+<svg class="absolute top-4 left-2 w-8 h-8 pointer-events-none" viewbox="0 0 32 32"><path d="M 0 0 L 16 16" fill="none" stroke="#78dc77" stroke-width="1"></path></svg>
+</div>
+<!-- 2. Сквозняк (Draft) -->
+<div class="absolute bottom-[25%] left-[20%] flex flex-col items-center">
+<div class="w-3 h-3 rounded-full border-2 border-danger-red bg-danger-red/20 relative flex items-center justify-center">
+</div>
+<div class="absolute top-5 whitespace-nowrap bg-surface-dim/80 border border-danger-red/50 px-1.5 py-0.5 rounded text-danger-red font-microcopy text-microcopy uppercase">
+                        Сквозняк
+                    </div>
+</div>
+<!-- 3. Мокрая зона (Wet Zone) -->
+<div class="absolute top-[30%] right-[20%] flex flex-col items-center">
+<div class="w-3 h-3 rounded-full border-2 border-outline bg-transparent relative flex items-center justify-center">
+</div>
+<div class="absolute top-5 whitespace-nowrap bg-surface-dim/80 border border-outline-variant px-1.5 py-0.5 rounded text-outline font-microcopy text-microcopy uppercase">
+                        Мокрая зона
+                    </div>
+</div>
+<!-- 4. Картон (Cardboard) -->
+<div class="absolute bottom-[35%] right-[30%] flex flex-col items-center">
+<div class="w-3 h-3 rounded-full border-2 border-outline bg-transparent relative flex items-center justify-center">
+</div>
+<div class="absolute top-5 whitespace-nowrap bg-surface-dim/80 border border-outline-variant px-1.5 py-0.5 rounded text-outline font-microcopy text-microcopy uppercase">
+                        Картон
+                    </div>
+</div>
+</div>
+<!-- Choices List -->
+<div class="flex flex-col gap-3">
+<!-- Choice 1: Selected (Green) -->
+<button class="w-full text-left bg-surface-container border border-secondary p-4 rounded flex items-center gap-4 transition-colors active:scale-[0.98]">
+<div class="w-6 h-6 rounded-full border-2 border-secondary flex items-center justify-center shrink-0">
+<div class="w-3 h-3 rounded-full bg-secondary"></div>
+</div>
+<div class="flex-1">
+<span class="font-body-base text-body-base font-bold text-secondary block">Сухой угол у внутренней стены</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-xl">check_circle</span>
+</button>
+<!-- Choice 2: Default -->
+<button class="w-full text-left bg-surface-container-low border border-outline-variant hover:border-outline p-4 rounded flex items-center gap-4 transition-colors active:scale-[0.98]">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0">
+</div>
+<div class="flex-1">
+<span class="font-body-base text-body-base text-on-surface-variant block">Картон под ноги</span>
+</div>
+</button>
+<!-- Choice 3: Danger (Red Outline) -->
+<button class="w-full text-left bg-error-container/5 border border-danger-red p-4 rounded flex items-center gap-4 transition-colors active:scale-[0.98]">
+<div class="w-6 h-6 rounded-full border-2 border-danger-red flex items-center justify-center shrink-0">
+</div>
+<div class="flex-1">
+<span class="font-body-base text-body-base font-bold text-danger-red block">У двери на сквозняке</span>
+<span class="font-microcopy text-microcopy text-danger-red/80 uppercase mt-1 block">Высокий риск обморожения</span>
+</div>
+<span class="material-symbols-outlined text-danger-red text-xl">warning</span>
+</button>
+<!-- Choice 4: Default -->
+<button class="w-full text-left bg-surface-container-low border border-outline-variant hover:border-outline p-4 rounded flex items-center gap-4 transition-colors active:scale-[0.98]">
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center shrink-0">
+</div>
+<div class="flex-1">
+<span class="font-body-base text-body-base text-on-surface-variant block">У мокрого окна</span>
+</div>
+</button>
+</div>
+</main>
+<!-- Contextual Action Bar (Effects) -->
+<div class="absolute bottom-0 left-0 w-full bg-surface-container-highest border-t border-outline-variant px-margin-screen py-4 flex flex-col gap-4 z-40 shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+<div class="flex items-center justify-between text-center">
+<div class="flex flex-col items-center">
+<span class="font-microcopy text-microcopy text-concrete uppercase mb-1">Тепло</span>
+<span class="font-status-value text-status-value text-primary">+18</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center">
+<span class="font-microcopy text-microcopy text-concrete uppercase mb-1">Сухость</span>
+<span class="font-status-value text-status-value text-secondary">+12</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center">
+<span class="font-microcopy text-microcopy text-concrete uppercase mb-1">Силы</span>
+<span class="font-status-value text-status-value text-danger-red">-3</span>
+</div>
+</div>
+<button class="w-full bg-secondary text-surface-dim font-headline-md text-headline-md uppercase py-3 rounded active:scale-[0.98] transition-transform">
+                Подтвердить
+            </button>
+</div>
+</div>
+</body></html>

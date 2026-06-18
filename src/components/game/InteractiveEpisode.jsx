@@ -234,6 +234,15 @@ function buildDecisionNotes({ episode, packedIds, missedItems, riskyItems, packe
   const hasItem = itemId => packedIds.includes(itemId);
   const missedIds = new Set(missedItems.map(item => item.id));
 
+  if (episode.decisionNoteItems?.length) {
+    episode.decisionNoteItems.forEach(note => {
+      if (hasItem(note.itemId)) {
+        notes.push({ tone: 'success', text: note.taken?.[language] || note.taken?.ru });
+      } else if (missedIds.has(note.itemId)) {
+        notes.push({ tone: 'danger', text: note.missed?.[language] || note.missed?.ru });
+      }
+    });
+  } else {
   if (hasItem('water_bottle')) {
     notes.push({ tone: 'success', text: ui.lessonWaterTaken });
   } else if (missedIds.has('water_bottle')) {
@@ -264,6 +273,7 @@ function buildDecisionNotes({ episode, packedIds, missedItems, riskyItems, packe
     notes.push({ tone: 'success', text: ui.lessonDocumentsTaken });
   } else if (missedIds.has('documents')) {
     notes.push({ tone: 'danger', text: ui.lessonDocumentsMissed });
+  }
   }
 
   if (packedWeight > episode.weightLimit) {
@@ -461,6 +471,7 @@ function CriticalChecklist({ episode, packedIds, language, ui }) {
 }
 
 function SceneView({ episode, language, packedIds, activeContainerId, onOpenContainer, ui, timeRemaining }) {
+  const copy = getCopy(episode, language);
   const timeRatio = Math.max(0, Math.min(100, (timeRemaining / episode.timeLimitSeconds) * 100));
   const isUrgent = timeRemaining <= 120;
   const isWarning = timeRemaining <= 300;
@@ -478,7 +489,7 @@ function SceneView({ episode, language, packedIds, activeContainerId, onOpenCont
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_0%,rgba(0,0,0,0.08)_42%,rgba(0,0,0,0.72)_100%)]" />
         <div className={`absolute left-3 top-3 min-w-32 rounded-sm border bg-black/75 px-3 py-2 backdrop-blur ${isUrgent ? 'border-danger/50' : 'border-warning/40'}`}>
-          <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{ui.timeLeft}</div>
+          <div className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">{copy.timeLabel || ui.timeLeft}</div>
           <div data-testid="episode-timer" className={`mt-1 text-xl font-bold leading-none ${timerColor}`}>
             {formatTime(timeRemaining)}
           </div>
@@ -847,8 +858,8 @@ function ResultPanel({ result, copy, ui, language, onRetry, onContinue }) {
   );
 }
 
-export default function InteractiveEpisode({ language, completed, onComplete }) {
-  const episode = getEpisode();
+export default function InteractiveEpisode({ episodeId = 'apartment_evacuation', language, completed, onComplete }) {
+  const episode = getEpisode(episodeId);
   const ui = getUiText(language).episode;
   const copy = getCopy(episode, language);
   const [packedIds, setPackedIds] = useState([]);
@@ -874,6 +885,18 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
   }, [activeContainer, itemsById, runSeed]);
   const detailItem = detailItemId ? itemsById[detailItemId] : null;
   const canLeave = requiredPacked === episode.requiredItemIds.length && packedWeight <= episode.weightLimit && timeRemaining > 0;
+  const evaluateLabel = copy.evaluate || ui.evaluate;
+  const disabledLabel = copy.leaveDisabled || ui.leaveDisabled;
+
+  useEffect(() => {
+    setPackedIds([]);
+    setActiveContainerId(null);
+    setDetailItemId(null);
+    setBackpackOpen(false);
+    setResult(null);
+    setRunSeed(Date.now());
+    setTimeRemaining(episode.timeLimitSeconds);
+  }, [episode.id, episode.timeLimitSeconds]);
 
   useEffect(() => {
     if (result || timeRemaining <= 0) {
@@ -1035,7 +1058,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
               onClick={() => evaluate()}
               className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'border border-danger/40 bg-danger/10 text-danger'}`}
             >
-              {canLeave ? ui.evaluate : ui.leaveDisabled}
+              {canLeave ? evaluateLabel : disabledLabel}
             </button>
           </div>
         </aside>
@@ -1059,7 +1082,7 @@ export default function InteractiveEpisode({ language, completed, onComplete }) 
             onClick={() => evaluate()}
             className={`rounded-sm px-3 py-3 text-sm font-bold ${canLeave ? 'bg-primary text-primary-foreground' : 'border border-danger/40 bg-danger/10 text-danger'}`}
           >
-            {canLeave ? ui.evaluate : ui.leaveDisabled}
+            {canLeave ? evaluateLabel : disabledLabel}
           </button>
         </div>
       </div>

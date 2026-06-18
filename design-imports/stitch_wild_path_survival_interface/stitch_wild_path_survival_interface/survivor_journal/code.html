@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Journal - Wild Path</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&amp;family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#001702",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1b1b1b",
+                      "background": "#131313",
+                      "on-tertiary-fixed": "#002204",
+                      "secondary-fixed": "#ffdbd1",
+                      "surface-dim": "#131313",
+                      "error": "#ffb4ab",
+                      "on-secondary-container": "#fffbff",
+                      "primary": "#c8c6c5",
+                      "outline-variant": "#444748",
+                      "inverse-surface": "#e5e2e1",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed-dim": "#ffb5a0",
+                      "on-surface": "#e5e2e1",
+                      "surface-tint": "#c8c6c5",
+                      "on-secondary-fixed-variant": "#862200",
+                      "on-secondary-fixed": "#3b0900",
+                      "surface": "#131313",
+                      "inverse-primary": "#5f5e5e",
+                      "on-error": "#690005",
+                      "on-primary": "#313030",
+                      "on-tertiary-container": "#2a9035",
+                      "secondary": "#ffb5a0",
+                      "surface-variant": "#353535",
+                      "on-primary-fixed": "#1c1b1b",
+                      "on-secondary": "#5f1500",
+                      "surface-container-highest": "#353535",
+                      "inverse-on-surface": "#313030",
+                      "tertiary": "#78dc77",
+                      "tertiary-fixed-dim": "#78dc77",
+                      "outline": "#8e9192",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-primary-fixed-variant": "#474646",
+                      "on-tertiary-fixed-variant": "#005313",
+                      "error-container": "#93000a",
+                      "on-tertiary": "#00390a",
+                      "primary-fixed": "#e5e2e1",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "surface-bright": "#393939",
+                      "primary-container": "#121212",
+                      "on-background": "#e5e2e1",
+                      "on-primary-container": "#7e7d7d",
+                      "surface-container": "#20201f",
+                      "tertiary-fixed": "#94f990",
+                      "on-surface-variant": "#c4c7c7",
+                      "secondary-container": "#d73b00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "container-padding": "24px",
+                      "unit": "4px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "stat-sm": [
+                              "JetBrains Mono"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "stat-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "handwriting": ["Caveat", "cursive"]
+              },
+              "fontSize": {
+                      "stat-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "stat-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Subtle texture overlay for the dark paper feel */
+        .journal-texture {
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+        
+        /* Tactical dashed line for notes */
+        .tactical-line {
+            background-image: linear-gradient(to right, #444748 50%, transparent 50%);
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+            background-position: bottom;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen font-body-md selection:bg-secondary-container selection:text-on-secondary-container pb-24 md:pb-0 md:pl-80 flex flex-col journal-texture">
+<!-- TopAppBar (Mobile & Web) -->
+<header class="bg-background border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-margin-mobile py-unit max-w-full sticky top-0 z-40 md:hidden">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="person">person</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tighter text-primary">WILD PATH</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary hover:border-secondary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+</header>
+<!-- Navigation Drawer (Desktop) -->
+<nav class="hidden md:flex flex-col bg-surface-container border-r border-outline-variant shadow-lg h-full w-80 fixed left-0 top-0 py-6 gap-2 z-50">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container-high border border-outline flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-outline text-[24px]" data-icon="person">person</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">WILD PATH</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Survivor Name</p>
+<div class="flex flex-col mt-1">
+<span class="font-stat-sm text-stat-sm text-outline">Day 12 - Level 5</span>
+<span class="font-stat-sm text-stat-sm text-outline">Location: Apartment</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="backpack">backpack</span>
+<span class="font-body-md text-body-md">Inventory</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handyman">handyman</span>
+<span class="font-body-md text-body-md">Crafting</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="Military_tech">military_tech</span>
+<span class="font-body-md text-body-md">Skills</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-body-md text-body-md">Map</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container font-bold rounded-full px-4 py-3 brightness-125" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="menu_book">menu_book</span>
+<span class="font-body-md text-body-md">Journal</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full px-4 py-3 transition-all mt-4 border-t border-outline-variant pt-4" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-outline hover:text-secondary-fixed-dim py-2 px-3" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps">Episode</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-secondary-fixed-dim py-2 px-3" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="fitness_center">fitness_center</span>
+<span class="font-label-caps text-label-caps">Training</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline hover:text-secondary-fixed-dim py-2 px-3" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="home_work">home_work</span>
+<span class="font-label-caps text-label-caps">Base</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-bold scale-90 transition-transform duration-150 py-2 px-3" href="#">
+<span class="material-symbols-outlined mb-1 icon-fill" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps">Journal</span>
+</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 max-w-5xl mx-auto w-full px-gutter md:px-container-padding py-8">
+<!-- Action Bar -->
+<div class="flex items-center justify-between mb-8 pb-4 border-b border-outline-variant">
+<button class="flex items-center gap-2 text-primary hover:text-secondary transition-colors group">
+<span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform" data-icon="arrow_back">arrow_back</span>
+<span class="font-label-caps text-label-caps">Back to Episodes</span>
+</button>
+<div class="flex gap-2">
+<span class="bg-surface-container-high border border-outline px-3 py-1 font-stat-sm text-stat-sm text-outline-variant rounded">Entry #012</span>
+<span class="bg-surface-container-high border border-outline px-3 py-1 font-stat-sm text-stat-sm text-outline-variant rounded">Day 1</span>
+</div>
+</div>
+<!-- Journal Header -->
+<div class="mb-10 text-center relative">
+<h2 class="font-handwriting text-5xl text-primary tracking-wide mb-2 opacity-90 drop-shadow-[0_0_8px_rgba(200,198,197,0.2)]">Episode 1: The Outbreak</h2>
+<p class="font-stat-sm text-stat-sm text-outline">Date: <span class="text-on-surface">Unknown</span> | Loc: <span class="text-on-surface">Urban Sector 4</span></p>
+<div class="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-outline-variant to-transparent mt-4"></div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Primary Notes (Spans full on mobile, 8 cols on desktop) -->
+<section class="md:col-span-8 bg-surface-container-low border border-outline-variant rounded p-6 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-outline" data-icon="edit_note">edit_note</span>
+<h3 class="font-handwriting text-3xl text-primary">Field Notes</h3>
+</div>
+<div class="space-y-6 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+<p class="tactical-line pb-1">
+                        It happened fast. The sirens started at 0400 hours. By sunrise, the streets were blocked. I managed to secure the apartment, but supplies are severely limited.
+                    </p>
+<p class="tactical-line pb-1">
+                        The power grid is failing intermittently. I need to prioritize finding a stable light source that won't attract unwanted attention. Flashlights are good, but batteries will be an issue soon.
+                    </p>
+<p class="tactical-line pb-1">
+                        Saw movement in the alleyway. They aren't moving like regular people. Erratic. Unpredictable. Best to avoid line of sight completely.
+                    </p>
+</div>
+</section>
+<!-- Sidebar Items (Spans full on mobile, 4 cols on desktop) -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<!-- Items Discovered -->
+<section class="bg-surface-container border border-outline-variant rounded p-5 relative overflow-hidden group">
+<!-- Subtle pulse effect on hover -->
+<div class="absolute inset-0 bg-tertiary opacity-0 group-hover:opacity-5 transition-opacity duration-500"></div>
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-label-caps text-label-caps text-primary">Items Recovered</h3>
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="inventory_2">inventory_2</span>
+</div>
+<ul class="space-y-3">
+<li class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">Half-empty water bottle</span>
+<span class="px-2 py-[2px] bg-tertiary-container border border-on-tertiary-container text-tertiary font-stat-sm text-stat-sm rounded-sm">Crucial</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">Duct tape (1 roll)</span>
+<span class="px-2 py-[2px] bg-surface-container-high border border-outline font-stat-sm text-stat-sm rounded-sm text-outline">Utility</span>
+</li>
+<li class="flex items-center justify-between">
+<span class="font-body-md text-body-md text-on-surface">Rusty pipe</span>
+<span class="px-2 py-[2px] bg-surface-container-high border border-outline font-stat-sm text-stat-sm rounded-sm text-outline">Weapon</span>
+</li>
+</ul>
+</section>
+<!-- Mistakes Made -->
+<section class="bg-surface-container border border-error-container rounded p-5 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-error opacity-10 rounded-full blur-xl"></div>
+<div class="flex justify-between items-center mb-4 border-b border-error-container pb-2">
+<h3 class="font-label-caps text-label-caps text-error">Tactical Errors</h3>
+<span class="material-symbols-outlined text-error text-[18px]" data-icon="warning">warning</span>
+</div>
+<ul class="space-y-3">
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-error text-[16px] mt-1" data-icon="close">close</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Left the window cracked. Noise discipline is vital. Almost compromised position.</span>
+</li>
+<li class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-error text-[16px] mt-1" data-icon="close">close</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Used flashlight without shielding. Light bleed visible from street level.</span>
+</li>
+</ul>
+</section>
+</div>
+<!-- Lessons Learned & Principle -->
+<section class="md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+<!-- Lessons -->
+<div class="bg-surface-container-low border border-outline-variant border-l-4 border-l-tertiary rounded p-6">
+<h3 class="font-headline-md text-headline-md text-tertiary mb-4">Lessons Learned</h3>
+<ul class="list-disc list-inside space-y-2 font-body-md text-body-md text-on-surface-variant">
+<li>Water is priority one. Dehydration sets in faster than starvation.</li>
+<li>Maintain core temperature. Blankets over heaters to avoid grid reliance.</li>
+<li>Move slow, stay low. Observation before action.</li>
+</ul>
+</div>
+<!-- Real-world Principle Box -->
+<div class="bg-primary-container border border-secondary p-6 relative">
+<!-- Corner tactical accents -->
+<div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-secondary"></div>
+<div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-secondary"></div>
+<div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-secondary"></div>
+<div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-secondary"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary" data-icon="school">school</span>
+<h4 class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Survival Protocol Alpha</h4>
+</div>
+<p class="font-stat-lg text-stat-lg text-on-surface mb-2">The Rule of Threes</p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        You can survive 3 minutes without oxygen, 3 hours without shelter in extreme environments, 3 days without water, and 3 weeks without food. Prioritize accordingly.
+                    </p>
+</div>
+</section>
+</div>
+</main>
+</body></html>

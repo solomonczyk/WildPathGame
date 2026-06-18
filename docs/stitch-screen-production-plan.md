@@ -143,7 +143,7 @@ Style:
 - readable Russian text length;
 - mobile-safe layout at 390px width.
 
-Screen must include realistic game controls and state, not placeholder marketing copy.
+Screen must include realistic game controls and state, not generic marketing copy.
 ```
 
 После этого добавляется конкретный экранный запрос.
@@ -507,6 +507,8 @@ Add mission, timer, critical kit progress, and backpack weight without hiding th
 
 Цель Stitch-итераций: показать, что тепло зависит от сухих слоев, защиты от ветра, энергии и выбора места ожидания.
 
+Full Stitch production brief: [Stitch Brief: Episode 02 Cold Night Shelter](stitch-episode-02-cold-night-brief.md).
+
 Экраны:
 
 - main shelter scene;
@@ -652,13 +654,13 @@ Show practical tradeoffs: noise, attention, fairness, carrying capacity, and lea
 Pass 1: structure.
 
 - цель: получить компоновку;
-- допускаются placeholder тексты;
+- допускается временный черновой текст;
 - проверяется, все ли нужные блоки есть.
 
 Pass 2: gameplay state.
 
 - цель: добавить реальные item states, timer, weight, progress, actions;
-- placeholder запрещены;
+- временный черновой текст запрещен;
 - проверяется, можно ли перенести экран в React.
 
 Pass 3: polish and responsive.

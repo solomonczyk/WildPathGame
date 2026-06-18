@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Полка с запасами</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500;700&amp;family=Archivo+Narrow:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#78dc77",
+                      "tertiary-fixed-dim": "#adcbda",
+                      "tertiary-container": "#a6c4d3",
+                      "inverse-surface": "#e5e2e1",
+                      "cold-blue": "#aabcc4",
+                      "surface-dim": "#131313",
+                      "secondary": "#78dc77",
+                      "tertiary": "#c1e0f0",
+                      "surface-mid": "#131313",
+                      "concrete": "#9e9e9e",
+                      "tertiary-fixed": "#c9e7f7",
+                      "on-error": "#690005",
+                      "on-secondary-fixed": "#002204",
+                      "error-container": "#93000a",
+                      "on-tertiary-container": "#35525f",
+                      "surface-bright": "#3a3939",
+                      "on-surface-variant": "#d7c4ac",
+                      "on-primary": "#432c00",
+                      "on-surface": "#e5e2e1",
+                      "surface-container-low": "#1c1b1b",
+                      "danger-red": "#d32f2f",
+                      "on-primary-fixed-variant": "#614000",
+                      "on-error-container": "#ffdad6",
+                      "surface-light": "#1b1b1b",
+                      "secondary-fixed": "#94f990",
+                      "on-secondary-fixed-variant": "#005313",
+                      "on-tertiary": "#163440",
+                      "outline": "#9f8e78",
+                      "outline-variant": "#524533",
+                      "inverse-primary": "#805600",
+                      "surface": "#131313",
+                      "primary-fixed-dim": "#ffba43",
+                      "on-primary-container": "#6a4700",
+                      "surface-container": "#201f1f",
+                      "error": "#ffb4ab",
+                      "on-tertiary-fixed-variant": "#2e4b57",
+                      "on-tertiary-fixed": "#001f2a",
+                      "secondary-container": "#00761f",
+                      "primary-fixed": "#ffddaf",
+                      "surface-container-lowest": "#0e0e0e",
+                      "steel": "#455a64",
+                      "on-secondary-container": "#95fb92",
+                      "primary-container": "#ffb000",
+                      "on-secondary": "#00390a",
+                      "on-background": "#e5e2e1",
+                      "background": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "surface-tint": "#ffba43",
+                      "primary": "#ffd597",
+                      "inverse-on-surface": "#313030",
+                      "surface-container-highest": "#353534",
+                      "surface-variant": "#353534",
+                      "on-primary-fixed": "#281800"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "safe-top": "24px",
+                      "base": "4px",
+                      "padding-panel": "20px",
+                      "gutter-grid": "12px",
+                      "bottom-bar-height": "100px",
+                      "margin-screen": "12px"
+              },
+              "fontFamily": {
+                      "status-value": ["JetBrains Mono"],
+                      "microcopy": ["Inter"],
+                      "status-label": ["JetBrains Mono"],
+                      "body-base": ["Inter"],
+                      "headline-md": ["Archivo Narrow"],
+                      "body-sm": ["Inter"],
+                      "headline-lg": ["Archivo Narrow"]
+              },
+              "fontSize": {
+                      "status-value": ["18px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "microcopy": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                      "status-label": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                      "body-base": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313; /* surface-dim */
+            color: #e5e2e1; /* on-surface */
+            touch-action: pan-y;
+            overflow-x: hidden;
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .item-card {
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        
+        .item-card.selected {
+            border-color: #78dc77; /* secondary */
+            background-color: #1b1b1b; /* surface-light */
+        }
+        
+        .item-card.trap.selected {
+            border-color: #d32f2f; /* danger-red */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col w-full max-w-[390px] mx-auto relative font-body-base text-body-base bg-surface text-on-surface">
+<!-- TopAppBar (Based on JSON) -->
+<header class="flex justify-between items-center w-full px-margin-screen h-[60px] bg-surface border-b border-outline-variant docked full-width top-0 pt-safe-top z-40">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-100 flex items-center justify-center p-2 rounded">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="font-headline-md text-headline-md uppercase tracking-tight text-primary-fixed-dim">Полка с запасами</h1>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors active:scale-95 duration-100 flex items-center justify-center p-2 rounded">
+<span class="material-symbols-outlined">info</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-margin-screen py-4 pb-[120px] z-10 flex flex-col gap-4 relative">
+<!-- Environment Backdrop -->
+<div class="absolute inset-0 z-[-1] opacity-20 pointer-events-none" data-alt="A dark, gritty, abandoned urban storage room illuminated by a single flickering fluorescent light. Shadows are harsh, and the atmosphere feels tense and cold, fitting a serious survival simulation. High detail, industrial textures." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0hJwX8TD-lEw6ANqhgPdcvGjVCBLCZ-sxPzab5mQuP_Tzp4ekYVorLpbpSpWgo1BmI_GQNk891rgvurAxORVBlfIBJ9RLa3MDli-XRgs0_gYnDsVjUb-VJU_LRJ0wR7Bt0k7hCcz95tphQcOt8dK6ray3jBbw_J9mDiD618jYhwKbcqz8UTHVgEBm84g8nFguJEFWK1ar9NazrVtNUZsrkzxCVj9mq-IkaWMBNOygqhzr2JHMCtSuv4TUwFo6D5F9wF3r72DRcm2a');"></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-2">Выберите предметы для вашего рюкзака. Будьте осторожны, некоторые вещи могут быть ловушками.</p>
+<!-- Bento Grid for Items -->
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Item 1 -->
+<div class="item-card relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 1.0, false)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">water_drop</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Бутылка воды</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">1.0кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="item-card relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 0.15, false)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-tertiary-fixed-dim">restaurant</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Энергетический батончик</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">0.15кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="item-card relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 0.25, false)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary-fixed-dim">flashlight_on</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Налобный фонарь</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">0.25кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="item-card relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 0.4, false)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary-fixed-dim">battery_charging_full</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Пауэрбанк</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">0.4кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="item-card relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none col-span-2" onclick="toggleItem(this, 0.35, false)">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-light flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-cold-blue">radio</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium" contenteditable="true">Радио</h3>
+<p class="font-microcopy text-microcopy text-on-surface-variant" contenteditable="true">Для связи с выжившими</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">0.35кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon mt-1">add_circle</span>
+</div>
+</div>
+</div>
+<!-- Item 6 (Trap) -->
+<div class="item-card trap relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 2.4, true)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-concrete">kitchen</span>
+<span class="font-microcopy text-microcopy text-danger-red uppercase border border-danger-red/30 px-1 rounded bg-danger-red/10">Подозрительно</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Консервы</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">2.4кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+<!-- Item 7 (Trap) -->
+<div class="item-card trap relative bg-surface-container-low border border-outline-variant rounded p-3 flex flex-col gap-2 cursor-pointer active:scale-[0.98] select-none" onclick="toggleItem(this, 1.2, true)">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-concrete">liquor</span>
+</div>
+<div class="flex-1">
+<h3 class="font-body-sm text-body-sm text-on-surface font-medium leading-tight" contenteditable="true">Стеклянная бутылка</h3>
+</div>
+<div class="mt-auto pt-2 border-t border-outline-variant/30 flex justify-between items-center">
+<span class="font-status-value text-status-value text-concrete text-sm" contenteditable="true">1.2кг</span>
+<span class="material-symbols-outlined text-outline-variant check-icon text-[20px]">add_circle</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Interaction Bar -->
+<div class="fixed bottom-0 left-0 w-full max-w-[390px] h-[100px] bg-surface-container border-t border-outline-variant px-margin-screen flex flex-col justify-center gap-3 z-50 left-1/2 -translate-x-1/2 shadow-[0_-10px_40px_rgba(0,0,0,0.8)]">
+<!-- Weight Meter -->
+<div class="w-full flex flex-col gap-1">
+<div class="flex justify-between items-end">
+<span class="font-status-label text-status-label text-concrete uppercase tracking-wider text-[10px]">Загрузка рюкзака</span>
+<div class="flex items-baseline gap-1">
+<span class="font-status-value text-status-value text-on-surface" id="current-weight">2.1</span>
+<span class="font-status-value text-status-value text-concrete text-sm">/ 6.0кг</span>
+</div>
+</div>
+<div class="w-full h-2 bg-surface-light border border-outline-variant rounded overflow-hidden flex">
+<!-- Base weight (2.1) represents ~35% of 6.0 -->
+<div class="h-full bg-secondary" style="width: 35%;"></div>
+<!-- Dynamic added weight would go here -->
+<div class="h-full bg-primary-container opacity-80" id="added-weight-bar" style="width: 0%;"></div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="w-full bg-secondary hover:bg-secondary-fixed-dim text-on-secondary py-3 rounded font-headline-md text-headline-md text-[18px] uppercase flex justify-center items-center gap-2 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined text-[20px]">backpack</span>
+            Готово
+        </button>
+</div>
+<script>
+        let currentWeight = 2.1;
+        const maxWeight = 6.0;
+
+        function toggleItem(element, weight, isTrap) {
+            const isSelected = element.classList.contains('selected');
+            const checkIcon = element.querySelector('.check-icon');
+            const weightValueEl = element.querySelector('.text-status-value');
+
+            if (isSelected) {
+                // Deselect
+                element.classList.remove('selected');
+                checkIcon.textContent = 'add_circle';
+                checkIcon.classList.remove('text-secondary', 'text-danger-red');
+                checkIcon.classList.add('text-outline-variant');
+                weightValueEl.classList.remove('text-secondary', 'text-danger-red');
+                weightValueEl.classList.add('text-concrete');
+                
+                currentWeight -= weight;
+            } else {
+                // Select
+                element.classList.add('selected');
+                checkIcon.textContent = 'check_circle';
+                checkIcon.classList.remove('text-outline-variant');
+                
+                if (isTrap) {
+                    checkIcon.classList.add('text-danger-red');
+                    weightValueEl.classList.remove('text-concrete');
+                    weightValueEl.classList.add('text-danger-red');
+                } else {
+                    checkIcon.classList.add('text-secondary');
+                    weightValueEl.classList.remove('text-concrete');
+                    weightValueEl.classList.add('text-secondary');
+                }
+
+                currentWeight += weight;
+            }
+
+            // Update UI
+            updateWeightDisplay();
+        }
+
+        function updateWeightDisplay() {
+            const displayWeight = Math.max(0, currentWeight).toFixed(2);
+            document.getElementById('current-weight').textContent = displayWeight;
+            
+            // Simple visual update for the added weight bar
+            const addedWeightPercent = Math.max(0, ((currentWeight - 2.1) / maxWeight) * 100);
+            const addedBar = document.getElementById('added-weight-bar');
+            
+            if (currentWeight > maxWeight) {
+                document.getElementById('current-weight').classList.add('text-danger-red');
+                addedBar.classList.remove('bg-primary-container');
+                addedBar.classList.add('bg-danger-red');
+            } else {
+                document.getElementById('current-weight').classList.remove('text-danger-red');
+                addedBar.classList.add('bg-primary-container');
+                addedBar.classList.remove('bg-danger-red');
+            }
+            
+            addedBar.style.width = `${Math.min(100 - 35, addedWeightPercent)}%`;
+        }
+    </script>
+</body></html>

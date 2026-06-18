@@ -1080,6 +1080,801 @@ export const EPISODES = [
         }
       }
     ]
+  },
+  {
+    id: 'cold_night_shelter',
+    locationFamily: 'urban_residential',
+    sceneTypes: ['hallway/stairwell', 'basement', 'public shelter'],
+    hazardFamilies: ['cold_exposure', 'wet_cold', 'wind_chill', 'infrastructure_failure', 'human_factors'],
+    situationFamilies: ['manage_temperature', 'shelter_in_place', 'resource_triage', 'communication_failure'],
+    sourceBasis: [
+      {
+        title: 'Cold Weather Safety',
+        url: 'https://www.weather.gov/safety/cold',
+        organization: 'National Weather Service',
+        supports: ['cold exposure risk framing', 'wind chill and winter safety awareness']
+      },
+      {
+        title: 'Winter Weather',
+        url: 'https://www.ready.gov/winter-weather',
+        organization: 'Ready.gov',
+        supports: ['staying warm', 'emergency supplies', 'winter outage preparation']
+      },
+      {
+        title: 'Build A Kit',
+        url: 'https://www.ready.gov/kit',
+        organization: 'Ready.gov',
+        supports: ['water', 'food', 'light', 'radio', 'phone power']
+      }
+    ],
+    reviewStatus: 'scenario_brief',
+    sceneImage: '/assets/scenes/cold-night-shelter.png',
+    requiredItemIds: ['dry_base_layer', 'warm_hat_shelter', 'dry_socks', 'windbreaker', 'water_shelter', 'energy_bar_shelter', 'dry_corner'],
+    timeLimitSeconds: 6 * 60,
+    actionTimeCosts: {
+      openContainer: 15,
+      inspectItem: 25,
+      packItem: 15,
+      leaveItem: 8,
+      removeItem: 8
+    },
+    weightLimit: 6,
+    reward: {
+      xp: 140,
+      deltas: {
+        thirst_delta: 6,
+        energy_delta: -2,
+        warmth_delta: 14
+      },
+      skill: 'cold_night_basics'
+    },
+    copy: {
+      ru: {
+        title: 'Подъезд. Холодная ночь',
+        location: 'Подъезд, 01:20, слабая связь',
+        mission: 'Продержись до утра: выбери сухой слой, защиту от ветра, место ожидания и немного энергии.',
+        story: 'На улице ветер и мокрый снег. В подъезде холодно, но здесь есть сухой угол, вещи из рюкзака и несколько спорных вариантов. Ошибка не выглядит страшной сразу, но к утру забирает силы.',
+        goal: 'Открой зоны укрытия, выбери сухие слои, запас воды и энергии, затем избегай ложного тепла.',
+        expertNote: 'Тепло держится за счет сухости, защиты от ветра, изоляции от холодной поверхности и экономии сил. Самая мягкая вещь не всегда самая безопасная.',
+        success: 'Ночь остается тяжелой, но контролируемой: сухие слои, ветровка, вода, энергия и сухой угол дают запас до утра.',
+        failure: 'Холод постепенно забирает силы. Без сухого слоя, защиты от ветра или правильного места ожидания даже подъезд становится плохим укрытием.',
+        timeLabel: 'До рассвета',
+        evaluate: 'Ждать до утра',
+        leaveDisabled: 'Нужны ключевые решения',
+        characters: [
+          { name: 'Лера', line: 'Сухое важнее мягкого. Мокрая вещь быстро забирает тепло.' },
+          { name: 'Никита', line: 'Хочется ходить туда-сюда, но силы тоже заканчиваются.' }
+        ]
+      },
+      en: {
+        title: 'Stairwell. Cold night',
+        location: 'Stairwell, 01:20, weak signal',
+        mission: 'Get through the night: choose a dry layer, wind protection, a waiting spot, and a little energy.',
+        story: 'Wind and wet snow push against the entrance. The stairwell is cold, but there is a dry corner, gear from the pack, and a few tempting bad ideas. The wrong choice does not look dramatic now, but by morning it drains strength.',
+        goal: 'Open the shelter zones, choose dry layers, water, and energy, then avoid false warmth.',
+        expertNote: 'Warmth comes from dryness, wind protection, insulation from cold surfaces, and conserving energy. The softest item is not always the safest.',
+        success: 'The night is still hard, but controlled: dry layers, a shell, water, energy, and a dry corner create margin until morning.',
+        failure: 'Cold slowly drains strength. Without dry layers, wind protection, or a better waiting spot, even a stairwell becomes poor shelter.',
+        timeLabel: 'Until dawn',
+        evaluate: 'Wait until dawn',
+        leaveDisabled: 'Key decisions required',
+        characters: [
+          { name: 'Lera', line: 'Dry matters more than soft. A wet item pulls heat away fast.' },
+          { name: 'Nikita', line: 'I want to pace back and forth, but energy runs out too.' }
+        ]
+      },
+      es: {
+        title: 'Escalera. Noche fría',
+        location: 'Escalera, 01:20, señal débil',
+        mission: 'Aguanta hasta la mañana: elige capa seca, protección contra viento, lugar de espera y algo de energía.',
+        story: 'Afuera hay viento y nieve húmeda. La escalera está fría, pero hay una esquina seca, equipo de la mochila y varias ideas dudosas. El error no parece grave al principio, pero para la mañana roba fuerzas.',
+        goal: 'Abre las zonas del refugio, elige capas secas, agua y energía, y evita el falso calor.',
+        expertNote: 'El calor depende de sequedad, protección contra viento, aislamiento del suelo frío y ahorro de energía. Lo más cómodo no siempre es lo más seguro.',
+        success: 'La noche sigue siendo dura, pero controlada: capas secas, cortaviento, agua, energía y una esquina seca dan margen hasta la mañana.',
+        failure: 'El frío va robando fuerzas. Sin capas secas, protección contra viento o un buen sitio de espera, incluso una escalera es mal refugio.',
+        timeLabel: 'Hasta el amanecer',
+        evaluate: 'Esperar hasta la mañana',
+        leaveDisabled: 'Faltan decisiones clave',
+        characters: [
+          { name: 'Lera', line: 'Seco importa más que suave. Algo mojado roba calor rápido.' },
+          { name: 'Nikita', line: 'Quiero caminar sin parar, pero la energía también se acaba.' }
+        ]
+      }
+    },
+    decisionNoteItems: [
+      {
+        itemId: 'dry_base_layer',
+        taken: {
+          ru: 'Сухой слой взят: тепло начинается с одежды, которая не тянет влагу к телу.',
+          en: 'Dry layer packed: warmth starts with clothing that does not pull moisture against the body.',
+          es: 'Capa seca tomada: el calor empieza con ropa que no acerca humedad al cuerpo.'
+        },
+        missed: {
+          ru: 'Сухой слой пропущен: комфортная, но влажная одежда быстро снижает запас тепла.',
+          en: 'Dry layer missed: comfortable but damp clothing quickly lowers your warmth margin.',
+          es: 'Capa seca omitida: ropa cómoda pero húmeda reduce rápido el margen de calor.'
+        }
+      },
+      {
+        itemId: 'windbreaker',
+        taken: {
+          ru: 'Защита от ветра есть: сквозняк меньше забирает тепло.',
+          en: 'Wind protection packed: drafts pull away less heat.',
+          es: 'Protección contra viento tomada: la corriente roba menos calor.'
+        },
+        missed: {
+          ru: 'Защита от ветра пропущена: сквозняк может сделать теплый слой слабее.',
+          en: 'Wind protection missed: drafts can make a warm layer much less effective.',
+          es: 'Protección contra viento omitida: la corriente debilita incluso una capa cálida.'
+        }
+      },
+      {
+        itemId: 'energy_bar_shelter',
+        taken: {
+          ru: 'Энергия взята: немного калорий помогает дождаться утра без лишнего веса.',
+          en: 'Energy packed: a few calories help you wait without adding much weight.',
+          es: 'Energía tomada: algunas calorías ayudan a esperar sin añadir mucho peso.'
+        },
+        missed: {
+          ru: 'Энергия пропущена: усталость делает холодные решения хуже.',
+          en: 'Energy missed: fatigue makes cold-weather decisions worse.',
+          es: 'Energía omitida: el cansancio empeora decisiones en frío.'
+        }
+      },
+      {
+        itemId: 'dry_corner',
+        taken: {
+          ru: 'Сухой угол выбран: меньше ветра, сырости и контакта с холодным полом.',
+          en: 'Dry corner chosen: less wind, wetness, and contact with the cold floor.',
+          es: 'Esquina seca elegida: menos viento, humedad y contacto con suelo frío.'
+        },
+        missed: {
+          ru: 'Место ожидания не выбрано: сквозняк и влажный пол будут забирать тепло.',
+          en: 'Waiting spot missed: draft and wet floor will drain warmth.',
+          es: 'Lugar de espera omitido: corriente y suelo húmedo roban calor.'
+        }
+      }
+    ],
+    containers: [
+      {
+        id: 'waiting_spot',
+        icon: 'archive',
+        x: 18,
+        y: 54,
+        w: 24,
+        h: 28,
+        copy: {
+          ru: { name: 'Сухой угол', hint: 'место ожидания' },
+          en: { name: 'Dry corner', hint: 'waiting spot' },
+          es: { name: 'Esquina seca', hint: 'lugar de espera' }
+        },
+        itemIds: ['dry_corner', 'cardboard_pad', 'drafty_door', 'wet_window']
+      },
+      {
+        id: 'clothing_insulation',
+        icon: 'shirt',
+        x: 14,
+        y: 20,
+        w: 26,
+        h: 28,
+        copy: {
+          ru: { name: 'Слои и утепление', hint: 'одежда и защита' },
+          en: { name: 'Layers and insulation', hint: 'clothing and protection' },
+          es: { name: 'Capas y abrigo', hint: 'ropa y protección' }
+        },
+        itemIds: ['dry_base_layer', 'warm_hat_shelter', 'dry_socks', 'windbreaker', 'emergency_blanket_shelter', 'cotton_hoodie_shelter', 'wet_blanket']
+      },
+      {
+        id: 'supply_shelf',
+        icon: 'package',
+        x: 62,
+        y: 22,
+        w: 26,
+        h: 28,
+        copy: {
+          ru: { name: 'Полка с запасами', hint: 'вода, свет, энергия' },
+          en: { name: 'Supply shelf', hint: 'water, light, energy' },
+          es: { name: 'Estante', hint: 'agua, luz, energía' }
+        },
+        itemIds: ['water_shelter', 'energy_bar_shelter', 'headlamp_shelter', 'powerbank_shelter', 'small_radio', 'heavy_cans_stack', 'glass_bottle_shelter']
+      },
+      {
+        id: 'risk_zone',
+        icon: 'package',
+        x: 67,
+        y: 59,
+        w: 25,
+        h: 25,
+        copy: {
+          ru: { name: 'Рискованный обогрев', hint: 'ложное тепло' },
+          en: { name: 'Risky heat', hint: 'false warmth' },
+          es: { name: 'Calor riesgoso', hint: 'falso calor' }
+        },
+        itemIds: ['unsafe_heat_source', 'constant_pacing']
+      }
+    ],
+    items: [
+      {
+        id: 'dry_corner',
+        icon: 'archive',
+        category: 'essential',
+        weight: 0,
+        copy: {
+          ru: {
+            name: 'Сухой угол у внутренней стены',
+            place: 'в подъезде',
+            note: 'Место без сквозняка и мокрого пола снижает потерю тепла.',
+            useFor: 'ожидание, экономия сил, защита от ветра',
+            risk: 'Не гарантирует тепло без сухих слоев и защиты от ветра.'
+          },
+          en: {
+            name: 'Dry interior corner',
+            place: 'inside the stairwell',
+            note: 'A spot away from drafts and wet floor reduces heat loss.',
+            useFor: 'waiting, conserving energy, wind protection',
+            risk: 'It does not keep you warm without dry layers and wind protection.'
+          },
+          es: {
+            name: 'Esquina seca interior',
+            place: 'en la escalera',
+            note: 'Un lugar sin corriente ni suelo mojado reduce la pérdida de calor.',
+            useFor: 'espera, ahorrar energía, protegerse del viento',
+            risk: 'No abriga sin capas secas y protección contra viento.'
+          }
+        }
+      },
+      {
+        id: 'cardboard_pad',
+        icon: 'package',
+        category: 'useful',
+        weight: 0.3,
+        copy: {
+          ru: {
+            name: 'Картонная подкладка',
+            place: 'у сухого угла',
+            note: 'Картон уменьшает контакт с холодным полом и помогает сидеть суше.',
+            useFor: 'изоляция от пола, ожидание',
+            risk: 'Полезен только если остается сухим.'
+          },
+          en: {
+            name: 'Cardboard pad',
+            place: 'near the dry corner',
+            note: 'Cardboard reduces contact with the cold floor and helps you stay drier.',
+            useFor: 'floor insulation, waiting',
+            risk: 'Useful only while it stays dry.'
+          },
+          es: {
+            name: 'Cartón aislante',
+            place: 'junto a la esquina seca',
+            note: 'El cartón reduce contacto con el suelo frío y ayuda a estar más seco.',
+            useFor: 'aislar del suelo, esperar',
+            risk: 'Sirve solo si permanece seco.'
+          }
+        }
+      },
+      {
+        id: 'drafty_door',
+        icon: 'archive',
+        category: 'trap',
+        weight: 0,
+        copy: {
+          ru: {
+            name: 'Место у двери на сквозняке',
+            place: 'у выхода',
+            note: 'Кажется удобным для контроля выхода, но постоянный сквозняк забирает тепло.',
+            useFor: 'видеть дверь',
+            risk: 'Ветер и холодный пол быстро снижают запас тепла.'
+          },
+          en: {
+            name: 'Drafty door spot',
+            place: 'near the exit',
+            note: 'It seems useful for watching the exit, but constant draft pulls heat away.',
+            useFor: 'watching the door',
+            risk: 'Wind and cold floor quickly reduce warmth.'
+          },
+          es: {
+            name: 'Lugar junto a la puerta',
+            place: 'cerca de la salida',
+            note: 'Parece útil para vigilar la salida, pero la corriente roba calor.',
+            useFor: 'ver la puerta',
+            risk: 'Viento y suelo frío reducen rápido el calor.'
+          }
+        }
+      },
+      {
+        id: 'wet_window',
+        icon: 'archive',
+        category: 'trap',
+        weight: 0,
+        copy: {
+          ru: {
+            name: 'Мокрая зона у окна',
+            place: 'у окна',
+            note: 'Сырость и холодное стекло делают ожидание хуже.',
+            useFor: 'видеть улицу',
+            risk: 'Сырость усиливает охлаждение.'
+          },
+          en: {
+            name: 'Wet window zone',
+            place: 'by the window',
+            note: 'Wetness and cold glass make waiting worse.',
+            useFor: 'seeing outside',
+            risk: 'Moisture increases cooling.'
+          },
+          es: {
+            name: 'Zona húmeda de la ventana',
+            place: 'junto a la ventana',
+            note: 'Humedad y vidrio frío empeoran la espera.',
+            useFor: 'ver afuera',
+            risk: 'La humedad aumenta el enfriamiento.'
+          }
+        }
+      },
+      {
+        id: 'dry_base_layer',
+        icon: 'shirt',
+        category: 'essential',
+        weight: 0.4,
+        copy: {
+          ru: {
+            name: 'Сухой термослой',
+            place: 'в сумке с одеждой',
+            note: 'Сухой слой ближе к телу помогает удерживать тепло лучше, чем влажная мягкая одежда.',
+            useFor: 'ночное ожидание, холодный подъезд, сырость',
+            risk: 'Почти не защищает от ветра без внешнего слоя.'
+          },
+          en: {
+            name: 'Dry base layer',
+            place: 'inside the clothing bag',
+            note: 'A dry layer close to the body holds warmth better than damp comfortable clothing.',
+            useFor: 'night waiting, cold stairwell, damp conditions',
+            risk: 'It does little against wind without an outer layer.'
+          },
+          es: {
+            name: 'Capa térmica seca',
+            place: 'en la bolsa de ropa',
+            note: 'Una capa seca junto al cuerpo conserva mejor calor que ropa cómoda húmeda.',
+            useFor: 'espera nocturna, escalera fría, humedad',
+            risk: 'Protege poco del viento sin una capa exterior.'
+          }
+        }
+      },
+      {
+        id: 'warm_hat_shelter',
+        icon: 'circle',
+        category: 'essential',
+        weight: 0.2,
+        copy: {
+          ru: {
+            name: 'Теплая шапка',
+            place: 'на крючке',
+            note: 'Шапка почти не весит и помогает ночью, когда тело устает удерживать тепло.',
+            useFor: 'ночь, ожидание, сквозняк',
+            risk: 'Не заменяет сухой слой и защиту от ветра.'
+          },
+          en: {
+            name: 'Warm hat',
+            place: 'on the hook',
+            note: 'A hat is light and helps overnight when the body is tired of staying warm.',
+            useFor: 'night, waiting, drafts',
+            risk: 'It does not replace a dry layer or wind protection.'
+          },
+          es: {
+            name: 'Gorro cálido',
+            place: 'en el gancho',
+            note: 'Un gorro pesa poco y ayuda por la noche cuando el cuerpo se cansa.',
+            useFor: 'noche, espera, corriente',
+            risk: 'No reemplaza capa seca ni protección contra viento.'
+          }
+        }
+      },
+      {
+        id: 'dry_socks',
+        icon: 'footprints',
+        category: 'essential',
+        weight: 0.15,
+        copy: {
+          ru: {
+            name: 'Сухие носки',
+            place: 'в сумке с одеждой',
+            note: 'Мокрые ноги быстро мерзнут и портят способность идти утром.',
+            useFor: 'ночь, утренний выход, сырой пол',
+            risk: 'Помогают только если держать их сухими.'
+          },
+          en: {
+            name: 'Dry socks',
+            place: 'inside the clothing bag',
+            note: 'Wet feet get cold fast and make morning movement harder.',
+            useFor: 'night, morning exit, damp floor',
+            risk: 'They help only if kept dry.'
+          },
+          es: {
+            name: 'Calcetines secos',
+            place: 'en la bolsa de ropa',
+            note: 'Los pies mojados se enfrían rápido y dificultan caminar por la mañana.',
+            useFor: 'noche, salida de mañana, suelo húmedo',
+            risk: 'Ayudan solo si se mantienen secos.'
+          }
+        }
+      },
+      {
+        id: 'windbreaker',
+        icon: 'shirt',
+        category: 'essential',
+        weight: 0.5,
+        copy: {
+          ru: {
+            name: 'Ветровка',
+            place: 'на крючке',
+            note: 'Ветровка режет сквозняк. Это не тепло само по себе, а защита теплого слоя.',
+            useFor: 'дверь, окно, ветер, мокрый снег',
+            risk: 'Без сухого слоя под ней почти не греет.'
+          },
+          en: {
+            name: 'Windbreaker',
+            place: 'on the hook',
+            note: 'A windbreaker cuts drafts. It is not warmth by itself; it protects the warm layer.',
+            useFor: 'door, window, wind, wet snow',
+            risk: 'Without a dry layer underneath, it adds little warmth.'
+          },
+          es: {
+            name: 'Cortaviento',
+            place: 'en el gancho',
+            note: 'El cortaviento corta la corriente. No abriga solo; protege la capa cálida.',
+            useFor: 'puerta, ventana, viento, nieve húmeda',
+            risk: 'Sin una capa seca debajo, abriga poco.'
+          }
+        }
+      },
+      {
+        id: 'emergency_blanket_shelter',
+        icon: 'bed',
+        category: 'useful',
+        weight: 0.1,
+        copy: {
+          ru: {
+            name: 'Аварийное одеяло',
+            place: 'в сумке с одеждой',
+            note: 'Легкий барьер от потери тепла, но не магическое отопление.',
+            useFor: 'ожидание, ветер, сохранение тепла',
+            risk: 'Хрупкое и плохо работает без сухих слоев.'
+          },
+          en: {
+            name: 'Emergency blanket',
+            place: 'inside the clothing bag',
+            note: 'A light barrier against heat loss, not magic heating.',
+            useFor: 'waiting, wind, heat retention',
+            risk: 'Fragile and weak without dry layers.'
+          },
+          es: {
+            name: 'Manta de emergencia',
+            place: 'en la bolsa de ropa',
+            note: 'Una barrera ligera contra pérdida de calor, no calefacción mágica.',
+            useFor: 'espera, viento, conservar calor',
+            risk: 'Frágil y débil sin capas secas.'
+          }
+        }
+      },
+      {
+        id: 'cotton_hoodie_shelter',
+        icon: 'shirt',
+        category: 'trap',
+        weight: 0.9,
+        copy: {
+          ru: {
+            name: 'Хлопковая толстовка',
+            place: 'в сумке с одеждой',
+            note: 'Комфортна в сухом помещении, но отсыревший хлопок плохо держит тепло.',
+            useFor: 'короткое сухое ожидание',
+            risk: 'Может дать ложное чувство тепла и занять место.'
+          },
+          en: {
+            name: 'Cotton hoodie',
+            place: 'inside the clothing bag',
+            note: 'Comfortable in a dry room, but damp cotton insulates poorly.',
+            useFor: 'short dry waiting',
+            risk: 'It can create false comfort and take space.'
+          },
+          es: {
+            name: 'Sudadera de algodón',
+            place: 'en la bolsa de ropa',
+            note: 'Cómoda en seco, pero el algodón húmedo abriga mal.',
+            useFor: 'espera corta y seca',
+            risk: 'Puede dar falsa comodidad y ocupar espacio.'
+          }
+        }
+      },
+      {
+        id: 'wet_blanket',
+        icon: 'bed',
+        category: 'trap',
+        weight: 1.8,
+        copy: {
+          ru: {
+            name: 'Мокрый плед',
+            place: 'на полу',
+            note: 'Плед выглядит теплым, но сырость и вес делают его плохим выбором.',
+            useFor: 'почти не нужен в таком состоянии',
+            risk: 'Тяжелый и холодный, может усилить охлаждение.'
+          },
+          en: {
+            name: 'Wet blanket',
+            place: 'on the floor',
+            note: 'It looks warm, but wetness and weight make it a poor choice.',
+            useFor: 'little value in this condition',
+            risk: 'Heavy and cold; it can increase cooling.'
+          },
+          es: {
+            name: 'Manta mojada',
+            place: 'en el suelo',
+            note: 'Parece cálida, pero humedad y peso la vuelven mala elección.',
+            useFor: 'poco valor así',
+            risk: 'Pesada y fría; puede aumentar enfriamiento.'
+          }
+        }
+      },
+      {
+        id: 'water_shelter',
+        icon: 'droplet',
+        category: 'essential',
+        weight: 1,
+        copy: {
+          ru: {
+            name: 'Бутылка воды',
+            place: 'на полке с запасами',
+            note: 'Холод не отменяет воду. Она нужна для питья, лекарств и задержек.',
+            useFor: 'ожидание, лекарства, утренний выход',
+            risk: 'Вес заметен, но без воды запас прочности ниже.'
+          },
+          en: {
+            name: 'Water bottle',
+            place: 'on the supply shelf',
+            note: 'Cold does not remove the need for water. It supports drinking, medicine, and delays.',
+            useFor: 'waiting, medicine, morning exit',
+            risk: 'The weight matters, but without water the safety margin is lower.'
+          },
+          es: {
+            name: 'Botella de agua',
+            place: 'en el estante',
+            note: 'El frío no elimina la necesidad de agua. Sirve para beber, medicinas y retrasos.',
+            useFor: 'espera, medicinas, salida de mañana',
+            risk: 'Pesa, pero sin agua hay menos margen.'
+          }
+        }
+      },
+      {
+        id: 'energy_bar_shelter',
+        icon: 'sandwich',
+        category: 'essential',
+        weight: 0.15,
+        copy: {
+          ru: {
+            name: 'Энергетический батончик',
+            place: 'на полке с запасами',
+            note: 'Немного калорий помогает дождаться утра без лишнего веса.',
+            useFor: 'силы, холод, утренний выход',
+            risk: 'Не заменяет воду и теплые слои.'
+          },
+          en: {
+            name: 'Energy bar',
+            place: 'on the supply shelf',
+            note: 'A few calories help you wait until morning without much weight.',
+            useFor: 'energy, cold, morning exit',
+            risk: 'It does not replace water or warm layers.'
+          },
+          es: {
+            name: 'Barrita energética',
+            place: 'en el estante',
+            note: 'Algunas calorías ayudan a esperar hasta la mañana sin mucho peso.',
+            useFor: 'energía, frío, salida de mañana',
+            risk: 'No reemplaza agua ni capas cálidas.'
+          }
+        }
+      },
+      {
+        id: 'headlamp_shelter',
+        icon: 'flashlight',
+        category: 'useful',
+        weight: 0.25,
+        copy: {
+          ru: {
+            name: 'Налобный фонарь',
+            place: 'на полке с запасами',
+            note: 'Свет без занятых рук помогает осмотреть пол, вещи и выход.',
+            useFor: 'темнота, поиск вещей, выход утром',
+            risk: 'Нужен заряд или батарейки.'
+          },
+          en: {
+            name: 'Headlamp',
+            place: 'on the supply shelf',
+            note: 'Hands-free light helps inspect the floor, gear, and exit.',
+            useFor: 'darkness, finding gear, morning exit',
+            risk: 'Needs charge or batteries.'
+          },
+          es: {
+            name: 'Linterna frontal',
+            place: 'en el estante',
+            note: 'Luz con manos libres para revisar suelo, equipo y salida.',
+            useFor: 'oscuridad, buscar equipo, salida de mañana',
+            risk: 'Necesita carga o pilas.'
+          }
+        }
+      },
+      {
+        id: 'powerbank_shelter',
+        icon: 'battery-charging',
+        category: 'useful',
+        weight: 0.4,
+        copy: {
+          ru: {
+            name: 'Пауэрбанк',
+            place: 'на полке с запасами',
+            note: 'Слабая связь и холод быстро съедают заряд телефона.',
+            useFor: 'связь, карта, сообщения',
+            risk: 'Полезен только если заряжен и есть кабель.'
+          },
+          en: {
+            name: 'Power bank',
+            place: 'on the supply shelf',
+            note: 'Weak signal and cold can drain a phone quickly.',
+            useFor: 'communication, map, messages',
+            risk: 'Useful only if charged and paired with a cable.'
+          },
+          es: {
+            name: 'Batería externa',
+            place: 'en el estante',
+            note: 'Señal débil y frío gastan rápido el teléfono.',
+            useFor: 'comunicación, mapa, mensajes',
+            risk: 'Sirve solo cargada y con cable.'
+          }
+        }
+      },
+      {
+        id: 'small_radio',
+        icon: 'battery',
+        category: 'useful',
+        weight: 0.35,
+        copy: {
+          ru: {
+            name: 'Маленькое радио',
+            place: 'на полке с запасами',
+            note: 'Радио может дать инструкции, когда интернет и связь нестабильны.',
+            useFor: 'новости, инструкции, ожидание',
+            risk: 'Нужно питание и понятный источник информации.'
+          },
+          en: {
+            name: 'Small radio',
+            place: 'on the supply shelf',
+            note: 'A radio can provide instructions when internet and phone signal are unstable.',
+            useFor: 'news, instructions, waiting',
+            risk: 'Needs power and a clear information source.'
+          },
+          es: {
+            name: 'Radio pequeña',
+            place: 'en el estante',
+            note: 'La radio puede dar instrucciones si internet y señal fallan.',
+            useFor: 'noticias, instrucciones, espera',
+            risk: 'Necesita energía y una fuente clara.'
+          }
+        }
+      },
+      {
+        id: 'heavy_cans_stack',
+        icon: 'can',
+        category: 'trap',
+        weight: 2.4,
+        copy: {
+          ru: {
+            name: 'Стопка консервов',
+            place: 'на полке с запасами',
+            note: 'Еда полезна, но эта стопка слишком тяжелая для текущей задачи.',
+            useFor: 'долгое ожидание на месте',
+            risk: 'Вес мешает двигаться и вытесняет слои или воду.'
+          },
+          en: {
+            name: 'Stack of cans',
+            place: 'on the supply shelf',
+            note: 'Food is useful, but this stack is too heavy for the current job.',
+            useFor: 'long fixed waiting',
+            risk: 'Weight slows movement and pushes out layers or water.'
+          },
+          es: {
+            name: 'Latas pesadas',
+            place: 'en el estante',
+            note: 'La comida ayuda, pero esta pila pesa demasiado ahora.',
+            useFor: 'espera larga fija',
+            risk: 'El peso frena y desplaza capas o agua.'
+          }
+        }
+      },
+      {
+        id: 'glass_bottle_shelter',
+        icon: 'wine',
+        category: 'trap',
+        weight: 1.2,
+        copy: {
+          ru: {
+            name: 'Стеклянная бутылка',
+            place: 'на полке с запасами',
+            note: 'Хрупкая и тяжелая вещь рядом с холодным полом и темнотой.',
+            useFor: 'почти нет пользы сейчас',
+            risk: 'Может разбиться, порезать вещи и добавить веса.'
+          },
+          en: {
+            name: 'Glass bottle',
+            place: 'on the supply shelf',
+            note: 'Fragile and heavy near a cold floor and darkness.',
+            useFor: 'little value right now',
+            risk: 'It can break, cut gear, and add weight.'
+          },
+          es: {
+            name: 'Botella de vidrio',
+            place: 'en el estante',
+            note: 'Frágil y pesada junto a suelo frío y oscuridad.',
+            useFor: 'poco valor ahora',
+            risk: 'Puede romperse, cortar equipo y añadir peso.'
+          }
+        }
+      },
+      {
+        id: 'unsafe_heat_source',
+        icon: 'package',
+        category: 'trap',
+        weight: 0.6,
+        copy: {
+          ru: {
+            name: 'Рискованный обогрев',
+            place: 'у мокрой зоны',
+            note: 'Кажется быстрым теплом, но в помещении может создать новый риск: дым, пожар, плохой воздух или потерю времени.',
+            useFor: 'краткое ощущение тепла',
+            risk: 'Ложное тепло может сделать ситуацию опаснее.'
+          },
+          en: {
+            name: 'Risky heat source',
+            place: 'near the wet zone',
+            note: 'It looks like quick warmth, but indoors it can create new risk: smoke, fire, bad air, or wasted time.',
+            useFor: 'brief feeling of warmth',
+            risk: 'False warmth can make the situation more dangerous.'
+          },
+          es: {
+            name: 'Calor riesgoso',
+            place: 'junto a la zona húmeda',
+            note: 'Parece calor rápido, pero dentro puede crear humo, fuego, mal aire o pérdida de tiempo.',
+            useFor: 'sensación breve de calor',
+            risk: 'El falso calor puede empeorar la situación.'
+          }
+        }
+      },
+      {
+        id: 'constant_pacing',
+        icon: 'footprints',
+        category: 'trap',
+        weight: 0,
+        copy: {
+          ru: {
+            name: 'Ходить без остановки',
+            place: 'по лестнице',
+            note: 'Движение согревает на короткое время, но постоянная ходьба тратит силы.',
+            useFor: 'коротко размяться',
+            risk: 'К утру энергии будет меньше, а решение хуже.'
+          },
+          en: {
+            name: 'Constant pacing',
+            place: 'on the stairs',
+            note: 'Movement warms briefly, but constant pacing spends energy.',
+            useFor: 'brief warm-up',
+            risk: 'By morning you have less energy and worse decisions.'
+          },
+          es: {
+            name: 'Caminar sin parar',
+            place: 'por la escalera',
+            note: 'Moverse calienta un poco, pero caminar sin parar gasta energía.',
+            useFor: 'calentar brevemente',
+            risk: 'Por la mañana habrá menos energía y peores decisiones.'
+          }
+        }
+      }
+    ]
   }
 ];
 

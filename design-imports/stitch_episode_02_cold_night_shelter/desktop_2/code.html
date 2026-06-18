@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WILDPATH // EP.02 - Main Shelter Scene</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#78dc77",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "tertiary-container": "#a6c4d3",
+                        "inverse-surface": "#e5e2e1",
+                        "cold-blue": "#aabcc4",
+                        "surface-dim": "#131313",
+                        "secondary": "#78dc77",
+                        "tertiary": "#c1e0f0",
+                        "surface-mid": "#131313",
+                        "concrete": "#9e9e9e",
+                        "tertiary-fixed": "#c9e7f7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002204",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#35525f",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#d7c4ac",
+                        "on-primary": "#432c00",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "danger-red": "#d32f2f",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-error-container": "#ffdad6",
+                        "surface-light": "#1b1b1b",
+                        "secondary-fixed": "#94f990",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-tertiary": "#163440",
+                        "outline": "#9f8e78",
+                        "outline-variant": "#524533",
+                        "inverse-primary": "#805600",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#ffba43",
+                        "on-primary-container": "#6a4700",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-tertiary-fixed": "#001f2a",
+                        "secondary-container": "#00761f",
+                        "primary-fixed": "#ffddaf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "steel": "#455a64",
+                        "on-secondary-container": "#95fb92",
+                        "primary-container": "#ffb000",
+                        "on-secondary": "#00390a",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#ffba43",
+                        "primary": "#ffd597",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#281800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "safe-top": "24px",
+                        "base": "4px",
+                        "padding-panel": "20px",
+                        "gutter-grid": "12px",
+                        "bottom-bar-height": "100px",
+                        "margin-screen": "12px"
+                    },
+                    "fontFamily": {
+                        "status-value": ["JetBrains Mono"],
+                        "microcopy": ["Inter"],
+                        "status-label": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Archivo Narrow"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "status-value": ["18px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "microcopy": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "status-label": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-base": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .hotspot-ring { animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(0.8); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen overflow-hidden flex flex-col font-body-base bg-surface-dim">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-screen h-[60px] bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline-variant pt-safe-top shrink-0 z-50">
+<div class="flex items-center gap-4">
+<button class="text-on-surface dark:text-on-surface hover:bg-surface-bright dark:hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">leaderboard</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed-dim dark:text-primary-fixed-dim uppercase tracking-tight" contenteditable="true">WILDPATH // EP.02</h1>
+</div>
+<div class="flex items-center gap-4 font-headline-md text-headline-md uppercase tracking-tight text-on-surface dark:text-on-surface">
+<button class="hover:bg-surface-bright dark:hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden w-full max-w-[1440px] mx-auto p-margin-screen gap-gutter-grid">
+<!-- Left Panel: Mission & Story -->
+<aside class="w-1/4 h-full bg-surface-container rounded-lg border border-outline-variant flex flex-col overflow-y-auto">
+<div class="p-padding-panel border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-primary mb-2" contenteditable="true">ТЕКУЩАЯ ЗАДАЧА</h2>
+<p class="font-body-sm text-body-sm text-on-surface" contenteditable="true">Подъезд. Холодная ночь</p>
+</div>
+<div class="p-padding-panel flex-1">
+<h3 class="font-status-label text-status-label text-secondary mb-4 uppercase" contenteditable="true">ЗАПИСИ ЖУРНАЛА</h3>
+<div class="space-y-4 relative before:absolute before:inset-y-0 before:left-[11px] before:w-px before:bg-outline-variant">
+<div class="relative pl-6">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-light border border-secondary flex items-center justify-center -ml-[3px]">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<p class="font-microcopy text-microcopy text-on-surface mb-1" contenteditable="true">0400 ЧАСОВ</p>
+<p class="font-body-sm text-body-sm text-on-background" contenteditable="true">Вошли в сектор 7. Зафиксировано падение температуры.</p>
+</div>
+<div class="relative pl-6">
+<div class="absolute left-0 top-1 w-6 h-6 rounded-full bg-surface-light border border-primary flex items-center justify-center -ml-[3px]">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<p class="font-microcopy text-microcopy text-on-surface mb-1" contenteditable="true">0515 ЧАСОВ</p>
+<p class="font-body-sm text-body-sm text-on-background" contenteditable="true">Найдено временное убежище. Признаки недавней активности.</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center: Scene Canvas -->
+<section class="flex-1 h-full relative rounded-lg border border-outline-variant overflow-hidden bg-surface-light group">
+<div class="absolute inset-0 bg-cover bg-center w-full h-full opacity-60" data-alt="A gritty, industrial abandoned shelter in a cold environment. Icy textures, rusting metal panels, and dim emergency lighting casting long shadows. Tactical military aesthetic, highly detailed, realistic, dark cinematic lighting, glowing amber and cyan accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRW-CVIensHggKxlobnd7dx9Z_w_iLijDNci8Tbv_V7P1FlCLoVDjxVVJBSw-69uc-7KgqtKOjAN3lbB_wXGTfxiONgCVbagcuVXrrd6l3yvmJ50yRH6IRRICNUyxvdCXHx8XEBDQDvhsJcEiRtC2qZrqgdITOZWMUiVl9FEmfTl3P93uAzDUyt-h7ZN8MxcnCimpZwFzhUN9CoKL7ElKsiAbJ8NGMyJSfdkEyt-jfs5iQ-riP5QWdg-Vi5To4GOr6np3-2wFjDK-t')"></div>
+<!-- Hotspot 1 -->
+<div class="absolute top-[30%] left-[20%] flex items-center group/hotspot cursor-pointer">
+<div class="relative w-8 h-8 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-2 border-primary hotspot-ring"></div>
+<div class="w-4 h-4 bg-primary rounded-full z-10"></div>
+</div>
+<div class="ml-2 bg-surface-container border border-outline-variant px-2 py-1 rounded opacity-0 group-hover/hotspot:opacity-100 transition-opacity">
+<span class="font-microcopy text-microcopy text-primary uppercase tracking-wider" contenteditable="true">ОБЫСКАТЬ ШКАФЧИК</span>
+</div>
+</div>
+<!-- Hotspot 2 -->
+<div class="absolute top-[60%] right-[30%] flex items-center group/hotspot cursor-pointer">
+<div class="relative w-8 h-8 flex items-center justify-center">
+<div class="absolute inset-0 rounded-full border-2 border-danger-red hotspot-ring"></div>
+<div class="w-4 h-4 bg-danger-red rounded-full z-10"></div>
+</div>
+<div class="ml-2 bg-surface-container border border-outline-variant px-2 py-1 rounded opacity-0 group-hover/hotspot:opacity-100 transition-opacity">
+<span class="font-microcopy text-microcopy text-danger-red uppercase tracking-wider" contenteditable="true">ОПАСНОСТЬ: ОГОЛЕННЫЕ ПРОВОДА</span>
+</div>
+</div>
+</section>
+<!-- Right Panel: Backpack & Status -->
+<aside class="w-1/4 h-full bg-surface-container rounded-lg border border-outline-variant flex flex-col">
+<!-- Warmth Meter -->
+<div class="p-padding-panel border-b border-outline-variant bg-surface-light rounded-t-lg">
+<div class="flex justify-between items-end mb-2">
+<span class="font-status-label text-status-label text-primary uppercase" contenteditable="true">ТЕМПЕРАТУРА ЯДРА</span>
+<span class="font-status-value text-status-value text-primary" contenteditable="true">34°C</span>
+</div>
+<div class="h-2 bg-surface-mid rounded w-full overflow-hidden flex border border-outline-variant">
+<div class="h-full bg-danger-red w-1/5"></div>
+<div class="h-full bg-primary w-2/5 border-l border-surface-mid"></div>
+</div>
+</div>
+<!-- Inventory Grid -->
+<div class="p-padding-panel flex-1 overflow-y-auto">
+<h3 class="font-status-label text-status-label text-on-surface mb-4 uppercase flex items-center gap-2" contenteditable="true">
+<span class="material-symbols-outlined text-sm" contenteditable="false">backpack</span> Снаряжение
+                </h3>
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Item -->
+<div class="bg-surface-light border border-outline-variant rounded p-2 aspect-square flex flex-col relative hover:bg-surface-bright transition-colors cursor-pointer">
+<span class="absolute top-1 right-1 font-microcopy text-microcopy text-secondary bg-surface-dim px-1 rounded border border-secondary-fixed-dim" contenteditable="true">НАДЕТО</span>
+<div class="flex-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-on-surface">flashlight_on</span>
+</div>
+<span class="font-microcopy text-microcopy text-center text-on-background mt-1" contenteditable="true">Тактический фонарь</span>
+</div>
+<!-- Item -->
+<div class="bg-surface-light border border-outline-variant rounded p-2 aspect-square flex flex-col relative hover:bg-surface-bright transition-colors cursor-pointer">
+<div class="flex-1 flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl text-on-surface">medication</span>
+</div>
+<span class="font-microcopy text-microcopy text-center text-on-background mt-1" contenteditable="true">Аптечка x2</span>
+</div>
+<!-- Empty Slot -->
+<div class="bg-surface-dim border border-dashed border-outline-variant rounded p-2 aspect-square flex items-center justify-center">
+<span class="material-symbols-outlined text-2xl text-on-surface-variant">add</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Bottom Interaction Bar -->
+<footer class="h-bottom-bar-height w-full bg-surface-container border-t border-outline-variant px-margin-screen flex items-center justify-between shrink-0 z-50">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-light border-2 border-outline-variant flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A small, stylized portrait of a rugged survivor wearing a tactical mask in a cold environment. Gritty, dark aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_O4JvYGNdp88uFIoLwumzeGOHCCtMR6AH12SdCAfHEnjtTl5tABUOIWiuj7jvtGC4vpspXO_4A7F7eAieIZr2OaYKASGNPUziNyuSI252NJvbORTe_a5AwH3FZl78AT4gjUSxj9_Q4sWnBZqQ8nWjyZcpuZaGdzejfN4CqRvAwHCSxXuD__dVWbOWDXRKfbHp4yhxscdgIBUf9ypE4h-d9zDEX6pjN41WqfqpR6B9nUX-lKznhQA5VIMuxyqbD9qae5bn5A8mIFs7"/>
+</div>
+<div>
+<p class="font-status-label text-status-label text-on-background uppercase" contenteditable="true">ОПЕРАТИВНИК 04</p>
+<p class="font-microcopy text-microcopy text-on-surface italic" contenteditable="true">"Продолжайте движение. Холод наступает быстро."</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-surface-light border border-outline-variant text-on-background px-6 py-3 rounded hover:bg-surface-bright transition-colors font-status-label text-status-label uppercase tracking-wide flex items-center gap-2" contenteditable="true">
+<span class="material-symbols-outlined" contenteditable="false">map</span> КАРТА
+            </button>
+<button class="bg-primary text-on-primary px-8 py-3 rounded hover:opacity-90 transition-opacity font-headline-md text-status-label uppercase tracking-wide" contenteditable="true">
+                ВПЕРЕД
+            </button>
+</div>
+</footer>
+</body></html>

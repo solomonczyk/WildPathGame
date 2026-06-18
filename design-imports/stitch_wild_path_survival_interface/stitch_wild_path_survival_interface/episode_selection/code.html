@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Episode Selection - Wild Path Game</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#001702",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1b1b1b",
+                        "background": "#131313",
+                        "on-tertiary-fixed": "#002204",
+                        "secondary-fixed": "#ffdbd1",
+                        "surface-dim": "#131313",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#fffbff",
+                        "primary": "#c8c6c5",
+                        "outline-variant": "#444748",
+                        "inverse-surface": "#e5e2e1",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "on-surface": "#e5e2e1",
+                        "surface-tint": "#c8c6c5",
+                        "on-secondary-fixed-variant": "#862200",
+                        "on-secondary-fixed": "#3b0900",
+                        "surface": "#131313",
+                        "inverse-primary": "#5f5e5e",
+                        "on-error": "#690005",
+                        "on-primary": "#313030",
+                        "on-tertiary-container": "#2a9035",
+                        "secondary": "#ffb5a0",
+                        "surface-variant": "#353535",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary": "#5f1500",
+                        "surface-container-highest": "#353535",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#78dc77",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "outline": "#8e9192",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#00390a",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-bright": "#393939",
+                        "primary-container": "#121212",
+                        "on-background": "#e5e2e1",
+                        "on-primary-container": "#7e7d7d",
+                        "surface-container": "#20201f",
+                        "tertiary-fixed": "#94f990",
+                        "on-surface-variant": "#c4c7c7",
+                        "secondary-container": "#d73b00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "stat-sm": ["JetBrains Mono"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "stat-lg": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "stat-sm": ["14px", { "lineHeight": "18px", "letterSpacing": "0.05em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "stat-lg": ["20px", { "lineHeight": "24px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .episode-card {
+            transition: all 0.3s ease;
+        }
+        .episode-card:hover {
+            transform: translateY(-2px);
+        }
+        .glow-active {
+            box-shadow: 0 0 20px rgba(215, 59, 0, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 border-b border-outline-variant bg-background flex justify-between items-center w-full px-margin-mobile py-unit max-w-full hidden md:flex z-40">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Survivor Profile" class="w-full h-full object-cover" data-alt="A gritty, low-key profile portrait of a survivor in a dark, tactical survival setting. The face is partially obscured by shadows, illuminated only by a dim, cool light source. The character wears rugged, utilitarian clothing appropriate for a post-apocalyptic or high-stakes evacuation scenario. The overall mood is tense and serious, matching a dark mode, utilitarian UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM48F_38eqvecDWNClKLiq36vhJnbnqcDiMk6Ojk0VeURKX1w6qciCNWcLvhOoPRDN_YktY9cPNZj9O_8A3MzNMiW-hHo59v9ZYJ3Ju-QjZiDtGBaDZrEaQOurPAZ772rpxwsq2JC8M_ZnPXCe5r_7pN5jrZiQPzosxv3bWUmTWZW2kZ1-_QPqjIbSA660XBMVpCUXwqYEY5aSVvCS3uGojrsOBa_QfMbnjucggbrVK9jKqggkG8MZdPbVSL5KEpko9QgLtrLPdwIB"/>
+</div>
+<span class="font-headline-lg text-headline-lg font-bold tracking-tighter text-primary dark:text-primary">WILD PATH</span>
+</div>
+<div class="flex gap-6">
+<a class="font-label-caps text-label-caps text-outline dark:text-outline hover:border-secondary transition-colors duration-200" href="#">Inventory</a>
+<a class="font-label-caps text-label-caps text-outline dark:text-outline hover:border-secondary transition-colors duration-200" href="#">Crafting</a>
+<a class="font-label-caps text-label-caps text-primary dark:text-primary opacity-80 scale-95 border-b-2 border-secondary pb-1" href="#">Episode</a>
+<a class="font-label-caps text-label-caps text-outline dark:text-outline hover:border-secondary transition-colors duration-200" href="#">Base</a>
+</div>
+<div class="flex items-center">
+<span class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer" data-icon="language">language</span>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- NavigationDrawer (Web) -->
+<nav class="docked left-0 h-full w-80 bg-surface-container border-r border-outline-variant shadow-lg flex-col h-full py-6 gap-2 hidden md:flex z-30">
+<div class="px-6 mb-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Survivor Avatar" class="w-full h-full object-cover" data-alt="A gritty, low-key profile portrait of a survivor in a dark, tactical survival setting. The face is partially obscured by shadows, illuminated only by a dim, cool light source. The character wears rugged, utilitarian clothing appropriate for a post-apocalyptic or high-stakes evacuation scenario. The overall mood is tense and serious, matching a dark mode, utilitarian UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe_JPvsuE0YTSxjiyoDrrDkCC0kqtfu0-N1IFV3ZrfRdGUWVLJvJvuauS6zLG7BFaeCg239m1-YHoD40rqem7yreWwxl-ImCmAuQCa7DOQPa4bSuJcGW8-eEw1u9p1tTzcgrxesxl-TKuHYl_A_enBoi-nKAHNPuds59b21zYt1EY0r44yfHgRxD64oNeCqX8JPra5ApMfpmXDiVDC3-Wbuo_dI-3cl9TMdmxJ6SBQ7CnCYy5ImUaUTRQ8trrhqpvrvDtWFWfs9iQQ"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary">Survivor Name</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Day 12 - Level 5</div>
+<div class="font-stat-sm text-stat-sm text-outline">Location: Apartment</div>
+</div>
+</div>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="backpack">backpack</span>
+                Inventory
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handyman">handyman</span>
+                Crafting
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="Military_tech">military_tech</span>
+                Skills
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+                Map
+            </a>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container font-bold rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all brightness-125" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+                Episode
+            </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:bg-surface-variant rounded-full mx-2 px-4 py-3 font-body-md text-body-md transition-all mt-auto mb-4" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto pb-24 md:pb-8 relative">
+<!-- Mobile Header -->
+<div class="md:hidden flex items-center justify-between px-margin-mobile py-4 border-b border-outline-variant bg-background sticky top-0 z-40">
+<span class="font-headline-lg text-headline-lg font-bold tracking-tighter text-primary">WILD PATH</span>
+<span class="material-symbols-outlined text-outline" data-icon="language">language</span>
+</div>
+<div class="max-w-4xl mx-auto px-margin-mobile py-8 md:py-12">
+<div class="mb-10">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">EPISODE ARCHIVE</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Select an episode to begin or continue your survival training. Progress is saved locally.</p>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Episode 1: Active -->
+<div class="episode-card relative w-full rounded-lg border border-secondary-container bg-surface-container-high overflow-hidden glow-active cursor-pointer group">
+<div class="absolute inset-0 bg-gradient-to-r from-surface-container-lowest via-surface-container-high/80 to-transparent z-10"></div>
+<div class="absolute inset-0 z-0">
+<img alt="Apartment Evacuation Background" class="w-full h-full object-cover opacity-40 mix-blend-overlay group-hover:opacity-60 transition-opacity duration-500" data-alt="A dark, atmospheric cinematic shot of a ruined apartment interior looking out over a desolate cityscape at twilight. Dust motes hang in the air, illuminated by a faint, cool blue light. The scene is tense and foreboding, fitting a survival horror or tactical evacuation theme. The color palette is dominated by deep blacks and muted dark grays, creating a stark, high-contrast silhouette against the dim outside world." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxAO4IKZi2Tam3HB5N9d54Q_cLiwYMrUbFqm0AVe-GeH5_hGH09NakMrls7ThvjgayEiJFzH8DGE2M61EN_nexRq4rnsdw_ui4DwFrPPX767atIyjToWfjZrGPhwxDTsi_MBYr-W1WNpbA01A43tND_PrzDBkFzTwxWQ1fPlGTU97NvRTrNJxvdHRprs1_pMwYLp6ZduzD8vBHv6J4HYsw5M4ZeSnDbExqe11n_182fAQb90QP9Fu950_N2bm1ptwrWX24xmM4RL2o"/>
+</div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-stat-sm text-stat-sm text-secondary-container px-2 py-0.5 border border-secondary-container rounded bg-secondary-container/10">UNLOCKED</span>
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 01</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-secondary-container mb-2 group-hover:text-secondary-fixed transition-colors">Apartment Evacuation</h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 max-w-2xl">The sirens have stopped, but the danger hasn't. Gather essential supplies and find a safe route out of the high-rise before structural failure occurs.</p>
+</div>
+<div class="flex-shrink-0">
+<button class="w-full md:w-auto bg-surface-container-low border border-secondary-container hover:bg-secondary-container/20 text-on-secondary-container font-label-caps text-label-caps py-3 px-8 rounded flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="play_arrow" data-weight="fill" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                                    START MISSION
+                                </button>
+</div>
+</div>
+</div>
+<!-- Episode 2: Coming Soon -->
+<div class="episode-card relative w-full rounded-lg border border-outline-variant bg-surface-container-low overflow-hidden opacity-70">
+<div class="absolute inset-0 bg-surface/80 z-10 flex items-center justify-center backdrop-blur-sm pointer-events-none">
+<div class="bg-surface-container-high border border-outline-variant px-4 py-2 rounded-full flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="lock">lock</span>
+<span class="font-label-caps text-label-caps text-outline">COMING SOON</span>
+</div>
+</div>
+<div class="absolute inset-0 z-0">
+<img alt="Forest Night Background" class="w-full h-full object-cover opacity-20 grayscale" data-alt="A pitch-black, menacing forest at night, barely visible. The silhouettes of jagged, dead trees reach up against a slightly lighter dark grey sky. The scene evokes a sense of dread and isolation, characteristic of a survival game's night sequence. It is entirely monochromatic, relying on extremely low contrast and deep shadows to convey a 'flashlight focus' aesthetic where visibility is severely limited." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZvx0GJ-7DzN9EM50HyFyMWtRNs0j77utnOkL-6LmZt-2yF0oxt-5t_poLkUmRbKGzv7r8ZdrsB30JOcxRUXv9Zf_yk_tG_zvrNKmfspogU5SR0iCjtHyqFIP0a8JGDo8U6T9jYpsSEyT7f8pFKlabD2wi4BdZ85zNXLt-kycLsmt0WyDNNnNbZ6s7KZVpfO4pm1f39GyWmUS0UBTeo5-UcSvi2Y3FEuARxKZgtynI0MF9WMq1XkOCU5zqf1zDnzvsjtHzpm1m8qon"/>
+</div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 02</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-outline mb-2">First night outside</h2>
+<p class="font-body-md text-body-md text-outline-variant line-clamp-2 max-w-2xl">Survive the elements and hostile wildlife as you navigate the dense woods seeking temporary shelter before temperatures drop.</p>
+</div>
+</div>
+</div>
+<!-- Episode 3: Locked -->
+<div class="episode-card relative w-full rounded-lg border border-surface-variant bg-surface-container-lowest overflow-hidden opacity-50">
+<div class="absolute inset-0 z-0 bg-surface-dim"></div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="lock">lock</span>
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 03</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-outline-variant mb-2">Searching for safe water</h2>
+</div>
+</div>
+</div>
+<!-- Episode 4: Locked -->
+<div class="episode-card relative w-full rounded-lg border border-surface-variant bg-surface-container-lowest overflow-hidden opacity-50">
+<div class="absolute inset-0 z-0 bg-surface-dim"></div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="lock">lock</span>
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 04</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-outline-variant mb-2">Moving through damaged streets</h2>
+</div>
+</div>
+</div>
+<!-- Episode 5: Locked -->
+<div class="episode-card relative w-full rounded-lg border border-surface-variant bg-surface-container-lowest overflow-hidden opacity-50">
+<div class="absolute inset-0 z-0 bg-surface-dim"></div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="lock">lock</span>
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 05</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-outline-variant mb-2">Helping an injured person</h2>
+</div>
+</div>
+</div>
+<!-- Episode 6: Locked -->
+<div class="episode-card relative w-full rounded-lg border border-surface-variant bg-surface-container-lowest overflow-hidden opacity-50">
+<div class="absolute inset-0 z-0 bg-surface-dim"></div>
+<div class="relative z-20 flex flex-col md:flex-row p-6 md:p-8 items-start md:items-center justify-between gap-6 pointer-events-none">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="lock">lock</span>
+<span class="font-stat-sm text-stat-sm text-outline-variant">EPISODE 06</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-outline-variant mb-2">Choosing shelter</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-caps text-label-caps mt-1">Episode</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-label-caps text-label-caps mt-1">Training</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+<span class="font-label-caps text-label-caps mt-1">Base</span>
+</a>
+<a class="flex flex-col items-center justify-center text-outline dark:text-outline-variant hover:text-secondary-fixed-dim" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-label-caps text-label-caps mt-1">Journal</span>
+</a>
+</nav>
+</body></html>

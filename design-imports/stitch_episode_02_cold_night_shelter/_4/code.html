@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Episode 2 - Risky Heat Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Archivo+Narrow:wght@700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#78dc77",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "tertiary-container": "#a6c4d3",
+                        "inverse-surface": "#e5e2e1",
+                        "cold-blue": "#aabcc4",
+                        "surface-dim": "#131313",
+                        "secondary": "#78dc77",
+                        "tertiary": "#c1e0f0",
+                        "surface-mid": "#131313",
+                        "concrete": "#9e9e9e",
+                        "tertiary-fixed": "#c9e7f7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002204",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#35525f",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#d7c4ac",
+                        "on-primary": "#432c00",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "danger-red": "#d32f2f",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-error-container": "#ffdad6",
+                        "surface-light": "#1b1b1b",
+                        "secondary-fixed": "#94f990",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-tertiary": "#163440",
+                        "outline": "#9f8e78",
+                        "outline-variant": "#524533",
+                        "inverse-primary": "#805600",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#ffba43",
+                        "on-primary-container": "#6a4700",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-tertiary-fixed": "#001f2a",
+                        "secondary-container": "#00761f",
+                        "primary-fixed": "#ffddaf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "steel": "#455a64",
+                        "on-secondary-container": "#95fb92",
+                        "primary-container": "#ffb000",
+                        "on-secondary": "#00390a",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#ffba43",
+                        "primary": "#ffd597",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#281800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "safe-top": "24px",
+                        "base": "4px",
+                        "padding-panel": "20px",
+                        "gutter-grid": "12px",
+                        "bottom-bar-height": "100px",
+                        "margin-screen": "12px"
+                    },
+                    "fontFamily": {
+                        "status-value": ["JetBrains Mono"],
+                        "microcopy": ["Inter"],
+                        "status-label": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Archivo Narrow"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "status-value": ["18px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "microcopy": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "status-label": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-base": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+        }
+        .dim-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        .bottom-sheet {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex flex-col items-center justify-center relative overflow-hidden bg-surface-dim">
+<!-- Background Context (simulated blurred game environment) -->
+<div class="absolute inset-0 w-full h-full z-0" data-alt="A gritty, cold, urban survival scene at night, blurred slightly as if seen through a dirty lens. The color palette is dominated by dark blues, stark grays, and shadows, with a faint, dangerous orange glow from a distant makeshift fire. The mood is tense, urgent, and freezing, matching a tactical survival aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApsUQvk7faKPf1GRVb6BQOO_CoJ8zVd54McxCS9SkyqzdVmD-KYE0VCXT59BFeclVlPGReZDYMAvn6kgivy2PGw6wXrz_tyg_orvRkFbLScOLRcExJNaWKECREhKmYFPinBI63mLppPMx9QpSPL3qujxXkJVOaLR0RyFZWYYoGngHRBweKWBVWLjnPyrdnX60VS6i5u5dXV3o_caZatX7wGGSWlRa_kUxT0EEJ2zGw4vLyq8lYBdQLBF9EC7CyBAZns9P6HSCcG50K')">
+</div>
+<!-- Dimming Overlay -->
+<div class="absolute inset-0 dim-overlay z-10 w-full h-full flex flex-col justify-end">
+<!-- Bottom Sheet Container -->
+<div class="bottom-sheet bg-surface-light border-t border-outline-variant w-full rounded-t-[16px] flex flex-col pb-safe-bottom z-20 shadow-[0_-8px_30px_rgba(0,0,0,0.5)]">
+<!-- Handle Indicator -->
+<div class="w-full flex justify-center pt-4 pb-2">
+<div class="w-12 h-1.5 bg-surface-variant rounded-full"></div>
+</div>
+<!-- Header -->
+<div class="px-margin-screen pb-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center border border-danger-red/30">
+<span class="material-symbols-outlined text-danger-red text-[24px]">local_fire_department</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-danger-red tracking-tight uppercase">Рискованный обогрев</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Критическое решение</p>
+</div>
+</div>
+<!-- Content Area -->
+<div class="px-margin-screen pb-6 flex flex-col gap-4">
+<!-- Description -->
+<div class="bg-surface-container p-4 rounded-lg border border-outline-variant/50">
+<p class="font-body-base text-body-base text-on-surface">"Кажется, что это быстро даст тепло..."</p>
+<p class="font-body-sm text-body-sm text-concrete mt-2">Но цена ошибки может быть фатальной в замкнутом пространстве.</p>
+</div>
+<!-- Fields Bento -->
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Value -->
+<div class="bg-surface-container rounded-lg p-3 border border-outline-variant/30 flex flex-col gap-1">
+<span class="font-microcopy text-microcopy text-tertiary-fixed-dim uppercase tracking-wider">Ценность</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-[16px]">device_thermostat</span>
+<span class="font-status-label text-status-label text-on-surface">Кратковременное тепло</span>
+</div>
+</div>
+<!-- Risk -->
+<div class="bg-surface-container rounded-lg p-3 border border-danger-red/30 flex flex-col gap-1">
+<span class="font-microcopy text-microcopy text-danger-red uppercase tracking-wider">Риск</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-danger-red text-[16px]">warning</span>
+<span class="font-status-label text-status-label text-on-surface">Пожар / Дым</span>
+</div>
+</div>
+<!-- Action -->
+<div class="col-span-2 bg-surface-container rounded-lg p-3 border border-outline-variant/30 flex flex-col gap-1">
+<span class="font-microcopy text-microcopy text-secondary-fixed-dim uppercase tracking-wider">Что сделать вместо этого</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-secondary-fixed-dim text-[16px]">check_circle</span>
+<span class="font-status-label text-status-label text-on-surface">Выбрать сухие слои одежды</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions Bar -->
+<div class="px-margin-screen pb-margin-screen pt-2 border-t border-surface-variant flex gap-3">
+<button class="flex-1 bg-surface-container hover:bg-surface-container-high text-on-surface font-status-label text-status-label uppercase tracking-wide h-12 rounded flex items-center justify-center transition-colors border border-outline-variant">
+                    Вернуться
+                </button>
+<button class="flex-1 bg-surface-dim border border-danger-red text-danger-red hover:bg-danger-red/10 font-status-label text-status-label uppercase tracking-wide h-12 rounded flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                    Не брать
+                </button>
+</div>
+</div>
+</div>
+</body></html>

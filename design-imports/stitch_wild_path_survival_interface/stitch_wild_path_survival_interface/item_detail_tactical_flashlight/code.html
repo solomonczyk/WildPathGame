@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tactical Flashlight Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "surface-variant": "#353535",
+                        "surface": "#131313",
+                        "surface-container-low": "#1b1b1b",
+                        "on-secondary-fixed": "#3b0900",
+                        "background": "#131313",
+                        "on-surface-variant": "#c4c7c7",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353535",
+                        "tertiary-container": "#001702",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "inverse-primary": "#5f5e5e",
+                        "outline-variant": "#444748",
+                        "on-secondary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "on-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "surface-bright": "#393939",
+                        "surface-dim": "#131313",
+                        "primary-fixed": "#e5e2e1",
+                        "outline": "#8e9192",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-container": "#d73b00",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-primary": "#313030",
+                        "tertiary-fixed": "#94f990",
+                        "primary": "#c8c6c5",
+                        "on-tertiary-container": "#2a9035",
+                        "error-container": "#93000a",
+                        "surface-tint": "#c8c6c5",
+                        "on-background": "#e5e2e1",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary": "#00390a",
+                        "tertiary": "#78dc77",
+                        "secondary-fixed": "#ffdbd1",
+                        "primary-container": "#121212",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary-container": "#7e7d7d",
+                        "surface-container": "#20201f",
+                        "on-tertiary-fixed": "#002204",
+                        "on-secondary": "#5f1500",
+                        "on-secondary-fixed-variant": "#862200",
+                        "secondary": "#ffb5a0",
+                        "inverse-surface": "#e5e2e1"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "container-padding": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "stat-sm": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "stat-lg": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "stat-sm": ["14px", { lineHeight: "18px", letterSpacing: "0.05em", fontWeight: "400" }],
+                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+                        "stat-lg": ["20px", { lineHeight: "24px", fontWeight: "500" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>body {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBb7ZvzlAxJSD3Moeniv_rUdwILr7fCFqktmeeGGxkGGmJdlES83enMqbc4yyUhbMIKR6hOaVf0w0gu_rbIERLyfjRwtzQgf83Wb1uPjHKEHCEBu30B4bRpJsXD5moPByauva612fJjLymarSEWh82p5qvSeH5_s2Ae_cAiqUNKxPdAaxhGRiOyHXMx-51YaMDrHTWBoVwR8gmfUV1KhcUKTcW6RkXYJ3UYzVZWMqEI_1PRi8KnVnp56EEbB8zDptOcjGRGgI-AhFVf);
+    background-size: cover;
+    background-position: center
+    }
+.bottom-sheet {
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(10px)
+    }
+.glow-essential {
+    box-shadow: 0 0 20px 0 rgba(120, 220, 119, 0.2)
+    }
+.glow-risk {
+    box-shadow: 0 0 20px 0 rgba(255, 181, 160, 0.2)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="h-screen w-full flex items-end justify-center relative overflow-hidden bg-background">
+<!-- Dark Overlay -->
+<div class="absolute inset-0 bg-background/80 z-0"></div>
+<!-- Bottom Sheet Container -->
+<div class="bottom-sheet w-full max-w-md rounded-t-xl border-t border-outline-variant z-10 flex flex-col pt-margin-mobile pb-8 px-margin-mobile gap-6 slide-up">
+<!-- Header -->
+<div class="flex justify-between items-start w-full">
+<div class="flex flex-col gap-2">
+<span class="inline-flex items-center px-2 py-1 rounded bg-tertiary-container border border-tertiary w-max glow-essential">
+<span class="font-stat-sm text-stat-sm text-tertiary uppercase">ESSENTIAL</span>
+</span>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Tactical Flashlight</h1>
+</div>
+<button aria-label="Close" class="text-on-surface-variant hover:text-on-surface p-2 rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<!-- Image/Icon Area -->
+<div class="w-full h-48 bg-surface-container-low border border-surface-container-high rounded-lg flex items-center justify-center overflow-hidden relative">
+<img alt="Tactical Flashlight" class="w-full h-full object-cover opacity-80 mix-blend-luminosity" data-alt="A highly detailed, realistic render of a rugged, black tactical flashlight lying on a dark, scratched metallic surface. The lighting is low and cinematic, with a soft, eerie glow highlighting the durable, knurled texture of the flashlight casing. The overall mood is intense, urgent, and survival-focused, perfectly matching a dark, utilitarian design aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuYRYav9pXRu3QW7_q8LzC9AYoMUx0UpQapk6kc__ofHaQ6uWGWhGuvqOvtNkrHKY8oBPDmzX_JZR283elw5jkpnXolevQEuaT6WrvTXyRIAD4n-pzWCJpuECl2R0iGgctym_8v-Lb-SusO7YD2MtWzz2zH71PC1C5MOGNmplb9cTR195PzrUerLk4ZFUP2Z0_6fkiq5DXX_9RVzytfBWnfOYIO1NDzxRjAHOpdLmP2hEVCr7st9RI4zNoifVuntZsbH5XgTIq3g0q"/>
+</div>
+<!-- Stats Row -->
+<div class="flex justify-between items-center w-full border-b border-surface-container-high pb-4">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">WEIGHT</span>
+<span class="font-stat-lg text-stat-lg text-on-surface">0.3 kg</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BACKPACK IMPACT</span>
+<div class="flex items-center gap-2">
+<div class="w-24 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-on-surface w-[3.75%]"></div>
+</div>
+<span class="font-stat-sm text-stat-sm text-on-surface">0.3 / 8.0 kg</span>
+</div>
+</div>
+</div>
+<!-- Explanations -->
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-outline mt-1" style="font-variation-settings: 'FILL' 0;">info</span>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    A flashlight helps you move safely in dark stairwells, damaged buildings, and streets without power. It also helps signal your location and inspect injuries or hazards.
+                </p>
+</div>
+<div class="flex gap-3 items-start p-3 border border-secondary-fixed/30 bg-secondary-fixed/5 rounded-lg glow-risk">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary mb-1">TACTICAL RISK</span>
+<p class="font-body-md text-body-md text-secondary-fixed-dim">
+                        Without spare batteries, it may fail during the first night.
+                    </p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 mt-2 w-full">
+<button class="w-full bg-surface-container-low border border-outline text-on-surface font-headline-md text-headline-md py-4 rounded hover:border-tertiary hover:text-tertiary transition-all duration-200 uppercase tracking-wider flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">add_circle</span>
+                TAKE ITEM
+            </button>
+<button class="w-full bg-transparent border border-surface-container-high text-on-surface-variant font-label-caps text-label-caps py-4 rounded hover:bg-surface-variant transition-colors uppercase tracking-wider">
+                LEAVE ITEM
+            </button>
+</div>
+</div>
+<style>
+        .slide-up {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</body></html>

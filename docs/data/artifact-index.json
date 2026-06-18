@@ -41,8 +41,8 @@
     },
     {
         "path":  "README.md",
-        "sha256":  "462009258e50405d1e2ba74206e6c0217a3338db9e46569c80b4a4f10e4685c6",
-        "bytes":  3241
+        "sha256":  "e89562c339fd0e3fd25c842a36c58da24ac453e689f11694c467ab0fe72d816e",
+        "bytes":  3725
     },
     {
         "path":  "roadmap-stage-gates.md",
@@ -60,9 +60,29 @@
         "bytes":  2744
     },
     {
+        "path":  "stitch-episode-02-cold-night-brief.md",
+        "sha256":  "e54520a28f77ae8b1dbc7a61b0d12f4d552c182aa6140ec3f0d8f6672301b67e",
+        "bytes":  40393
+    },
+    {
+        "path":  "stitch-screen-production-plan.md",
+        "sha256":  "13f807300590eccba45a69919c459f0ebfd91f5162f12dd0c85f18d20fe65435",
+        "bytes":  29721
+    },
+    {
+        "path":  "survival-encyclopedia-content-map.md",
+        "sha256":  "4d2491e9135aa747fb4040a0ed38cd3b04fc7f47640f179cb621fee87ed85087",
+        "bytes":  33475
+    },
+    {
+        "path":  "survival-master-taxonomy.md",
+        "sha256":  "6776240db467046fdb7b63dc70c7354f8e4615943b7993c11f62653c13cdff50",
+        "bytes":  18925
+    },
+    {
         "path":  "technical-canon.md",
-        "sha256":  "d5f065d72fb0857509e909b0cf33f2847e89854af787776d0c99200ad1021f4d",
-        "bytes":  3251
+        "sha256":  "bf9f4ad0e8405174bd436a410e42242f633fc99ad9333126bb6cc1e6cbef6934",
+        "bytes":  4072
     },
     {
         "path":  "testing-acceptance.md",

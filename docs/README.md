@@ -31,6 +31,7 @@ WildPathGame is a practical survival learning game built as a sequence of realis
 - [Survival Master Taxonomy](survival-master-taxonomy.md)
 - [Survival Encyclopedia Content Map](survival-encyclopedia-content-map.md)
 - [Stitch Screen Production Plan](stitch-screen-production-plan.md)
+- [Stitch Brief: Episode 02 Cold Night Shelter](stitch-episode-02-cold-night-brief.md)
 
 ## Machine-Readable Canon
 
@@ -55,6 +56,7 @@ WildPathGame is a practical survival learning game built as a sequence of realis
 4. Primary learning promise: better practical prioritization under emergency constraints.
 5. Production is not automatically accepted by passing technical tests; business, learning, visual, safety, and operational gates are separate.
 6. Broad survival domains are governed by the Scenario and Domain Canon; new location or hazard families require change request approval before first release.
+7. Initial broad content catalog contains 152 scenario seeds from the Survival Master Taxonomy; MVP production still starts with the six-episode course.
 
 ## Lock Rule
 

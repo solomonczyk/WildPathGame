@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ru"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Слои и утепление</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#78dc77",
+                        "tertiary-fixed-dim": "#adcbda",
+                        "tertiary-container": "#a6c4d3",
+                        "inverse-surface": "#e5e2e1",
+                        "cold-blue": "#aabcc4",
+                        "surface-dim": "#131313",
+                        "secondary": "#78dc77",
+                        "tertiary": "#c1e0f0",
+                        "surface-mid": "#131313",
+                        "concrete": "#9e9e9e",
+                        "tertiary-fixed": "#c9e7f7",
+                        "on-error": "#690005",
+                        "on-secondary-fixed": "#002204",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#35525f",
+                        "surface-bright": "#3a3939",
+                        "on-surface-variant": "#d7c4ac",
+                        "on-primary": "#432c00",
+                        "on-surface": "#e5e2e1",
+                        "surface-container-low": "#1c1b1b",
+                        "danger-red": "#d32f2f",
+                        "on-primary-fixed-variant": "#614000",
+                        "on-error-container": "#ffdad6",
+                        "surface-light": "#1b1b1b",
+                        "secondary-fixed": "#94f990",
+                        "on-secondary-fixed-variant": "#005313",
+                        "on-tertiary": "#163440",
+                        "outline": "#9f8e78",
+                        "outline-variant": "#524533",
+                        "inverse-primary": "#805600",
+                        "surface": "#131313",
+                        "primary-fixed-dim": "#ffba43",
+                        "on-primary-container": "#6a4700",
+                        "surface-container": "#201f1f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed-variant": "#2e4b57",
+                        "on-tertiary-fixed": "#001f2a",
+                        "secondary-container": "#00761f",
+                        "primary-fixed": "#ffddaf",
+                        "surface-container-lowest": "#0e0e0e",
+                        "steel": "#455a64",
+                        "on-secondary-container": "#95fb92",
+                        "primary-container": "#ffb000",
+                        "on-secondary": "#00390a",
+                        "on-background": "#e5e2e1",
+                        "background": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "surface-tint": "#ffba43",
+                        "primary": "#ffd597",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-highest": "#353534",
+                        "surface-variant": "#353534",
+                        "on-primary-fixed": "#281800"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "safe-top": "24px",
+                        "base": "4px",
+                        "padding-panel": "20px",
+                        "gutter-grid": "12px",
+                        "bottom-bar-height": "100px",
+                        "margin-screen": "12px"
+                    },
+                    "fontFamily": {
+                        "status-value": ["JetBrains Mono"],
+                        "microcopy": ["Inter"],
+                        "status-label": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Archivo Narrow"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                        "status-value": ["18px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "microcopy": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
+                        "status-label": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "body-base": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313; /* Surface level 0 */
+            color: #e5e2e1;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .meter-container {
+            width: 100%;
+            height: 8px;
+            background-color: #1b1b1b;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .meter-fill {
+            height: 100%;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .card-selected {
+            border-color: #78dc77 !important;
+            background-color: #1b1b1b !important;
+        }
+        
+        .card-danger {
+             border-color: #d32f2f !important;
+        }
+        
+        /* Utility for 1px sharp borders */
+        .border-1px {
+            border-width: 1px;
+            border-style: solid;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col h-screen w-full mx-auto" style="max-width: 390px;">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface docked full-width top-0 pt-safe-top border-b border-outline-variant dark:border-outline-variant flat no shadows flex justify-between items-center w-full px-margin-screen h-[60px] z-50 shrink-0">
+<button class="text-primary-fixed-dim dark:text-primary-fixed-dim hover:bg-surface-bright dark:hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="font-headline-md text-headline-md uppercase tracking-tight text-primary-fixed-dim dark:text-primary-fixed-dim font-bold text-center flex-1">
+            Слои и утепление
+        </div>
+<button class="text-primary-fixed-dim dark:text-primary-fixed-dim hover:bg-surface-bright dark:hover:bg-surface-bright transition-colors active:scale-95 duration-100 p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-margin-screen py-padding-panel pb-[120px] relative">
+<!-- Weight Meter -->
+<section class="mb-6 bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<div class="flex justify-between items-end mb-2">
+<span class="font-status-label text-status-label text-concrete uppercase">Вес снаряжения</span>
+<span class="font-status-value text-status-value text-primary-fixed-dim">1.1 <span class="text-concrete text-sm">/ 6.0 кг</span></span>
+</div>
+<div class="meter-container">
+<div class="meter-fill bg-primary-container" style="width: 18.3%;"></div>
+</div>
+</section>
+<!-- Item Grid -->
+<div class="grid grid-cols-2 gap-gutter-grid">
+<!-- Card 1 (Selected) -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform card-selected flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="layers">layers</span>
+<span class="font-microcopy text-microcopy uppercase bg-secondary-fixed-dim text-on-secondary px-2 py-0.5 rounded-full">Важно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Сухой термослой</h3>
+<p class="font-status-label text-status-label text-concrete">0.4 кг</p>
+</div>
+<!-- Selection indicator -->
+<div class="absolute top-3 left-3 w-4 h-4 rounded-full bg-secondary border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-surface-dim font-bold" data-icon="check">check</span>
+</div>
+</div>
+<!-- Card 2 (Selected) -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform card-selected flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="face">face</span>
+<span class="font-microcopy text-microcopy uppercase bg-secondary-fixed-dim text-on-secondary px-2 py-0.5 rounded-full">Важно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Теплая шапка</h3>
+<p class="font-status-label text-status-label text-concrete">0.2 кг</p>
+</div>
+<!-- Selection indicator -->
+<div class="absolute top-3 left-3 w-4 h-4 rounded-full bg-secondary border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-surface-dim font-bold" data-icon="check">check</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform flex flex-col justify-between h-32 hover:bg-surface-bright">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-concrete" data-icon="accessibility_new">accessibility_new</span>
+<span class="font-microcopy text-microcopy uppercase bg-secondary-fixed-dim text-on-secondary px-2 py-0.5 rounded-full">Важно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Сухие носки</h3>
+<p class="font-status-label text-status-label text-concrete">0.15 кг</p>
+</div>
+</div>
+<!-- Card 4 (Selected) -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform card-selected flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary" data-icon="air">air</span>
+<span class="font-microcopy text-microcopy uppercase bg-secondary-fixed-dim text-on-secondary px-2 py-0.5 rounded-full">Важно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Ветровка</h3>
+<p class="font-status-label text-status-label text-concrete">0.5 кг</p>
+</div>
+<!-- Selection indicator -->
+<div class="absolute top-3 left-3 w-4 h-4 rounded-full bg-secondary border border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-surface-dim font-bold" data-icon="check">check</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform flex flex-col justify-between h-32 hover:bg-surface-bright">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-concrete" data-icon="bed">bed</span>
+<span class="font-microcopy text-microcopy uppercase bg-tertiary-fixed-dim text-on-tertiary px-2 py-0.5 rounded-full">Полезно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Аварийное одеяло</h3>
+<p class="font-status-label text-status-label text-concrete">0.1 кг</p>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform flex flex-col justify-between h-32 hover:bg-surface-bright">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-concrete" data-icon="inventory_2">inventory_2</span>
+<span class="font-microcopy text-microcopy uppercase bg-tertiary-fixed-dim text-on-tertiary px-2 py-0.5 rounded-full">Полезно</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Картонная подкладка</h3>
+<p class="font-status-label text-status-label text-concrete">0.3 кг</p>
+</div>
+</div>
+<!-- Card 7 (Trap) -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform flex flex-col justify-between h-32 hover:bg-surface-bright card-danger">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-danger-red" data-icon="apparel">apparel</span>
+<span class="font-microcopy text-microcopy uppercase bg-error text-on-error px-2 py-0.5 rounded-full">Ловушка</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Хлопковая толстовка</h3>
+<p class="font-status-label text-status-label text-concrete">0.9 кг</p>
+</div>
+</div>
+<!-- Card 8 (Trap) -->
+<div class="bg-surface-light border-1px border-outline-variant rounded-lg p-3 relative cursor-pointer active:scale-95 transition-transform flex flex-col justify-between h-32 hover:bg-surface-bright card-danger">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-danger-red" data-icon="water_drop">water_drop</span>
+<span class="font-microcopy text-microcopy uppercase bg-error text-on-error px-2 py-0.5 rounded-full">Ловушка</span>
+</div>
+<div>
+<h3 class="font-body-sm text-body-sm text-on-surface font-semibold mb-1 leading-tight">Мокрый плед</h3>
+<p class="font-status-label text-status-label text-concrete">1.8 кг</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Action Area (Floating) -->
+<div class="fixed bottom-0 left-0 w-full z-40 bg-surface-container border-t border-outline-variant px-margin-screen py-4 h-[100px] flex items-center justify-center" style="max-width: 390px; margin: 0 auto; left: 0; right: 0;">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-md text-headline-md uppercase tracking-tight py-3 rounded-DEFAULT hover:bg-primary transition-colors active:scale-95 shadow-md flex items-center justify-center gap-2">
+<span>Подтвердить выбор</span>
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</body></html>
